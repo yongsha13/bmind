@@ -17,13 +17,13 @@ html,body{ color: #383838; background: #eee;}
 .fm .list li .cnt .category{ border: 1px solid #ffc2c8; border-radius: 1rem; padding: .2rem .5rem; color: #a4a4a4;}
 .fm .list li .ctrl{ overflow: hidden; clear: both; margin-top: 1rem; line-height: 2rem; color: #4a4a4a;}
 .fm .list li .ctrl span{ display: inline-block; padding: 0 .5rem; color: #a4a4a4;}
-.fm .list li .ctrl .like,.fm .list li .ctrl .comment{float:right; padding: 0 .3rem; }
+.fm .list li .ctrl .like,.fm .list li .ctrl .comment{float:right; padding: 0 0.3rem 0; }
 .fm .list li .ctrl .level .iconfont{ padding: 0; color: #ff7b3b;}
 .fm .list li .ctrl .like .iconfont{ color: #ffc2c8;}
 .fm .list li .ctrl .comment .iconfont{ color: #94cdec;}
 .fm .player img{ display: block; width: 100%;}
 .fm .player {}
-.fm .player .player-ctrl{ height: auto; overflow: hidden; background: #4a4a4a; padding: 1rem 0; box-shadow: 0 3px 5px #777; }
+.fm .player .player-ctrl{ height: auto; overflow: hidden; background: #4a4a4a;  }
 .fm .player .player-ctrl .progress{ background: #333; height: .2rem; line-height: .2rem; box-shadow: 1px 1px 1px #777;}
 .fm .player .player-ctrl .progress .cur{ display: inline-block; vertical-align: middle; height: .2rem; width: 5rem; background: #ffffff;}
 .fm .player .player-ctrl .progress .cur:after{display:block; float: right; content: ''; vertical-align: middle; height: .75rem; width: .75rem; margin: -.275rem 0; border-radius: 1rem; background: #ffffff;}

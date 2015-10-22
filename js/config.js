@@ -39,6 +39,23 @@
                 render('commentEdit');
             }
         },
+        '/my':{
+            '/active':function(){//¶¯Ì¬
+                render('myActive');
+            },
+            '/group':function(){//»î¶¯È¦
+                render('myGroup');
+            },
+            '/test':function(){
+                render('myTest');
+            },
+            '/music':function(){
+                render('myMusic');
+            },
+            '/plan':function(){
+                render('myPlan');
+            }
+        },
     }
 };
 

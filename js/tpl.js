@@ -11,19 +11,22 @@ var TPL = {
     fmIndex:
         '<div class="fm">\
         {{include tmpl="fmBanner"/}}\
+        <h2>热门</h2>\
         {{include tmpl="fmList"/}}\
         </div>',
     fmBanner:
         '<div class="banner">\
             <div class="bg"></div>\
             <div class="cnt">\
+            <div class="btn-1">\
             <a href="javascript:;"><span class="icon-bofangqibofang iconfont"></span></a>\
+            \
+            </div>\
             <a href="javascript:;">好好睡</a>\
             <a href="javascript:;">放轻松</a>\
             <a href="javascript:;">爱自己</a>\
             <a href="javascript:;">更多</a>\
             </div>\
-            <h2>热门</h2>\
         </div>',
     fmList:
         '<ul class="list">\
@@ -40,7 +43,7 @@ var TPL = {
                 <h3><a href="#/bm/fm/player/1">观正念的力量</a><a href="#/bm/fm/author/1"><em>主播：安安</em></a></h3>\
                 <span class="category"><a href="#/bm/fm/category/1">好好睡</a></span>\
             </div>\
-            <div class="ctrl">\
+            <div class="icons">\
                 {{include tmpl="fmListLiLevel"/}}\
                 <span class="comment">\
                     | <span class="icon-pinglun iconfont"></span>\
@@ -92,8 +95,8 @@ var TPL = {
                             <br><em>分享</em>\
                         </a>\
                     </div>\
+                    <div class="status">正在下载音频</div>\
                 </div>\
-                <div class="status">正在下载音频</div>\
                 {{include tmpl="article"/}}\
                 <ul class="comment">\
                     {{include tmpl="commentLi"/}}\
@@ -124,8 +127,10 @@ var TPL = {
         </div>',
     article:
         '<div class="article">\
-            <div class="level">\
-                {{include tmpl="fmListLiLevel"/}}\
+            <div class="icons">\
+                <div class="level">\
+                    {{include tmpl="fmListLiLevel"/}}\
+                </div>\
             </div>\
             <article>\
                 <h1>观正念的力量 - 内观呼吸法</h1>\
@@ -163,6 +168,102 @@ var TPL = {
                 <span class="icon-xingjiline iconfont"></span>\
             </div>\
             <textarea name="" id="" placeholder="说几句评价吧"></textarea>\
+        </div>',
+    myActive:
+        '<div class="my">\
+            <ul class="active">\
+            {{include tmpl="myActiveLi"/}}\
+            {{include tmpl="myActiveLi"/}}\
+            {{include tmpl="myActiveLi"/}}\
+            </ul>\
+        </div>',
+    myActiveLi:
+        '<li>\
+            <div class="info">\
+                <span class="avatar"><img src="./images/avatar-1.jpg" alt=""></span>\
+                <span class="author">衣角上的人</span>\
+                <span class="time">2分钟前</span>\
+                <span class="status">评论</span>\
+            </div>\
+            <p>对乙方提供的有关建议和方案，应及时反馈意见和做出决策。</p>\
+        </li>',
+    myTest:
+        '<div class="my">\
+            <ul class="my-test">\
+            {{include tmpl="myTestLi"/}}\
+            {{include tmpl="myTestLi"/}}\
+            {{include tmpl="myTestLi"/}}\
+            </ul>\
+        </div>',
+    myTestLi:
+        '<li>\
+            <div class="avatar">\
+                <img src="./images/avatar-1.jpg" alt="">\
+            </div>\
+            <div class="cnt">\
+                <span class="category">专业测试</span>\
+                <h3>观正念的力量</h3>\
+            </div>\
+            <div class="icons">\
+                <span class="comment"><span class="icon-pinglun iconfont"></span>47</span>\
+                <span class="space">|</span>\
+                <span class="like"><span class="icon-xihuan iconfont"></span>7777</span>\
+            </div>\
+        </li>',
+    myMusic:
+        '<div class="my">\
+            {{include tmpl="fmList"/}}\
+        </div>',
+    myGroup:
+        '<div class="my">\
+            <div class="tabs col-3">\
+                <div class="ti">\
+                    <span class="cur">线下活动资讯</span>\
+                    <span>线上活动招募令</span>\
+                    <span>更多即将开放</span>\
+                </div>\
+                <ul class="group">\
+                    {{include tmpl="myGroupLi"/}}\
+                    {{include tmpl="myGroupLi"/}}\
+                    {{include tmpl="myGroupLi"/}}\
+                </ul>\
+            </div>\
+        </div>',
+    myGroupLi:
+        '<li>\
+            <h4>小e播报</h4>\
+            <h3>亲子沟通训练营</h3>\
+            <p>为期一个月的时间让孩子和家长沟通没有障碍。</p>\
+            <div class="icons">\
+                <span class="like"><span class="icon-xihuan iconfont"></span>7777</span>\
+                <span class="time"><span class="icon-shijian iconfont"></span>4分钟</span>\
+            </div>\
+        </li>',
+    myPlan:
+        '<div class="my">\
+            {{include tmpl="myPlanLi"/}}\
+            {{include tmpl="myPlanLi"/}}\
+            {{include tmpl="myPlanLi"/}}\
+        </div>',
+    myPlanLi:
+        '<div class="plan">\
+            <h3>不迷茫的生活是一种怎样的体验</h3>\
+            <div class="progress">\
+                <span class="cur"></span>\
+            </div>\
+            <div class="info">\
+                完成1/7<span class="percent">14%</span>\
+            </div>\
+            <div class="icons">\
+                <span class="comment"><span class="icon-pinglun iconfont"></span>7777</span>\
+                <span class="space"></span>\
+                <span class="like"><span class="icon-xihuan iconfont"></span>47</span>\
+            </div>\
+            <ul class="comment">\
+            {{include tmpl="commentLi"/}}\
+            {{include tmpl="commentLi"/}}\
+            {{include tmpl="commentLi"/}}\
+            </ul>\
         </div>'
 };
 $.templates(TPL);
