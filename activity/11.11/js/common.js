@@ -26,6 +26,17 @@ function GetDateDiff(startDate,endDate)
     return dates;
 }
 $(function(){
+    if(params['name']){
+        var key = 0;
+        for(var i=0;i < params['name'].length;i++)
+            key+=(params['name'].charCodeAt(i).toString(10)).slice(-4)*(i+1);
+        index = key%10;
+        $('.js-score').html(day[index]);
+        $('.js-cnt').html(text[index]);
+        $('.js-name').html(params['name'].replace('>','&gt;').replace('<','&lt;'));
+        $('#index').hide();
+        $('#day').show();
+    }
     $('#mn').on('click','.js-begin',function(){
 
         var val = $('.js-input').val();
