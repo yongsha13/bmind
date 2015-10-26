@@ -29,8 +29,14 @@ $(function(){
     $('#mn').on('click','.js-begin',function(){
 
         var val = $('.js-input').val();
-        if(val.length==0) alert('请输入姓名');
-        if(val.length>16) alert('名字长度不能大于16个字哦！');
+        if(val.length==0){
+            alert('请输入姓名');
+            return;
+        }
+        if(val.length>16){
+            alert('名字长度不能大于16个字哦！');
+            return;
+        }
         name = val;
         var key = 0;
         for(var i=0;i < val.length;i++)
@@ -39,7 +45,7 @@ $(function(){
         console.log(index);
         $('.js-score').html(day[index]);
         $('.js-cnt').html(text[index]);
-        $('.js-name').html(name);
+        $('.js-name').html(name.replace('>','&gt;').replace('<','&lt;'));
         $('#index').hide();
         $('#day').show();
     })
