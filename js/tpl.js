@@ -1,6 +1,16 @@
 /**
  * Created by wangyong on 2015/7/9.
  */
+/**
+ * 模板语法
+ * {{: ...}}输出变量
+ * {{> ...}}encode输出变量
+ * {{include tmpl=... /}}引用子模板
+ * {{for ...}}对象遍历循环
+ * {{>key}}:{{>prop}}键值对输出
+ * {{if ...}} ... {{else ...}} ... {{else}} ... {{/if}} 条件语句
+ * {{!-- ... --}} 注释
+ */
 $.views.helpers({
     "debug":function(str){
         console.log(str);
@@ -10,59 +20,63 @@ var TPL = {
     header:'<h1>{{:title}}</h1>',
     fmIndex:
         '<div class="fm">\
-        {{include tmpl="fmBanner"/}}\
-        <h2>热门</h2>\
-        {{include tmpl="fmList"/}}\
+            {{include tmpl="fmBanner"/}}\
+            <div class="hot">\
+                <h2>热门</h2>\
+                <ul id="fm_hot" class="list">\
+                    <li class="tips">正在加载...</li>\
+                </ul>\
+            </div>\
         </div>',
     fmBanner:
         '<div class="banner">\
             <div class="bg"></div>\
             <div class="cnt">\
             <div class="btn-1">\
-            <a href="javascript:;"><span class="icon-bofangqibofang iconfont"></span></a>\
-            \
+                <a href="javascript:;"><span class="icon-bofangqibofang iconfont"></span></a>\
+                <a href="javascript:;" class="random">换一首</a>\
             </div>\
-            <a href="javascript:;">好好睡</a>\
-            <a href="javascript:;">放轻松</a>\
-            <a href="javascript:;">爱自己</a>\
-            <a href="javascript:;">更多</a>\
+            <div class="btn-2">\
+                <a href="javascript:;"><img src="./images/icon-1.png" alt="">好好睡</a>\
+                <a href="javascript:;"><img src="./images/icon-2.png" alt="">放轻松</a>\
+                <a href="javascript:;"><img src="./images/icon-3.png" alt="">爱自己</a>\
+                <a href="javascript:;"><img src="./images/icon-4.png" alt="">更多</a>\
+            </div>\
             </div>\
         </div>',
     fmList:
         '<ul class="list">\
-        {{include tmpl="fmListLi"/}}\
-        {{include tmpl="fmListLi"/}}\
-        {{include tmpl="fmListLi"/}}\
+        {{for list tmpl="fmListLi"/}}\
         </ul>',
     fmListLi:
-        '<li class="vip">\
+        '<li{{if isMember}} class="vip"{{/if}}>\
             <div class="avatar">\
-                <a href="#/bm/fm/author/1"><img src="./images/avatar-1.jpg" alt=""></a>\
+                <a href="#/bm/fm/author/{{:professorId}}"><img src="./images/avatar-1.jpg" alt=""></a>\
             </div>\
             <div class="cnt">\
-                <h3><a href="#/bm/fm/player/1">观正念的力量</a><a href="#/bm/fm/author/1"><em>主播：安安</em></a></h3>\
-                <span class="category"><a href="#/bm/fm/category/1">好好睡</a></span>\
+                <h3><a href="#/bm/fm/player/{{:id}}">{{:title}}</a><a href="#/bm/fm/author/{{:professorId}}"><em>主播：{{:professor}}</em></a></h3>\
+                <span class="category"><a href="#/bm/fm/category/{{:type}}">{{:musicTypeName}}</a></span>\
             </div>\
             <div class="icons">\
                 {{include tmpl="fmListLiLevel"/}}\
                 <span class="comment">\
                     | <span class="icon-pinglun iconfont"></span>\
-                    7777\
+                    {{:commentTimes}}\
                 </span>\
                 <span class="like">\
                     | <span class="icon-xihuan iconfont"></span>\
-                    47\
+                    {{:playTimes}}\
                 </span>\
             </div>\
         </li>',
     fmListLiLevel:
         '<span class="level">\
-            <span class="icon-xingji iconfont"></span>\
-            <span class="icon-xingji iconfont"></span>\
-            <span class="icon-xingji iconfont"></span>\
-            <span class="icon-xingjiban iconfont"></span>\
-            <span class="icon-xingjiline iconfont"></span>\
-            3.7\
+            <span class="icon-{{if avg>=1}}xingji{{else avg>=.5}}xingjiban{{else}}xingjiline{{/if}} iconfont"></span>\
+            <span class="icon-{{if avg>=2}}xingji{{else avg>=1.5}}xingjiban{{else}}xingjiline{{/if}} iconfont"></span>\
+            <span class="icon-{{if avg>=3}}xingji{{else avg>=2.5}}xingjiban{{else}}xingjiline{{/if}} iconfont"></span>\
+            <span class="icon-{{if avg>=4}}xingji{{else avg>=3.5}}xingjiban{{else}}xingjiline{{/if}} iconfont"></span>\
+            <span class="icon-{{if avg>=5}}xingji{{else avg>=4.5}}xingjiban{{else}}xingjiline{{/if}} iconfont"></span>\
+            {{:avg}}\
         </span>',
     fmPlayer:
         '<div class="fm">\
@@ -133,9 +147,9 @@ var TPL = {
                 </div>\
             </div>\
             <article>\
-                <h1>观正念的力量 - 内观呼吸法</h1>\
-                <h2><a href="#/bm/fm/author/1">主播：安安</a></h2>\
-                <p>根据项目进程和乙方要求，及时、全面、客观、合法地提供乙方为实施本项目所必需的有关文件、资料、信息...</p>\
+                <h1>{{:title}}</h1>\
+                <h2><a href="#/bm/fm/author/{{:professorId}}">主播：{{:professor}}</a></h2>\
+                <p>{{:musicDes}}</p>\
                 <div class="ctrl">\
                     <a href="#/bm/comment/edit"><span class="icon-pinglun1 iconfont"></span><br><em>评论</em></a>\
                 </div>\
@@ -196,7 +210,7 @@ var TPL = {
             </ul>\
         </div>',
     myTestLi:
-        '<li>\
+        '<li class="vip">\
             <div class="avatar">\
                 <img src="./images/avatar-1.jpg" alt="">\
             </div>\
@@ -263,6 +277,45 @@ var TPL = {
             {{include tmpl="commentLi"/}}\
             {{include tmpl="commentLi"/}}\
             {{include tmpl="commentLi"/}}\
+            </ul>\
+        </div>',
+    ttIndex:
+        '<div class="tt">\
+            <div class="index">\
+                <img src="./images/pic-1.jpg" alt="">\
+                <div class="bar">\
+                    <a href="javascript:;">\
+                        <img src="./images/icon-1.png" alt="">\
+                        趣味测试\
+                    </a>\
+                    <a href="javascript:;">\
+                        <img src="./images/icon-2.png" alt="">\
+                        专业测试\
+                    </a>\
+                </div>\
+                <div class="cnt">\
+                    <h2>热门</h2>\
+                    <ul class="my-test">\
+                    {{include tmpl="myTestLi"/}}\
+                    {{include tmpl="myTestLi"/}}\
+                    {{include tmpl="myTestLi"/}}\
+                    </ul>\
+                </div>\
+            </div>\
+        </div>',
+    ttList:
+        '<div class="tt">\
+            <div class="tabs col-3">\
+                <div class="ti">\
+                    <span class="cur">心理健康</span>\
+                    <span>职场相关</span>\
+                    <span>更多</span>\
+                </div>\
+            </div>\
+            <ul class="my-test">\
+            {{include tmpl="myTestLi"/}}\
+            {{include tmpl="myTestLi"/}}\
+            {{include tmpl="myTestLi"/}}\
             </ul>\
         </div>'
 };

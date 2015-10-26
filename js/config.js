@@ -17,15 +17,37 @@
         '/fm': {
             '/index': function () {
                 render('fmIndex');
+                ajax('getMusic.action',{type:0,page:1,property:0},function(req){
+                    var data = {
+                        ar5:[1,2,3,4,5]
+                    };
+                    data['list'] = req.list;
+                    //data.list.splice(2);
+                    //console.log($.templates['fmList'].render(data));
+                    $('#fm_hot').html($.templates['fmList'].render(data));
+                });
+
             },
             '/player/:id': function (id) {
-                render('fmPlayer');
+                //render('fmPlayer');
+                ajax('getMusic.action',{type:0,page:1,property:0,mid:id},function(req){
+                    console.log(req);
+                    $('#mn').html($.templates['fmPlayer'].render(req.list[0]));
+                    //render('fmPlayer',req.list[0]);
+                })
+
             },
             '/author/:id': function (id) {
-                render('fmAuthor');
+                ajax('getMusic.action',{type:0,page:1,property:0,professiorId:id},function(req){
+                    $('#mn').html($.templates['fmAuthor'].render({list:req.list}));
+                })
+                //render('fmAuthor');
             },
             '/category/:id': function (id) {
-                render('fmCategory');
+                ajax('getMusic.action',{type:id,page:1,property:0},function(req){
+                    $('#mn').html($.templates['fmCategory'].render({list:req.list}));
+                })
+                //render('fmCategory');
             },
             '/search': function () {
                 render('fmSearch');
@@ -56,6 +78,14 @@
                 render('myPlan');
             }
         },
+        '/tt':{
+            '/index':function(){
+                render('ttIndex');
+            },
+            '/list':function(){
+                render('ttList');
+            }
+        }
     }
 };
 

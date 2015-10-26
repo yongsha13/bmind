@@ -7,17 +7,22 @@
     location.hash.length>0 || (location.hash = '/bm/fm/index');
     $('#mn').click();
 });
-
+var debug = false;
 function ajax(url,data,callback,errorback){
-    errorback = errorback || function(req){alert(req['errorMsg'])}
+    errorback = errorback || function(req){alert(req['errorMsg'])};
+    var remoteUrl = '';
+    if(debug)
+        remoteUrl = './test/'+url+'.json';
+    else
+        remoteUrl = "http://gzbmind.oicp.net:81/BmindAPI/Page/"+url
     $.ajax({
-        url:"http://www.wxbinf.com/newPrd/"+url,
+        url:remoteUrl,
         type:'POST',
         dataType:'JSON',
         data:data,
         success:function(req){
             console.log(req);
-            if(parseInt(req['errorCode'])==0) callback(req);
+            if(parseInt(req['result'])==1) callback(req);
             else errorback(req);
         },
         error:function(){
