@@ -36,6 +36,14 @@
                 $(_this).closest('li').replaceWith($.templates['fmListLi'].render(data));
             })
         })
+        .on('click','.js-more-active',function(){
+            var data = $(this).data();
+            data['uid'] = params['uid'];
+            ajax('getUserDynamic',data,function(req){
+                data['page'] = parseInt(data['page'])+1;
+                $('#mn').html($.templates['myActive'].render({activeList:req.list,page:2}));
+            })
+        })
         .on('click','.js-level-click span',function(){
             var index = $(this).index();
             $('.js-level-click span').removeClass('icon-xingji').addClass('icon-xingjiline');

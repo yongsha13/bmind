@@ -85,10 +85,12 @@
             }
         },
         '/my':{
-            '/active':function(){//��̬
-                render('myActive');
+            '/active':function(){//动态
+                ajax('getUserDynamic',{uid:params['uid'],page:1},function(req){
+                    $('#mn').html($.templates['myActive'].render({activeList:req.list,page:2}));
+                });
             },
-            '/group':function(){//�Ȧ
+            '/group':function(){//圈子
                 render('myGroup');
             },
             '/test':function(){

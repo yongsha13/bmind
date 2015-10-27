@@ -204,19 +204,28 @@ var TPL = {
         '<div class="my">\
             <ul class="active">\
             {{include tmpl="myActiveLi"/}}\
-            {{include tmpl="myActiveLi"/}}\
-            {{include tmpl="myActiveLi"/}}\
             </ul>\
         </div>',
     myActiveLi:
-        '<li>\
+        '{{for activeList}}\
+        <li>\
             <div class="info">\
-                <span class="avatar"><img src="./images/avatar-1.jpg" alt=""></span>\
-                <span class="author">衣角上的人</span>\
-                <span class="time">2分钟前</span>\
-                <span class="status">评论</span>\
+                <span class="avatar"><img src="{{:avatar}}" alt=""></span>\
+                <span class="author">{{:name}}</span>\
+                <span class="time">{{:time}}</span>\
+                <span class="status">{{:comm}}</span>\
             </div>\
-            <p>对乙方提供的有关建议和方案，应及时反馈意见和做出决策。</p>\
+            <p>{{:summary}}</p>\
+        </li>\
+        <li>\
+        {{/for}}\
+        {{if activeList.length>=10}}\
+            <a href="javascript:;" class="more js-more-active" data-page="{{:page}}">更多动态</a>\
+        {{else page==2}}\
+            <a href="javascript::" class="more none">暂无内容</a>\
+        {{else}}\
+            <a href="javascript:;" class="more none">没有更多</a>\
+        {{/if}}\
         </li>',
     myTest:
         '<div class="my">\
