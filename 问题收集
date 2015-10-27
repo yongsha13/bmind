@@ -1,3 +1,9 @@
 getMusic.action
 
-列表数据缺少musicType值
+type==10，出现错误，跟文档不合，文档的更多是type==10
+Object {result: 2, msg: "type的值为:'10',type必须是0~9的整数             "}
+
+
+
+
+评论测试 musicId:131

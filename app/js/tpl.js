@@ -37,25 +37,27 @@ var TPL = {
                 <a href="javascript:;" class="random">换一首</a>\
             </div>\
             <div class="btn-2">\
-                <a href="javascript:;"><img src="./images/icon-1.png" alt="">好好睡</a>\
-                <a href="javascript:;"><img src="./images/icon-2.png" alt="">放轻松</a>\
-                <a href="javascript:;"><img src="./images/icon-3.png" alt="">爱自己</a>\
-                <a href="javascript:;"><img src="./images/icon-4.png" alt="">更多</a>\
+                <a href="#/bm/fm/category/1/6"><img src="./images/icon-1.png" alt="">好好睡</a>\
+                <a href="#/bm/fm/category/1/1"><img src="./images/icon-2.png" alt="">放轻松</a>\
+                <a href="#/bm/fm/category/1/5"><img src="./images/icon-3.png" alt="">爱自己</a>\
+                <a href="#/bm/fm/category/1/10"><img src="./images/icon-4.png" alt="">更多</a>\
             </div>\
             </div>\
         </div>',
     fmList:
         '<ul class="list">\
-        {{for list tmpl="fmListLi"/}}\
+        {{include tmpl="fmListLi"/}}\
         </ul>',
     fmListLi:
-        '<li{{if isMember}} class="vip"{{/if}}>\
+        '{{for musicList}}\
+        <li{{if isMember}} class="vip"{{/if}}>\
             <div class="avatar">\
                 <a href="#/bm/fm/author/{{:professorId}}"><img src="./images/avatar-1.jpg" alt=""></a>\
             </div>\
             <div class="cnt">\
-                <h3><a href="#/bm/fm/player/{{:id}}">{{:title}}</a><a href="#/bm/fm/author/{{:professorId}}"><em>主播：{{:professor}}</em></a></h3>\
-                <span class="category"><a href="#/bm/fm/category/{{:type}}">{{:musicTypeName}}</a></span>\
+                <h3><a href="#/bm/fm/player/{{:id}}">{{:title}}</a><a href="#/bm/fm/author/{{:professorId}}"></a></h3>\
+                <span class="category"><a href="#/bm/fm/category/1/{{:musicType}}">{{:musicTypeName}}</a></span>\
+                <span class="professior">主播：{{:professor}}</span>\
             </div>\
             <div class="icons">\
                 {{include tmpl="fmListLiLevel"/}}\
@@ -68,6 +70,17 @@ var TPL = {
                     {{:playTimes}}\
                 </span>\
             </div>\
+        </li>\
+        {{/for}}\
+        <li>\
+        {{if musicList.length>=10}}\
+        <a href="javascript:;" class="more js-more-music" \
+            data-page="{{:musicPage}}" data-type="{{:type}}" data-property="{{:property}}" data-professiorId="{{:professiorId}}">更多音频</a>\
+        {{else musicPage==2}}\
+        <a href="javascript:;" class="more none">暂无内容</a>\
+        {{else}}\
+        <a href="javascript:;" class="more none">没有更多</a>\
+        {{/if}}\
         </li>',
     fmListLiLevel:
         '<span class="level">\
@@ -114,9 +127,7 @@ var TPL = {
                 {{include tmpl="article"/}}\
                 <ul class="comment">\
                     {{include tmpl="commentLi"/}}\
-                    {{include tmpl="commentLi"/}}\
                 </ul>\
-                <a href="#/bm/comment/list/1" class="more">展开更多</a>\
             </div>\
         </div>',
     fmAuthor:
@@ -125,8 +136,8 @@ var TPL = {
         '<div class="fm">\
             <div class="tabs col-2">\
                 <div class="ti">\
-                    <span class="cur">音频</span>\
-                    <span>轻音乐</span>\
+                    {{if property==1}}<span class="cur">音频</span>{{else}}<a href="#/bm/fm/category/1/{{:type}}"><span>音频</span></a>{{/if}}\
+                    {{if property==2}}<span class="cur">轻音乐</span>{{else}}<a href="#/bm/fm/category/2/{{:type}}"><span>轻音乐</span></a>{{/if}}\
                 </div>\
             </div>\
             {{include tmpl="fmList"/}}\
@@ -156,28 +167,34 @@ var TPL = {
             </article>\
         </div>',
     commentLi:
-        '<li>\
+        '{{for commentList}}\
+        <li data-id="{{:commentID}}">\
             <div class="info">\
-                <span class="author">头发自然卷</span>\
-                <span class="time"><span class="icon-shijian iconfont"></span> 2015-07-01</span>\
+                <span class="author">{{:nickName}}</span>\
+                <span class="time"><span class="icon-shijian iconfont"></span>{{:time}}</span>\
             </div>\
-            <p>生活不易，且行且珍惜</p>\
+            <p>{{:summary}}</p>\
+        </li>\
+        {{/for}}\
+        <li class="more-btn">\
+        {{if commentList.length>=10}}\
+            <a href="javascript:;" class="more js-more-comment" data-page="{{:commentPage}}" data-id="{{:id}}">更多评论</a>\
+        {{else}}\
+            <a href="javascript:;" class="more none">没有更多</a>\
+        {{/if}}\
         </li>',
     comment:
         '<ul class="comment">\
             {{include tmpl="article"/}}\
             {{include tmpl="commentLi"/}}\
-            {{include tmpl="commentLi"/}}\
-            {{include tmpl="commentLi"/}}\
-            {{include tmpl="commentLi"/}}\
         </ul>',
     commentEdit:
         '<div class="comment">\
-            <div class="level-ctrl">\
+            <div class="level-ctrl js-level-click">\
                 <label>星级评分</label>\
-                <span class="icon-xingji iconfont"></span>\
-                <span class="icon-xingji iconfont"></span>\
-                <span class="icon-xingji iconfont"></span>\
+                <span class="icon-xingjiline iconfont"></span>\
+                <span class="icon-xingjiline iconfont"></span>\
+                <span class="icon-xingjiline iconfont"></span>\
                 <span class="icon-xingjiline iconfont"></span>\
                 <span class="icon-xingjiline iconfont"></span>\
             </div>\

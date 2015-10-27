@@ -5,7 +5,44 @@
     window.router = Router(routes).configure({ recurse: 'forward' });
     router.init();
     location.hash.length>0 || (location.hash = '/bm/fm/index');
-    $('#mn').click();
+    $(window).scroll(function(){
+        if($(window).scrollTop()<170)
+            $('#mn').addClass('top');
+        else
+            $('#mn').removeClass('top');
+        //console.log(['scroll',$(window).scrollTop()]);
+    });
+    $('#mn')
+        .on('click','.js-more-comment',function(){
+            var _this = this;
+            ajax('getCommentList',{uid:params['uid'],page:$(this).data('page'),paperId:$(this).data('id'),cType:3},function(req){
+                var data = {};
+                data['commentList'] = req.list;
+                for(var i=0;i<data['commentList'].length;i++)
+                    data['commentList'][i].time = data['commentList'][i].time.split(' ')[0];
+                data['commentPage'] = parseInt($(_this).data('page'))+1;
+                $(_this).closest('li').replaceWith($.templates['commentLi'].render(data));
+                //$('#mn').html($.templates['fmPlayer'].render(data));
+            })
+        })
+        .on('click','.js-more-music',function(){
+            var data = $(this).data();
+            var _this = this;
+            data['professiorId'] = data['professiorid'];
+            ajax('getMusic',$(this).data(),function(req){
+                //var data = {};
+                data['musicList'] = req.list;
+                data['musicPage'] = parseInt(data['page'])+1;
+                $(_this).closest('li').replaceWith($.templates['fmListLi'].render(data));
+            })
+        })
+        .on('click','.js-level-click span',function(){
+            var index = $(this).index();
+            $('.js-level-click span').removeClass('icon-xingji').addClass('icon-xingjiline');
+            $('.js-level-click span:lt('+index+')').removeClass('icon-xingjiline').addClass('icon-xingji')
+                /*.siblings('span').removeClass('icon-xingji').addClass('icon-xingjiline');*/
+            console.log(index);
+        })
 });
 var debug = false;
 function ajax(url,data,callback,errorback){
@@ -14,7 +51,7 @@ function ajax(url,data,callback,errorback){
     if(debug)
         remoteUrl = './test/'+url+'.json';
     else
-        remoteUrl = "http://gzbmind.oicp.net:81/BmindAPI/Page/"+url
+        remoteUrl = "http://gzbmind.oicp.net:81/BmindAPI/Page/"+url+'.action'
     $.ajax({
         url:remoteUrl,
         type:'POST',

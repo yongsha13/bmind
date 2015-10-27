@@ -2,6 +2,7 @@
  * Created by wangyong on 2015/10/26.
  */
 var name = '';
+window['params']['uid'] = 32844;
 var text = [
     '我感觉到了你脱单的决心在火火燃烧！',
     '我感觉到了你脱单的决心在火火燃烧！',
