@@ -6,7 +6,7 @@
     router.init();
     location.hash.length>0 || (location.hash = '/bm/fm/index');
 
-    window['params']['uid'] = 32844;
+    //window['params']['uid'] = 32844;
     $(window).scroll(function(){
         if($(window).scrollTop()<170)
             $('#mn').addClass('top');
