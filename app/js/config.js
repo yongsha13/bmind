@@ -16,6 +16,9 @@
             //console.log('bm');
             window['isPlayerUI'] = false;
         },
+        '/list':function(){
+            render('bmList');
+        },
         '/fm': {
             '/index': function () {
                 render('fmIndex');
@@ -48,7 +51,7 @@
                 })
 
             },
-            '/author/:id': function (id) {
+            '/professor/:id': function (id) {
                 ajax('getMusic',{type:0,page:1,property:0,professiorId:id},function(req){
                     $('#mn').html($.templates['fmAuthor'].render({musicList:req.list,professiorId:id,type:0,property:0,musicPage:2}));
                 })

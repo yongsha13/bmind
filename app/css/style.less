@@ -30,6 +30,17 @@ html,body{ background: @bg-cr-h2;}
   >img{display: block; /*.fadeIn(0,-6rem); .animation(fadeIn .5s ease-in-out)*/}
   .player-ctrl{position: relative; /*.fadeIn(0,-6rem); .animation(fadeIn .5s ease-in-out)*/}
 }
+.example{
+  h2{ line-height: 2rem; font-weight: 500; text-align: center;}
+  ul{
+    li{ background: @bg-cr-h0; margin-top: .5rem; padding: .5rem; line-height: 1.5rem;
+      h2{ text-align: left; color: @ft-cr-h1;}
+      h3{ font-weight: 500; font-size: 1.2rem;}
+      h4{ font-weight: 500;}
+      em{ color: @ic-cr-h2; padding-right: .5rem;}
+    }
+  }
+}
 .fm{ min-width: 320px; overflow-x: auto; height: 100%;
   h2{ font-weight: 500; padding-left: .5rem; font-size: 1.2rem;}
   .banner{overflow: hidden;;position: fixed; top: 0; width: 100%; z-index: 99999;
@@ -137,6 +148,7 @@ html,body{ background: @bg-cr-h2;}
 
   }
 }
+
 .tabs{ line-height: 3rem; text-align: center;
   .ti{
     span{ float: left; border-bottom: 2px solid @bd-cr-h1;
@@ -156,23 +168,23 @@ html,body{ background: @bg-cr-h2;}
     .avatar{ float: left; width: 4rem; height: 4rem; border-radius: 5rem; overflow: hidden;
       img{ width: 100%;}
     }
-    .cnt{ padding-left: 5rem; line-height: 2rem;
+    .li-cnt{ padding-left: 5rem; line-height: 2rem; margin: 0;
       h3{ font-weight: 500; color: @ft-cr-h3; font-size: 1.1rem;}
-      .category{float:right; padding: .2rem .5rem; color: @ft-cr-h5; font-size: .8rem; line-height: 1.2rem; border: 1px solid @bd-cr-h2; border-radius: 2rem;}
+      .icons{clear: none; margin: 0;}
+      .category{float:left; padding: .2rem .5rem; margin: .1rem; color: @ft-cr-h5; font-size: .8rem; line-height: 1rem; border: 1px solid @ic-cr-h2; border-radius: 2rem;}
     }
   }
 }
 .list{
-  li{margin-top: .5rem; background: #ffffff; padding: .5rem;
-    .avatar{float: left; width: 5rem; height: 5rem; border-radius: 2.5rem; overflow: hidden;
+  li{margin-top: .5rem; background: #ffffff; padding: .5rem; overflow: hidden; clear: both;
+    .avatar{float: left; width: 4rem; height: 4rem; border-radius: 2.5rem; overflow: hidden;
       img{ width: 100%;}
     }
-    .cnt{ margin-left: 5.5rem;
-      h3{ font-weight: 500; line-height: 3rem; height: 3rem; font-size: 1rem; color: @ft-cr-h3; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
-      .category{ border: 1px solid @bd-cr-h2; border-radius: 1rem; padding: .1rem .5rem; color: @ft-cr-h5; font-size: .8rem;}
+    .cnt{ margin-left: 4.5rem; overflow: hidden;
+      h3{ font-weight: 500; line-height: 2rem; height: 2rem; font-size: 1rem; color: @ft-cr-h3; clear: both; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
       .professior{float:right;font-size: 1rem; line-height: 1.2rem; padding: 0 .5rem; color: @ft-cr-h5; font-size: .8rem;}
     }
-
+    .category{ border: 1px solid @ic-cr-h2; border-radius: 1rem; padding: .1rem .5rem; line-height: 1rem; color: @ft-cr-h5; font-size: .8rem;}
   }
 }
 .article{
@@ -210,13 +222,14 @@ html,body{ background: @bg-cr-h2;}
     &.space{float:right;}
   }
   .like,.comment,.time{ float: right; padding:0 .3rem;}
-  .level{ float: left;
-    .icon-xingji{ font-weight: 700;}
-    .icon-xingji,.icon-xingjiban{ padding: 0; color: @ic-cr-h4;}
-    .icon-xingjiline{ padding: 0; color: @ft-cr-h5;}
-  }
   .icon-xihuan{color: @ic-cr-h1;}
   .icon-pinglun{ color: @ic-cr-h2;}
 }
-
+.level{ float: left; font-size: .8rem; line-height: 1.1rem; vertical-align: middle; color: @ft-cr-h5;
+  .iconfont{ font-size: .8rem; vertical-align: middle;}
+  em{vertical-align: middle;}
+  .icon-xingji{ font-weight: 700;}
+  .icon-xingji,.icon-xingjiban{ padding: 0; color: @ic-cr-h4;}
+  .icon-xingjiline{ padding: 0; color: @ft-cr-h5;}
+}
 a.more{ display: block; text-align: center; background: @bg-cr-h2; color: @ft-cr-h4; line-height: 2rem;}

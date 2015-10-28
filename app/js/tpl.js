@@ -18,6 +18,15 @@ $.views.helpers({
 });
 var TPL = {
     header:'<h1>{{:title}}</h1>',
+    bmList:
+        '<div class="example">\
+            <h2>项目hash路由说明</h2>\
+            <ul>\
+                {{for list}}\
+                <li><a href="{{:url}}"><h2>{{:rule}}</h2><h3>{{:title}}</h3><h4><em>参数</em>{{:args}}</h4></a></li>\
+                {{/for}}\
+            </ul>\
+        </div>',
     fmIndex:
         '<div class="fm">\
             {{include tmpl="fmBanner"/}}\
@@ -52,15 +61,15 @@ var TPL = {
         '{{for musicList}}\
         <li{{if isMember}} class="vip"{{/if}}>\
             <div class="avatar">\
-                <a href="#/bm/fm/author/{{:professorId}}"><img src="./images/avatar-1.jpg" alt=""></a>\
+                <a href="#/bm/fm/professor/{{:professorId}}"><img src="./images/avatar-1.jpg" alt=""></a>\
             </div>\
             <div class="cnt">\
-                <h3><a href="#/bm/fm/player/{{:id}}">{{:title}}</a><a href="#/bm/fm/author/{{:professorId}}"></a></h3>\
-                <span class="category"><a href="#/bm/fm/category/1/{{:musicType}}">{{:musicTypeName}}</a></span>\
+                {{include tmpl="fmListLiLevel"/}}\
                 <span class="professior">主播：{{:professor}}</span>\
+                <h3><a href="#/bm/fm/player/{{:id}}">{{:title}}</a><a href="#/bm/fm/professor/{{:professorId}}"></a></h3>\
             </div>\
             <div class="icons">\
-                {{include tmpl="fmListLiLevel"/}}\
+                <span class="category"><a href="#/bm/fm/category/1/{{:musicType}}">{{:musicTypeName}}</a></span>\
                 <span class="comment">\
                     | <span class="icon-pinglun iconfont"></span>\
                     {{:commentTimes}}\
@@ -89,7 +98,7 @@ var TPL = {
             <span class="icon-{{if avg>=3}}xingji{{else avg>=2.5}}xingjiban{{else}}xingjiline{{/if}} iconfont"></span>\
             <span class="icon-{{if avg>=4}}xingji{{else avg>=3.5}}xingjiban{{else}}xingjiline{{/if}} iconfont"></span>\
             <span class="icon-{{if avg>=5}}xingji{{else avg>=4.5}}xingjiban{{else}}xingjiline{{/if}} iconfont"></span>\
-            {{:avg}}\
+            <em>{{:avg}}</em>\
         </span>',
     fmPlayer:
         '<div class="fm">\
@@ -159,7 +168,7 @@ var TPL = {
             </div>\
             <article>\
                 <h1>{{:title}}</h1>\
-                <h2><a href="#/bm/fm/author/{{:professorId}}">主播：{{:professor}}</a></h2>\
+                <h2><a href="#/bm/fm/professor/{{:professorId}}">主播：{{:professor}}</a></h2>\
                 <p>{{:musicDes}}</p>\
                 <div class="ctrl">\
                     <a href="#/bm/comment/edit"><span class="icon-pinglun1 iconfont"></span><br><em>评论</em></a>\
@@ -240,14 +249,14 @@ var TPL = {
             <div class="avatar">\
                 <img src="./images/avatar-1.jpg" alt="">\
             </div>\
-            <div class="cnt">\
-                <span class="category">专业测试</span>\
+            <div class="li-cnt">\
                 <h3>观正念的力量</h3>\
-            </div>\
-            <div class="icons">\
-                <span class="comment"><span class="icon-pinglun iconfont"></span>47</span>\
-                <span class="space">|</span>\
-                <span class="like"><span class="icon-xihuan iconfont"></span>7777</span>\
+                <div class="icons">\
+                    <span class="category">专业测试</span>\
+                    <span class="comment"><span class="icon-pinglun iconfont"></span>47</span>\
+                    <span class="space">|</span>\
+                    <span class="like"><span class="icon-xihuan iconfont"></span>7777</span>\
+                </div>\
             </div>\
         </li>',
     myMusic:
