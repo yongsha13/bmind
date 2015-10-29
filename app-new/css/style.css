@@ -1,0 +1,69 @@
+html,body{ color: #383838; background: #eee;}
+.fm{ background: #eee;}
+.fm .banner{ height: 15rem; overflow: hidden;}
+.fm .banner .bg{ margin-left: -30rem; margin-top: -68rem; width: 80rem; height: 80rem; border-radius: 50rem; background: #4a4a4a; }
+.fm .banner .cnt{ margin-top: -11rem; height: 12rem;}
+.fm .banner .cnt .iconfont{ display: block; width: 3.5rem; height: 3rem; padding: 1rem 0 1rem 1.5rem; margin: 0 auto; font-size: 3rem; color: #a3d830; border: 2px solid #a3d830; border-radius: 4rem;}
+.fm .banner h2{ font-weight: 500; font-size: 1.2rem; padding: 0 .5rem;}
+.fm .list{}
+.fm .list li{ margin-top: .5rem; background: #ffffff; padding: .5rem; position: relative; overflow: hidden;}
+.fm .list li.vip:before{display: block; content: 'VIP'; font-size: .8rem; position: absolute;left: 0; top: 0; z-index:999; color: #fff;}
+.fm .list li.vip:after{display: block; content: ''; position: absolute; top: -2.4rem; left: -1.1rem; z-index:998; width: 3rem; height: 4rem; background: #f00; transform: rotate(60deg);}
+.fm .list li .avatar{ float: left; width: 5rem; height: 5rem; border-radius: 2.5rem; overflow: hidden;}
+.fm .list li .avatar img{ width: 100%;}
+.fm .list li .cnt { margin-left: 5.5rem;}
+.fm .list li .cnt h3{ font-weight: 500; line-height: 3rem; font-size: 1.125rem;}
+.fm .list li .cnt h3 em{ float: right; color: #a4a4a4; padding: 0 .5rem; font-size: 1rem;}
+.fm .list li .cnt .category{ border: 1px solid #ffc2c8; border-radius: 1rem; padding: .2rem .5rem; color: #a4a4a4;}
+.fm .list li .ctrl{ overflow: hidden; clear: both; margin-top: 1rem; line-height: 2rem; color: #4a4a4a;}
+.fm .list li .ctrl span{ display: inline-block; padding: 0 .5rem; color: #a4a4a4;}
+.fm .list li .ctrl .like,.fm .list li .ctrl .comment{float:right; padding: 0 0.3rem 0; }
+.fm .list li .ctrl .level .iconfont{ padding: 0; color: #ff7b3b;}
+.fm .list li .ctrl .like .iconfont{ color: #ffc2c8;}
+.fm .list li .ctrl .comment .iconfont{ color: #94cdec;}
+.fm .player img{ display: block; width: 100%;}
+.fm .player {}
+.fm .player .player-ctrl{ height: auto; overflow: hidden; background: #4a4a4a;  }
+.fm .player .player-ctrl .progress{ background: #333; height: .2rem; line-height: .2rem; box-shadow: 1px 1px 1px #777;}
+.fm .player .player-ctrl .progress .cur{ display: inline-block; vertical-align: middle; height: .2rem; width: 5rem; background: #ffffff;}
+.fm .player .player-ctrl .progress .cur:after{display:block; float: right; content: ''; vertical-align: middle; height: .75rem; width: .75rem; margin: -.275rem 0; border-radius: 1rem; background: #ffffff;}
+.fm .player .player-ctrl .time{ padding: .5rem; font-size: .7rem; color: #a4a4a4;}
+.fm .player .player-ctrl .time .count{float:right;}
+.fm .player .player-ctrl .btns {padding: .2rem 0 .5rem; text-align: center;}
+.fm .player .player-ctrl .btns a { display: inline-block; width: 2rem; height: 2rem; margin: 0 0.7rem; overflow: visible; vertical-align: middle;font-size: .8rem; text-align: center;}
+.fm .player .player-ctrl .btns a.cur{ width: 3rem;}
+.fm .player .player-ctrl .btns span{ display: inline-block; padding: .5rem; font-size: 1rem; line-height: 1rem; border: 1px solid #fff; border-radius: 10rem; color: #fff;}
+.fm .player .player-ctrl .btns em{ display: inline-block; color: #a4a4a4; line-height: 1.2rem;}
+.fm .player .player-ctrl .btns span.cur{ vertical-align: middle; border: 1px solid #a3d830; color: #a3d830; font-size: 2rem; line-height: 2rem; margin: -.5rem 0;}
+.fm .player .player-ctrl .btns span.none{ border: none; font-size: 1.2rem;}
+.fm .player .status{ line-height: 1.5rem; text-align: center; border: 1px solid #a4a4a4; border-left: none; border-right: none; color: #ff7b3b; background: #ffa;}
+
+.fm .search-bar { background: #ffffff; margin: .5rem 1rem 1.5rem; padding: .2rem .5rem; border: 1px solid #a4a4a4; border-radius: 2rem; overflow: hidden; position: relative;}
+.fm .search-bar input{float:left; height: 1.2rem width: 100%; border: none; box-sizing: border-box; padding-right: 3rem; line-height: 1.2rem;}
+.fm .search-bar a{ display: block; position: absolute; right: .5rem; top: .3rem; color: #a4a4a4;}
+
+.tabs{ line-height: 3rem; text-align: center;}
+.tabs .ti span{ float:left; border-bottom: 2px solid #eeeeee;}
+.tabs .ti span.cur{ color: #ff7b3b; border-bottom: 2px solid #ff7b3b;}
+.tabs.col-2 .ti span{ width: 50%;}
+.tabs.col-3 .ti span{ width: 33.33%;}
+.article>.level{ line-height: 3rem;}
+.article .level .iconfont{ color: #ff7b3b;}
+.article article h1{ font-weight: 500; font-size: 1.2rem; line-height: 1.5rem; text-align: center;}
+.article article h2{ font-weight: 500; font-size: .8rem; line-height: 1.5rem; color: #ff7b3b; text-align: center;}
+.article article p{ padding: 0 .5rem; line-height: 1.2rem; text-indent: 2rem;}
+.article .ctrl{ padding: .5rem; text-align: right;}
+.article .ctrl a{ display: inline-block; text-align: center;}
+.article .ctrl em{ font-size: .5rem;}
+
+.comment{}
+.comment li{ line-height: 1.5rem; margin-bottom: .5rem; padding: .5rem; background: #ffffff;}
+.comment li .info{ }
+.comment li .info .author{ color: #ff7b3b;}
+.comment li .info .time{float:right; font-size: .8rem; color: #a4a4a4;}
+.comment .level-ctrl{ color: #ff7b3b; font-size: 1.5rem; line-height: 4rem; text-align: center;}
+.comment .level-ctrl .iconfont{ font-size: 2rem;}
+.comment .level-ctrl .icon-xingji{ font-weight: 700;}
+.comment textarea{ display: block; border: none; width: 100%; height: 20rem; box-sizing: border-box; padding: .5rem;}
+
+a.more{ display: block; text-align: center; background: #e3e3e3; color: #a4a4a4; line-height: 2rem;}

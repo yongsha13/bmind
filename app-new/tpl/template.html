@@ -1,0 +1,92 @@
+<!--评分等级-->
+{{target: levelScore}}
+    <span class="level">
+        {{var: levels = [1,2,3,4,5] }}
+        {{for: ${levels} as ${level} }}
+        <span class="icon-{{if: ${score}>=${level} }}xingji{{elif: ${score}+0.5>=${level} }}xingjiban{{else}}xingjiline{{/if}} iconfont"></span>
+        {{/for}}
+        <em>${score}</em>
+    </span>
+    
+<!--列表母板-->
+{{target: listLi}}
+    {{for: ${items} as ${item} }}
+    <li>
+        {{block: cnt }}未装载内容 {{/block}}
+    </li>
+    {{/for}}
+    <li>
+        {{if: ${items}.length==10}}
+        <a href="javascipt:;" class="more">更多内容</a>
+        {{elif: ${page}==2}}
+        <a href="javascript:;" class="more none">暂无内容</a>
+        {{else}}
+        <a href="javascript:;" class="more none">没有更多</a>
+        {{/if}}
+    </li>
+
+<!--音频列表-->
+{{target: fmList(master=listLi)}}
+{{block: cnt}}
+    <div class="avatar">
+        <a href="#/bm/fm/professor/${professorId}">
+            <img src="./images/avatar-1.jpg" alt="">
+        </a>
+    </div>
+    <div class="cnt">
+        {{var: score = ${item.avg} }}
+        {{import:levelScore}}
+        <span class="professor">主播：${item.professor}</span>
+        <h3>
+            <a href="#/bm/fm/player/${id}">${item.title}</a>
+        </h3>
+    </div>
+    <div class="icons">
+        <span class="category">
+            <a href="#/bm/fm/category/1/${musicType}">${item.musicTypeName}</a>
+        </span>
+        <span class="comment">
+            | <span class="icon-pinglun iconfont"></span>${item.commentTimes}
+        </span>
+        <span class="like">
+            | <span class="icon-xihuan iconfont"></span>${item.playTimes}
+        </span>
+    </div>
+{{/block}}
+{{block: more}}
+<a href="javascript:;" class="more js-more-music"
+   data-page="{{:musicPage}}" data-type="{{:type}}" data-property="{{:property}}" data-professiorId="{{:professiorId}}">更多音频</a>
+{{/block}}
+
+<!--音频首页-->
+{{target: fmIndex}}
+    <div class="fm">
+        {{import:fmBanner}}
+        <div class="hot">
+            <h2>热门</h2>
+            <div id="fm_hot" class="list">
+                <ul>
+                    {{import:fmList}}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+<!--音频banner-->
+{{target: fmBanner}}
+    <div class="banner">
+        <div class="bg"></div>
+        <div class="cnt">
+            <div class="btn-1">
+                <a href="javascript:;"><span class="icon-bofangqibofang iconfont"></span></a>
+                <a href="javascript:;" class="random">换一首</a>
+            </div>
+            <div class="btn-2">
+                <a href="#/bm/fm/category/1/6"><img src="./images/icon-1.png" alt="">好好睡</a>
+                <a href="#/bm/fm/category/1/1"><img src="./images/icon-2.png" alt="">放轻松</a>
+                <a href="#/bm/fm/category/1/5"><img src="./images/icon-3.png" alt="">爱自己</a>
+                <a href="#/bm/fm/category/1/10"><img src="./images/icon-4.png" alt="">更多</a>
+            </div>
+        </div>
+    </div>
