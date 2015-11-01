@@ -7,9 +7,10 @@
     commandOpen:'{{',
     commandClose:'}}'
 });
+var debug = true;
 $(function(){
 
-    $.get('./tpl/template.html',function(req){
+    $.get('./tpl/template.etpl',function(req){
         TPL.compile(req);
         window.router = Router(routes).configure({ recurse: 'forward' });
         router.init();
@@ -63,7 +64,7 @@ $(function(){
             console.log(index);
         })
 });
-var debug = true;
+
 function ajax(url,data,callback,errorback){
     errorback = errorback || function(req){alert(req['errorMsg'])};
     var remoteUrl = '';

@@ -8,3 +8,14 @@ Object {result: 2, msg: "type的值为:'10',type必须是0~9的整数           
 调试信息：
 用户测试 uid:32844
 评论测试 musicId:131
+
+
+
+sublime 使用 github 经验
+
+先配置好命令行下的git到github
+建立ssh-key到github
+在命令行下可以对项目进行push和pull之后
+
+commit -> git:Quick Commit
+push   -> git:Push Current Branch

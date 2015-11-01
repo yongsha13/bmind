@@ -1485,6 +1485,7 @@
     Engine.prototype.parse = function (source) {
         if (source) {
             var targetNames = parseSource(source, this);
+            console.log(this.targets);
             if (targetNames.length) {
                 return this.targets[targetNames[0]].getRenderer();
             }
@@ -1561,7 +1562,6 @@
 
         // text节点内容缓冲区，用于合并多text
         var textBuf = [];
-
         /**
          * 将缓冲区中的text节点内容写入
          *
