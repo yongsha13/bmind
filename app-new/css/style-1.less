@@ -145,7 +145,28 @@ html,body{ background: @bg-cr-h2;}
     .cnt{ margin-top: .5rem; /*border-top: 1px solid @bd-cr-h1;*/
       h2{ font-weight: 500; background: @bg-cr-h5; line-height: 2.5rem; font-size: 1.2rem; padding-left: 1rem;}
     }
+  }
+  .detail{ margin: 1rem; border-radius: 1rem; background: @bg-cr-h0;
+    h2{ font-weight: 500; text-align: center; line-height: 4rem; color: @ft-cr-h4; font-size: 1rem;}
+    p{ line-height: 1.3rem; font-size: .8rem; padding: 1rem; text-indent: 1.6rem; color: @ft-cr-h4;}
 
+  }
+  .ctrl{ padding: 1rem; text-align: center;}
+  .question{ margin: 1rem; border-radius: 1rem; background: @bg-cr-h0;
+    h2{ font-weight: 500; text-align: center; line-height: 4rem; color: @ft-cr-h4; font-size: 1rem; border-bottom: 1px solid @bd-cr-h1;}
+    p{font-weight: 500; line-height: 1rem; color: @ft-cr-h3; font-size: .8rem; text-indent: 1.6rem; padding: 1rem;}
+    .progress{ color: @ft-cr-h3; padding: 1rem; overflow: hidden;
+      label{float:left;}
+      .bar{ margin: .3rem 0 .3rem 6rem; height: .3rem; background: @bg-cr-h2; border-radius: .5rem; overflow: hidden;
+        .cur{float:left; height: .3rem; background: @bg-cr-h1;}
+      }
+    }
+    ul{
+      li{
+        line-height: 1.5rem; color: @ft-cr-h5; padding-left: 1rem;
+        label{ padding-left: .5rem;}
+      }
+    }
   }
 }
 
@@ -232,4 +253,8 @@ html,body{ background: @bg-cr-h2;}
   .icon-xingji,.icon-xingjiban{ padding: 0; color: @ic-cr-h4;}
   .icon-xingjiline{ padding: 0; color: @ft-cr-h5;}
 }
-a.more{ display: block; text-align: center; background: @bg-cr-h2; color: @ft-cr-h4; line-height: 2rem;}
+a.more{ display: block; text-align: center; background: @bg-cr-h2; color: @ft-cr-h4; line-height: 2rem; margin: -.5rem; padding-bottom: .5rem;}
+
+.btn{ display: inline-block; padding: .2rem 1rem; line-height: 1.5rem; border-radius: .4rem;
+  &.red{ background: @bg-cr-h1; color: #fff;}
+}

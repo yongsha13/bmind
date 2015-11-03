@@ -1,5 +1,6 @@
-<!--评分等级-->
-{{target: levelScore}}
+<!--使用etpl模板，详情见：https://github.com/ecomfe/etpl-->
+
+{{target: levelScore}}<!--评分等级-->
     <span class="level">
         {{var: levels = [1,2,3,4,5] }}
         {{for: ${levels} as ${level} }}
@@ -8,8 +9,8 @@
         <em>${score}</em>
     </span>
     
-<!--列表母板-->
-{{target: listLi}}
+
+{{target: listLi}}<!--列表母板-->
     {{for: ${items} as ${item} }}
     <li>
         {{block: cnt }}未装载内容 {{/block}}
@@ -17,7 +18,7 @@
     {{/for}}
     <li>
         {{if: ${items}.length==10}}
-        <a href="javascipt:;" class="more">更多内容</a>
+            {{block: more}}{{/block}}
         {{elif: ${page}==2}}
         <a href="javascript:;" class="more none">暂无内容</a>
         {{else}}
@@ -25,56 +26,103 @@
         {{/if}}
     </li>
 
-<!--音频列表-->
-{{target: fmList(master=listLi)}}
+
+{{target: fmListLi(master=listLi)}}<!--音频列表-->
 {{block: cnt}}
-    <div class="avatar">
-        <a href="#/bm/fm/professor/${professorId}">
-            <img src="./images/avatar-1.jpg" alt="">
-        </a>
-    </div>
-    <div class="cnt">
-        {{var: score = ${item.avg} }}
-        {{import:levelScore}}
+    {{use: liAvatar(
+        link="#/bm/fm/professor/"+${item.professorId},
+        src="./images/avatar-1.jpg"
+    )}}
+    <div class="cnt">        
+        {{use: levelScore(score=${item.avg})}}
         <span class="professor">主播：${item.professor}</span>
         <h3>
-            <a href="#/bm/fm/player/${id}">${item.title}</a>
+            <a href="#/bm/fm/player/${item.id}">${item.title}</a>
         </h3>
     </div>
-    <div class="icons">
-        <span class="category">
-            <a href="#/bm/fm/category/1/${musicType}">${item.musicTypeName}</a>
-        </span>
-        <span class="comment">
-            | <span class="icon-pinglun iconfont"></span>${item.commentTimes}
-        </span>
-        <span class="like">
-            | <span class="icon-xihuan iconfont"></span>${item.playTimes}
-        </span>
-    </div>
+    {{use: liFooter(
+            category={
+                id:${item.musicType},
+                name:${item.musicTypeName}
+            },            
+            comment={
+                count:${item.commentTimes}
+            },
+            like={
+                count:${item.playTimes}
+            }  
+    )}}
 {{/block}}
 {{block: more}}
 <a href="javascript:;" class="more js-more-music"
-   data-page="{{:musicPage}}" data-type="{{:type}}" data-property="{{:property}}" data-professiorId="{{:professiorId}}">更多音频</a>
+   data-page="${page}" data-type="${type}" data-property="${property}" data-professiorId="${professorId}">更多音频</a>
 {{/block}}
 
-<!--音频首页-->
-{{target: fmIndex}}
+{{target: bmListLi(master=listLi)}}
+    {{block: cnt}}
+<a href="${item.url | url}">
+    <h2>${item.rule}</h2>
+    <h3>${item.title}</h3>
+    <h4><em>参数：</em>${item.args}</h4>
+</a>
+    {{/block}}
+
+{{target: bmList}}
+<div class="example">
+    <ul>
+        {{import: bmListLi}}
+    </ul>
+</div>
+
+
+{{target:liFooter}}<!-- 列表底部内容 -->
+<div class="icons">
+    {{if: ${category} }}
+        <span class="category">
+            <a href="#/bm/fm/category/1/${category.id}">${category.name}</a>
+        </span>
+    {{/if}}
+    {{if: ${comment} }}
+        <div class="comment">
+            | <span class="icon-pinglun iconfont"></span>${comment.count}
+        </div>
+    {{/if}}
+    {{if: ${like} }}
+        <span class="like">
+            | <span class="icon-xihuan iconfont"></span>${like.count}
+        </span>
+    {{/if}}
+    {{if: ${time} }}
+    <span class="time">${time.time}</span>
+    {{/if}}
+</div>
+
+{{target:liAvatar}}<!-- 列表头像 -->
+<div class="avatar">
+    <a href="${link}">
+        <img src="${src}">
+    </a>
+</div>
+
+{{target:liHeader}}<!-- 列表顶部内容 -->
+
+
+{{target: fmIndex}}<!--音频首页-->
     <div class="fm">
         {{import:fmBanner}}
         <div class="hot">
             <h2>热门</h2>
             <div id="fm_hot" class="list">
                 <ul>
-                    {{import:fmList}}
+                    {{import:fmListLi}}
                 </ul>
 
             </div>
         </div>
     </div>
 
-<!--音频banner-->
-{{target: fmBanner}}
+
+{{target: fmBanner}}<!--音频banner-->
     <div class="banner">
         <div class="bg"></div>
         <div class="cnt">
@@ -88,5 +136,254 @@
                 <a href="#/bm/fm/category/1/5"><img src="./images/icon-3.png" alt="">爱自己</a>
                 <a href="#/bm/fm/category/1/10"><img src="./images/icon-4.png" alt="">更多</a>
             </div>
+        </div>
+    </div>
+
+{{target: fmPlayer}}
+    <div class="fm">
+        <div class="player">
+            <img src="./images/pic-1.jpg" alt="">
+            <div class="player-ctrl">
+                <div class="progress"><span class="cur"></span></div>
+                <div class="time"><span class="now">00:08:32</span><span class="count">00:22:32</span></div>
+                <div class="btns">
+                    <a href="javascript:;"><span class="icon-xiazai iconfont none"></span><br><em>下载</em></a>
+                    <a href="javascript:;"><span class="icon-shangyishou iconfont"></span></a>
+                    <a href="javascript:;" class="cur"><span class="icon-zanting iconfont cur"></span></a>
+                    <a href="javascript:;"><span class="icon-xiayishou iconfont"></span></a>
+                    <a href="javascript:;"><span class="icon-fenxiang iconfont none"></span><br><em>分享</em></a>
+                </div>
+                <div class="status">正在下载音频</div>
+            </div>
+            {{import: article}}
+            <ul class="comment">
+                {{import: commentListLi}}
+            </ul>
+        </div>
+    </div>
+
+{{target: article}}
+    <div class="article">
+        <div class="icons">
+            {{import: levelScore}}
+        </div>
+        <article>
+            <h1>${title}</h1>
+            <h2><a href="#/bm/fm/professor/${professorId}">主播：${professor}</a></h2>
+            <p>${musicDes}</p>
+            <div class="ctrl">
+                <a href="#/bm/comment/edit/3/${id}"><span class="icon-pinglun1 iconfont"><br><em>评论</em></span></a>
+            </div>
+        </article>
+    </div>
+
+{{target: commentListLi(master=listLi)}}
+    {{block:cnt}}
+    <div class="info">
+        <span class="author">${item.nickName}</span>
+        <span class="time"><span class="icon-shijian iconfont"></span>${item.time | date}</span>
+    </div>
+    <p>${item.summary}</p>
+    {{/block}}
+    {{block:more}}
+    <a class="more js-more-comment" href="javascript:;" data-page="${page}" data-paperId="${paperId}" data-cType="${cType}">更多评论</a>
+    {{/block}}
+
+{{target: fmProfessor}}
+    <div class="fm">
+        <ul class="list">{{import: fmListLi}}</ul>
+    </div>
+
+{{target: fmCategory}}
+    <div class="fm">
+        {{import: tabs}}
+        <ul class="list">
+            {{import: fmListLi}}
+        </ul>
+    </div>
+
+{{target: tabs}}
+    <div class="tabs col-${tabs.length}">
+        <div class="ti">
+            {{for: ${tabs} as ${item},${index} }}
+                {{if: ${cur}==${item.id} }}
+                    <span class="cur">${item.name}</span>
+                {{else}}
+                    <a href="${item.url}"><span>${item.name}</span></a>
+                {{/if}}
+            {{/for}}
+        </div>
+    </div>
+
+{{target: comment}}
+<div class="fm">
+    {{import: article}}
+    <ul class="comment">
+        {{import: commentListLi}}
+    </ul>
+</div>
+
+{{target: commentEdit}}
+    <div class="comment">
+        <div class="level-ctrl js-level-click">
+            <label>星级评分</label>
+            <span class="icon-xingjiline iconfont"></span>
+            <span class="icon-xingjiline iconfont"></span>
+            <span class="icon-xingjiline iconfont"></span>
+            <span class="icon-xingjiline iconfont"></span>
+            <span class="icon-xingjiline iconfont"></span>
+        </div>
+        <form>
+            <input type="hidden" name="score" value="0">
+            <input type="hidden" name="paperId" value="${paperId}">
+            <input type="hidden" name="cType" value="3">
+            <input type="hidden" name="toId">
+            <input type="hidden" name="commentID">
+            <textarea name="summary" placeholder="说几句评价吧"></textarea>
+        </form>
+    </div>
+
+{{target: myGroup}}
+    <div class="my">
+        {{import: tabs}}
+        <ul class="group">
+            {{import: myGroupListLi}}
+        </ul>
+    </div>
+
+{{target: myGroupListLi(master=listLi)}}
+    {{block:cnt}}
+    <a href="${item.url}">
+        <h4>${item.creater}</h4>
+        <h3>${item.title}</h3>
+        <p>${item.content}</p>
+        {{use: liFooter(
+        time={
+            time:${item.time}
+        },
+        like={
+            count:${item.playTimes}
+        }
+        )}}
+    </a>
+
+    {{/block}}
+
+{{target: myActiveListLi}}
+    {{block:cnt}}
+        <div class="info">
+            {{use: liAvatar(
+            link="javascript:;",
+            src="./images/avatar-1.jpg"
+            )}}
+            <span class="author">${item.name}</span>
+            <span class="time">${item.time}</span>
+            <span class="status">${item.comm}</span>
+        </div>
+        <p>${item.summary}</p>
+    {{/block}}
+
+{{target: myTestListLi(master=ListLi)}}
+    {{block:cnt}}
+        {{use: liAvatar(
+        link="javascript:;",
+        src="./images/avatar-1.jpg"
+        )}}
+        <div class="li-cnt">
+            <h3>观正念的力量</h3>
+            {{use: liFooter(
+            category={
+            id:${item.musicType},
+            name:${item.musicTypeName}
+            },
+            comment={
+            count:${item.commentTimes}
+            },
+            like={
+            count:${item.playTimes}
+            }
+            )}}
+        </div>
+    {{/block}}
+
+{{target: ttListLi(master=listLi) }}
+    {{block: cnt}}
+    <li>
+        {{use: liAvatar(
+        link='',
+        src='./images/avatar-1.jpg'
+        )}}
+        <div class="li-cnt">
+            <h3><a class="js-test" data-id="${item.scaleID}" href="javascript:;">${item.title}</a></h3>
+            <div class="category">${item.sort}</div>
+        </div>
+        {{use: liFooter(
+        comment={
+        count:${item.commentNum}
+        },
+        like={
+        count:${item.testNum}
+        }
+        )}}
+    </li>
+    {{/block}}
+    {{block:more}}
+        <a href="javascript:;" class="more js-more-test" data-page="${page}" data-type="${type}">更多测试</a>
+    {{/block}}
+
+{{target: ttIndex}}
+    <div class="tt">
+        <div class="index">
+            <img src="./images/pic-1.jpg" alt="">
+            <div class="bar">
+                <a href="javascript:;">
+                    <img src="./images/icon-1.png" alt="">趣味测试
+                </a>
+                <a href="javascript:;">
+                    <img src="./images/icon-2.png" alt="">专业测试
+                </a>
+            </div>
+            <div class="cnt">
+                <h2>热门</h2>
+                <ul class="my-test">
+                    {{import: ttListLi}}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{{target: ttDetail}}
+    <div class="tt">
+        <div class="detail">
+            <h2>${title}</h2>
+            <p>${description}</p>
+            <div class="ctrl">
+                <a href="#/bm/tt/question/1" class="btn red">确定</a>
+            </div>
+        </div>
+    </div>
+
+{{target: ttQuestion}}
+    <div class="tt">
+        <div class="question">
+            <h2>${title}</h2>
+            <div class="progress">
+                <label>题目：${cur}/${count}</label>
+                <div class="bar">
+                    <div class="cur" style="width:${percent}%"></div>
+                </div>
+            </div>
+            <p>${question.question}</p>
+            <ul>
+                {{for: ${question.optionsList} as ${item} }}
+                <li>
+                    <input type="checkbox" id="op-${item.optionsID}"><label for="op-${item.optionsID}">${item.options}</label>
+                </li>
+                {{/for}}
+            </ul>
+        </div>
+        <div class="ctrl">
+            {{var: next = parseInt(${cur})+1 }}
+            <a href="#/bm/tt/question/${next}" class="btn red">下一题</a>
         </div>
     </div>
