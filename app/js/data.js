@@ -13,5 +13,19 @@ var tplData = {
             {url:'#/bm/my/group/1',title:'活动圈',rule:'#/bm/my/group/:typeId',args:'typeId:活动圈类型ID'},
             {url:'#/bm/list',title:'[未完待续]',rule:'#/bm/xxx',args:'无'}
         ]
+    },
+    bmApi:{
+        list:[
+            {id:1,title:'获取用户信息'},
+            {id:2,title:'登录'},
+            {id:3,title:'播放器'},
+            {id:4,title:'文件下载'},
+            {id:5,title:'聊天'},
+            {id:6,title:'上传图片'},
+            {id:7,title:'分享'},
+            {id:8,title:'地理位置'},
+            {id:9,title:'标题控制'},
+            {id:10,title:'弹提示消息'}
+        ]
     }
 }

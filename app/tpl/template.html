@@ -75,6 +75,27 @@
 </div>
 
 
+
+{{target: bmAPI}}
+<div class="api">
+    <h1>APP接口调试</h1>
+    <label>接口选择：</label>
+    <select name="" id="js-api-id">
+        {{for: ${list} as ${api} }}
+        <option value="${api.id}">${api.id}.${api.title}</option>
+        {{/for}}
+    </select><br>
+    <label>测试参数：</label><br>
+    <textarea name="" id="js-api-args" placeholder="{method:1,url:['http://xxx.xx/xx']}"></textarea>
+    <a href="javascript:;" class="btn js-api-submit">提交</a>
+    <label>打印数据：</label><br>
+    <p class="js-api-output">
+        调起时，params将会是一个json的字符串<br>
+        回调函数为：window.bmCallback(req);<br>
+        回调时，请把数据都放在一个json对象中，例如：{apiId:1,crum:100,data:{}}
+    </p>
+</div>
+
 {{target:liFooter}}<!-- 列表底部内容 -->
 <div class="icons">
     {{if: ${category} }}

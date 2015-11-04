@@ -17,6 +17,9 @@
             //console.log('bm');
             window['isPlayerUI'] = false;
         },
+        '/api':function(){
+            $('#mn').html(TPL.render('bmAPI',{list:tplData.bmApi.list,outStr:JSON.stringify(tplData.bmApi)}));
+        },
         '/list':function(){
             $('#mn').html(TPL.render('bmList',{items:tplData.bmList.list}));
         },

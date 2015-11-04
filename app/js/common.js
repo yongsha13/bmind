@@ -15,6 +15,9 @@ var TPL = new etpl.Engine({
     commandOpen:'{{',
     commandClose:'}}'
 });
+function bmCallback(req){
+    $('.js-api-output').html(function(i,v){return v+'<br>回调：'+JSON.stringify(req)});
+}
 TPL.addFilter('date',function(source,useExtra){
     //console.log(source);
     return source.split(' ')[0];
@@ -39,6 +42,15 @@ $(function(){
         //console.log(['scroll',$(window).scrollTop()]);
     });
     $('#mn')
+        .on('click','.js-api-submit',function(){
+            window['apiIndex']?window['apiIndex']++:(window['apiIndex'] = 1);
+            if(window['bm']){
+                $('.js-api-output').html('执行：window.bm.api('+$('#js-api-id').val()+','+window['apiIndex']+',"'+$('#js-api-args').val()+'");<br>等待接口回调...');
+                window.bm.api($('#js-api-id').val(),window['apiIndex'],$('#js-api-args').val());
+            }else{
+                $('.js-api-output').html('没有找到 window.bm 对象，请确定接口是否已经初始化！[浏览器下无bm对象]');
+            }
+        })
         .on('click','.js-test',function(){
             cache.test.cur = $(this).data('id');
             location.hash = '/bm/tt/detail/'+cache.test.cur;
