@@ -2,7 +2,6 @@
  * Created by wangyong on 2015/10/26.
  */
 var name = '';
-params['name'] = decodeURI(params['name']);
 /*window['params']['uid'] = 32844;*/
 var text = [
     '我感觉到了你脱单的决心在火火燃烧！',
@@ -129,7 +128,7 @@ $(function(){
         var shareData = {
             title: val + ' 距离脱单还有 '+ index + '天',
             desc:'快来看看你还有多少天可以脱单吧',
-            link:'http://www.ydeap.com/b-marketing/?name='+encodeURI(val),
+            link:'http://www.ydeap.com/b-marketing/?name='+val,
             imgUrl: 'http://www.ydeap.com/b-marketing/' + '/images/banner.jpg'
         };
         wx.onMenuShareTimeline(shareData);
