@@ -1,7 +1,8 @@
 /**
  * Created by wangyong on 2015/10/26.
  */
-var name = /name=([^&]*)/.exec(location.href)[1];
+var reg = /name=([^&]*)/.exec(location.href);
+var name = reg?reg[1]:'';
 name = decodeURIComponent(name);
 //params['name'] = decodeURI(params['name']);
 /*window['params']['uid'] = 32844;*/

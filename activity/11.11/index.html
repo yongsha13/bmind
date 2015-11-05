@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>你还有多少天才脱单</title>
     <link rel="stylesheet" href="../public/css/reset.css">
-    <link rel="stylesheet/less" href="css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script src="../public/js/jquery-1.7.2.min.js"></script>
     <script src="js/common.js"></script>
 </head>
@@ -23,17 +24,19 @@
     </div>
     <div id="day" style="display: none;">
         <div class="bg">
+            <header>
+                <p><em class="js-name">风中乱舞</em><br>距离脱单的天数是</p>
+            </header>
             <img src="images/line.png" alt="">
-        </div>
-        <div class="cnt">
-            <p><em class="js-name">风中乱舞</em><br>距离脱单的天数是</p>
             <span class="js-score">88</span>
-            <p class="js-cnt">看来光棍节前脱单对你来说有点难度<br>请珍惜你人生中的最后一个光棍节</p>
-            <p>
-                <br>
-                <a href="javascript:;" class="btn js-index">我也要算</a>
-                <a href="javascript:;" class="btn">手动脱单</a>
-            </p>
+            <footer>
+                <p class="js-cnt">看来光棍节前脱单对你来说有点难度<br>请珍惜你人生中的最后一个光棍节</p>
+                <p>
+                    <br>
+                    <a href="javascript:;" class="btn js-index">我也要算</a>
+                    <a href="javascript:;" class="btn">手动脱单</a>
+                </p>
+            </footer>
         </div>
         <div class="tips" style="display: none;">
             <div class="cur"></div>

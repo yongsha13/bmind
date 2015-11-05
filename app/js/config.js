@@ -167,7 +167,7 @@
                 ajax('getMentalTestQuestion',{
                     scaleID:id,
                     page:1,
-                    versionCode:'1.0',
+                    versionCode:1,
                     userSource:1
                 },function(req){
                     cache.test.questions = req.list;
