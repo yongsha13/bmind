@@ -31,7 +31,7 @@ html,body{ background: @bg-cr-h2;}
   .player-ctrl{position: relative; /*.fadeIn(0,-6rem); .animation(fadeIn .5s ease-in-out)*/}
 }
 .example{
-  h2{ line-height: 2rem; font-weight: 500; text-align: center;}
+  h2{ font-weight: 500; line-height: 2rem; font-weight: 500; text-align: center;}
   ul{
     li{ background: @bg-cr-h0; margin-top: .5rem; padding: .5rem; line-height: 1.5rem;
       h2{ text-align: left; color: @ft-cr-h1;}
@@ -40,6 +40,15 @@ html,body{ background: @bg-cr-h2;}
       em{ color: @ic-cr-h2; padding-right: .5rem;}
     }
   }
+}
+.api{ font-size: 1rem; line-height: 1.5rem; padding: .5rem;
+  h1{ font-weight: 500; line-height: 2rem; font-size: 1.2rem; text-align: center;}
+  textarea{ width: 100%; height: 5rem; line-height: 1rem;}
+  select{ font-size: 1rem;
+    option{ font-size: .8rem;}
+  }
+  p{ min-height: 2rem; background: @bg-cr-h0;}
+  .btn{ display: block; margin: 0 3rem; line-height: 1.5rem; font-size: 1rem; text-align: center; color: @ft-cr-h0; background: @ft-cr-h1;}
 }
 .fm{ min-width: 320px; overflow-x: auto; height: 100%;
   h2{ font-weight: 500; padding-left: .5rem; font-size: 1.2rem;}
@@ -145,7 +154,28 @@ html,body{ background: @bg-cr-h2;}
     .cnt{ margin-top: .5rem; /*border-top: 1px solid @bd-cr-h1;*/
       h2{ font-weight: 500; background: @bg-cr-h5; line-height: 2.5rem; font-size: 1.2rem; padding-left: 1rem;}
     }
+  }
+  .detail{ margin: 1rem; border-radius: 1rem; background: @bg-cr-h0;
+    h2{ font-weight: 500; text-align: center; line-height: 4rem; color: @ft-cr-h4; font-size: 1rem;}
+    p{ line-height: 1.3rem; font-size: .8rem; padding: 1rem; text-indent: 1.6rem; color: @ft-cr-h4;}
 
+  }
+  .ctrl{ padding: 1rem; text-align: center;}
+  .question{ margin: 1rem; border-radius: 1rem; background: @bg-cr-h0;
+    h2{ font-weight: 500; text-align: center; line-height: 4rem; color: @ft-cr-h4; font-size: 1rem; border-bottom: 1px solid @bd-cr-h1;}
+    p{font-weight: 500; line-height: 1rem; color: @ft-cr-h3; font-size: .8rem; text-indent: 1.6rem; padding: 1rem;}
+    .progress{ color: @ft-cr-h3; padding: 1rem; overflow: hidden;
+      label{float:left;}
+      .bar{ margin: .3rem 0 .3rem 6rem; height: .3rem; background: @bg-cr-h2; border-radius: .5rem; overflow: hidden;
+        .cur{float:left; height: .3rem; background: @bg-cr-h1;}
+      }
+    }
+    ul{
+      li{
+        line-height: 1.5rem; color: @ft-cr-h5; padding-left: 1rem;
+        label{ padding-left: .5rem;}
+      }
+    }
   }
 }
 
@@ -182,7 +212,7 @@ html,body{ background: @bg-cr-h2;}
     }
     .cnt{ margin-left: 4.5rem; overflow: hidden;
       h3{ font-weight: 500; line-height: 2rem; height: 2rem; font-size: 1rem; color: @ft-cr-h3; clear: both; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
-      .professior{float:right;font-size: 1rem; line-height: 1.2rem; padding: 0 .5rem; color: @ft-cr-h5; font-size: .8rem;}
+      .professor{float:right;font-size: 1rem; line-height: 1.2rem; padding: 0 .5rem; color: @ft-cr-h5; font-size: .8rem;}
     }
     .category{ border: 1px solid @ic-cr-h2; border-radius: 1rem; padding: .1rem .5rem; line-height: 1rem; color: @ft-cr-h5; font-size: .8rem;}
   }
@@ -232,4 +262,8 @@ html,body{ background: @bg-cr-h2;}
   .icon-xingji,.icon-xingjiban{ padding: 0; color: @ic-cr-h4;}
   .icon-xingjiline{ padding: 0; color: @ft-cr-h5;}
 }
-a.more{ display: block; text-align: center; background: @bg-cr-h2; color: @ft-cr-h4; line-height: 2rem;}
+a.more{ display: block; text-align: center; background: @bg-cr-h2; color: @ft-cr-h4; line-height: 2rem; margin: -.5rem; padding-bottom: .5rem;}
+
+.btn{ display: inline-block; padding: .2rem 1rem; line-height: 1.5rem; border-radius: .4rem;
+  &.red{ background: @bg-cr-h1; color: #fff;}
+}

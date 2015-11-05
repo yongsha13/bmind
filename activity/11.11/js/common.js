@@ -1,8 +1,9 @@
 /**
  * Created by wangyong on 2015/10/26.
  */
-var name = '';
-params['name'] = decodeURI(params['name']);
+var name = /name=([^&]*)/.exec(location.href)[1];
+name = decodeURIComponent(name);
+//params['name'] = decodeURI(params['name']);
 /*window['params']['uid'] = 32844;*/
 var text = [
     '我感觉到了你脱单的决心在火火燃烧！',
@@ -35,14 +36,14 @@ function getDay(name){
 }
 
 $(function(){
-    if(params['name']){
+    if(name){
         var key = 0;
-        for(var i=0;i < params['name'].length;i++)
-            key+=(params['name'].charCodeAt(i).toString(10)).slice(-4)*(i+1);
+        for(var i=0;i < name.length;i++)
+            key+=(name.charCodeAt(i).toString(10)).slice(-4)*(i+1);
         index = key%10;
         $('.js-score').html(day[index]);
         $('.js-cnt').html(text[index]);
-        $('.js-name').html(params['name'].replace('>','&gt;').replace('<','&lt;'));
+        $('.js-name').html(name.replace('>','&gt;').replace('<','&lt;'));
         $('#index').hide();
         $('#day').show();
     }
@@ -64,17 +65,17 @@ $(function(){
             });
 
             var shareData = {
-                title: '你还有多少天才脱单',
-                desc: '你才是单身狗，你全家都是单身狗',
+                title: '光棍虐狗节马上到！',
+                desc: '这里可以让你知道你究竟能不能在光棍节前顺利脱单',
                 link: location.href,
-                imgUrl: 'http://www.ydeap.com/b-marketing/' + '/images/banner.jpg'
+                imgUrl: 'http://www.ydeap.com/b-marketing/11-11/' + '/images/banner.jpg'
             };
             //wx.onMenuShareAppMessage(shareData);
             wx.onMenuShareAppMessage({
-                title: '你还有多少天才脱单',
-                desc: '你才是单身狗，你全家都是单身狗',
+                title: '光棍虐狗节马上到！',
+                desc: '这里可以让你知道你究竟能不能在光棍节前顺利脱单',
                 link: location.href,
-                imgUrl: 'http://www.ydeap.com/b-marketing/' + '/images/banner.jpg',
+                imgUrl: 'http://www.ydeap.com/b-marketing/11-11' + '/images/banner.jpg',
                 trigger: function (res) {
                     // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
                     //alert('用户点击发送给朋友');
@@ -124,13 +125,14 @@ $(function(){
         $('.js-score').html(day[index]);
         $('.js-cnt').html(text[index]);
         $('.js-name').html(val.replace('>','&gt;').replace('<','&lt;'));
+        $('.js-index').replaceWith('<a href="javascript:;" class="btn js-share">炫耀一把</a>');
         $('#index').hide();
         $('#day').show();
         var shareData = {
-            title: val + ' 距离脱单还有 '+ index + '天',
-            desc:'快来看看你还有多少天可以脱单吧',
-            link:'http://www.ydeap.com/b-marketing/?name='+encodeURI(val),
-            imgUrl: 'http://www.ydeap.com/b-marketing/' + '/images/banner.jpg'
+            title:  '光棍虐狗节马上到！',
+            desc:val + ' 距离脱单还有 '+ index + '天',
+            link:'http://www.ydeap.com/b-marketing/11-11/?name='+encodeURIComponent(val),
+            imgUrl: 'http://www.ydeap.com/b-marketing/11-11/' + '/images/banner.jpg'
         };
         wx.onMenuShareTimeline(shareData);
         wx.onMenuShareAppMessage(shareData);
