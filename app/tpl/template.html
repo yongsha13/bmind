@@ -248,6 +248,9 @@
 
 {{target: commentEdit}}
     <div class="comment">
+        {{if: ${cType}==1 }}
+
+        {{else}}
         <div class="level-ctrl js-level-click">
             <label>星级评分</label>
             <span class="icon-xingjiline iconfont"></span>
@@ -256,13 +259,18 @@
             <span class="icon-xingjiline iconfont"></span>
             <span class="icon-xingjiline iconfont"></span>
         </div>
+        {{/if}}
         <form>
             <input type="hidden" name="score" value="0">
             <input type="hidden" name="paperId" value="${paperId}">
-            <input type="hidden" name="cType" value="3">
+            <input type="hidden" name="cType" value="${cType}">
             <input type="hidden" name="toId">
             <input type="hidden" name="commentID">
+            {{if: ${cType}==1 }}
+            <textarea name="summary" placeholder="我也评论几句"></textarea>
+            {{else}}
             <textarea name="summary" placeholder="说几句评价吧"></textarea>
+            {{/if}}
         </form>
     </div>
 
@@ -331,7 +339,6 @@
 
 {{target: ttListLi(master=listLi) }}
     {{block: cnt}}
-    <li>
         {{use: liAvatar(
         link='',
         src='./images/avatar-1.jpg'
@@ -348,7 +355,6 @@
         count:${item.testNum}
         }
         )}}
-    </li>
     {{/block}}
     {{block:more}}
         <a href="javascript:;" class="more js-more-test" data-page="${page}" data-type="${type}">更多测试</a>
@@ -359,11 +365,11 @@
         <div class="index">
             <img src="./images/pic-1.jpg" alt="">
             <div class="bar">
-                <a href="javascript:;">
-                    <img src="./images/icon-1.png" alt="">趣味测试
+                <a href="#/bm/tt/list/2">
+                    <img src="./images/test-1.png" alt="">趣味测试
                 </a>
-                <a href="javascript:;">
-                    <img src="./images/icon-2.png" alt="">专业测试
+                <a href="#/bm/tt/list/1">
+                    <img src="./images/test-2.png" alt="">专业测试
                 </a>
             </div>
             <div class="cnt">
@@ -375,7 +381,35 @@
         </div>
     </div>
 
-{{target: ttDetail}}
+{{target: ttList}}
+    <div class="tt">
+        <div class="list">
+            <div class="tabs col-${list.length}">
+                <div class="ti">
+                    {{for: ${list} as ${tabs},${index} }}
+                        {{if: ${index}==0 }}
+                            <span class="js-tt-list-tabs cur">${tabs.typeName}</span>
+                        {{else}}
+                            <span class="js-tt-list-tabs">${tabs.typeName}</span>
+                        {{/if}}
+                    {{/for}}
+                </div>
+                {{for: ${list} as ${tabs},${index} }}
+                    {{if: ${index}==0 }}
+                <div class="cnt">
+                    <ul class="my-test">{{use: ttListLi(items=${tabs.scaleList},type=${tabs.typeCode},page=2)}}</ul>
+                </div>
+                    {{else}}
+                <div class="cnt" style="display: none;">
+                    <ul class="my-test">{{use: ttListLi(items=${tabs.scaleList},type=${tabs.typeCode},page=2)}}</ul>
+                </div>
+                    {{/if}}
+                {{/for}}
+            </div>
+        </div>
+    </div>
+
+{{target: ttScale}}
     <div class="tt">
         <div class="detail">
             <h2>${title}</h2>
@@ -396,17 +430,50 @@
                     <div class="cur" style="width:${percent}%"></div>
                 </div>
             </div>
-            <p>${question.question}</p>
-            <ul>
+            <p>${cur}、${question.question}</p>
+            <ul class="js-questions">
                 {{for: ${question.optionsList} as ${item} }}
                 <li>
-                    <input type="checkbox" id="op-${item.optionsID}"><label for="op-${item.optionsID}">${item.options}</label>
+                    <input {{if: ${question.result}==${item.optionsID} }}checked="true"{{/if}} type="radio" name="question-${question.questionID}" data-cur="${cur}" data-question-id="${question.questionID}" data-option-id="${item.optionsID}" id="op-${item.optionsID}"><label for="op-${item.optionsID}">${item.options}</label>
                 </li>
                 {{/for}}
             </ul>
+            <div class="ctrl">
+                {{var: next = parseInt(${cur})+1 }}
+                {{var: prev = parseInt(${cur})-1 }}
+                {{if: ${cur} > 1 }}<a class="btn red-e" href="#/bm/tt/question/${prev}">上一题</a>{{/if}}
+                {{if: ${question.result} }}
+                    {{if: ${cur}==${count} }}
+                    <a href="#/bm/tt/result/${scaleRecordID}">查看结果</a>
+                    {{else}}
+                    <a href="#/bm/tt/question/${next}" class="btn red">下一题</a>
+                    {{/if}}
+                {{else}}
+                    {{if: ${cur}==${count} }}
+                    <span class="btn dis js-questions-next">查看结果</span>
+                    {{else}}
+                    <span class="btn dis js-questions-next">下一题</span>
+                    {{/if}}
+                {{/if}}
+            </div>
         </div>
-        <div class="ctrl">
-            {{var: next = parseInt(${cur})+1 }}
-            <a href="#/bm/tt/question/${next}" class="btn red">下一题</a>
+    </div>
+
+{{target: ttResult}}
+    <div class="tt">
+        <div class="result">
+            <h2>怒路症指数量表测试结果</h2>
+            <h3>测试结果</h3>
+            <p>{{if: ${resultDes} }}${resultDes}{{else}}暂无内容{{/if}}</p>
+            <h3>参考建议</h3>
+            <p>${suggest}</p>
+            <h3>提醒</h3>
+            <p>本测试的结果仅作为参考，不是最终诊断结果，如果对此有疑问，可点击下列链接请咨询师解答。</p>
+            <div class="ctrl">
+                <a href="javascript:;" class="btn green">分享</a>
+                <a href="javascript:;" class="btn orange">请咨询师解疑</a>
+            </div>
+            <a href="#/bm/comment/edit/1/${id}" class="btn comment-btn"><span class="icon-pinglun1 iconfont"></span>我也评论几句</a>
+            <ul class="comment"></ul>
         </div>
     </div>

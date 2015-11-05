@@ -5,6 +5,7 @@
     test:{
         list:[],
         cur:0,
+        scaleRecordID:0,
         questions:[],
         curQuestions:0
     }
@@ -42,6 +43,33 @@ $(function(){
         //console.log(['scroll',$(window).scrollTop()]);
     });
     $('#mn')
+        .on('click','.js-tt-list-tabs',function(){
+            if($(this).hasClass('cur')) return;
+            var index = $(this).index();
+            $(this).addClass('cur').siblings().removeClass('cur');
+            $(this).closest('.tabs').find('.cnt').hide().end().find('.cnt:eq('+index+')').show();
+        })
+        /*心理评测答题*/
+        .on('click','.js-questions input',function(){
+            var questionID = $(this).data('question-id');
+            var optionID = $(this).data('option-id');
+            var cur = $(this).data('cur');
+            var questions = cache.test.questions;
+            for(var i=0;i<questions.length;i++)
+                if(questions[i]['questionID'] == questionID)
+                    questions[i]['result'] = optionID;
+            var btnStr =
+                cur >= cache.test.questions.length?
+                    '<a class="btn red" href="#/bm/tt/result/'+cache.test.scaleRecordID+'">查看结果</a>':
+                    '<a class="btn red" href="#/bm/tt/question/'+(cur+1)+'">下一题</a>'
+            $('.js-questions-next').replaceWith(btnStr);
+            ajax('saveOptionsRecord',{
+                scaleRecordID:cache.test.scaleRecordID,
+                questionID:questionID,
+                optionsID:optionID
+            },function(){});
+            //console.log(questionID,optionID);
+        })
         .on('click','.js-api-submit',function(){
             window['apiIndex']?window['apiIndex']++:(window['apiIndex'] = 1);
             if(window['bm']){
@@ -53,7 +81,7 @@ $(function(){
         })
         .on('click','.js-test',function(){
             cache.test.cur = $(this).data('id');
-            location.hash = '/bm/tt/detail/'+cache.test.cur;
+            location.hash = '/bm/tt/scale/'+cache.test.cur;
         })
         .on('click','.js-more-test',function(){
             var _this = this;

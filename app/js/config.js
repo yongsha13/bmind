@@ -160,10 +160,14 @@
                 });
 
             },
-            '/list':function(){
+            '/list/:id':function(id){
+                ajax('getScaleBySort',{sort:id},function(req){
+                    req['page'] = 2;
+                    $('#mn').html(TPL.render('ttList',req));
+                });
                 render('ttList');
             },
-            '/detail/:id':function(id){
+            '/scale/:id':function(id){
                 ajax('getMentalTestQuestion',{
                     scaleID:id,
                     page:1,
@@ -172,21 +176,44 @@
                 },function(req){
                     cache.test.questions = req.list;
                     cache.test.curQuestions = 0;
-                    $('#mn').html(TPL.render('ttDetail',cache.test.list[cache.test.cur]));
+                    cache.test.scaleRecordID = req.ScaleRecordID;
+                    $('#mn').html(TPL.render('ttScale',cache.test.list[cache.test.cur]));
                 });
             },
             '/question/:step':function(step){
+                if(cache.test.list.length==0||cache.test.questions.length==0){
+                    location.hash = '/bm/tt/index';
+                    return false;
+                }
                 var curTest = cache.test.list[cache.test.cur];
                 var curQuestion=cache.test.questions[step-1];
                 var data = {
                     title:curTest.title,
                     cur:step,
+                    scaleRecordID:cache.test.scaleRecordID,
                     count:cache.test.questions.length,
                     percent:parseInt(step/cache.test.questions.length*100),
                     question:curQuestion
                 };
                 console.log(data);
                 $('#mn').html(TPL.render('ttQuestion',data));
+            },
+            '/result/:id':function(id){
+                ajax('getMentalTestResult',{scaleRecordID:id},function(req){
+                    req['id'] = id;
+                    $('#mn').html(TPL.render('ttResult',req));
+                    var data = {
+                        paperId:id,
+                        cType:1,
+                        page:1
+                    }
+                    ajax('getCommentList',data,function(req){
+                        data['page'] = 2;
+                        data['items'] = req.list;
+                        $('.result .comment').append(TPL.render('commentListLi',data));
+                    });
+                });
+
             }
         }
     }
