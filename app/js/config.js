@@ -48,12 +48,15 @@
                     //console.log(req);
 
                     data = req.list[0];
-                    ajax('getCommentList',{uid:params['uid'],page:1,paperId:id,cType:3},function(req){
+
+                    ajax('getCommentList',{page:1,paperId:id,cType:3},function(req){
                         //console.log(req);
                         data['items'] = req.list;
                         /*for(var i=0;i<data['commentList'].length;i++)
                             data['commentList'][i].time = data['commentList'][i].time.split(' ')[0];*/
                         data['page'] = 2;
+                        data['paperId'] = id;
+                        data['cType'] = 3;
                         $('#mn').html(TPL.render('fmPlayer',data));
                     })
                 })
@@ -110,7 +113,10 @@
                 })
             },
             '/edit/:cType/:paperId': function (cType,paperId) {
-                $('#mn').html(TPL.render('commentEdit',{cType:cType,paperId:paperId}));
+                $('#mn').html(TPL.render('commentEdit',{cType:cType,paperId:paperId,tuId:'',commentID:''}));
+            },
+            '/edit/:cType/:paperId/:tuId/:commentID':function(cType,paperId,tuId,commentID){
+                $('#mn').html(TPL.render('commentEdit',{cType:cType,paperId:paperId,tuId:tuId,commentID:commentID}));
             }
         },
         '/my':{
@@ -175,28 +181,24 @@
                     userSource:1
                 },function(req){
                     cache.test.questions = req.list;
+                    cache.test.title = req.title;
+                    cache.test.count = req.count;
+                    cache.test.description = req.description;
                     cache.test.curQuestions = 0;
                     cache.test.scaleRecordID = req.ScaleRecordID;
-                    $('#mn').html(TPL.render('ttScale',cache.test.list[cache.test.cur]));
+                    $('#mn').html(TPL.render('ttScale',cache.test));
+                    loadAllQuestion(id,2,req.count,1,1);
                 });
             },
             '/question/:step':function(step){
-                if(cache.test.list.length==0||cache.test.questions.length==0){
+                if(cache.test.questions.length==0){
                     location.hash = '/bm/tt/index';
                     return false;
                 }
-                var curTest = cache.test.list[cache.test.cur];
-                var curQuestion=cache.test.questions[step-1];
-                var data = {
-                    title:curTest.title,
-                    cur:step,
-                    scaleRecordID:cache.test.scaleRecordID,
-                    count:cache.test.questions.length,
-                    percent:parseInt(step/cache.test.questions.length*100),
-                    question:curQuestion
-                };
-                console.log(data);
-                $('#mn').html(TPL.render('ttQuestion',data));
+                cache.test['cur'] = step;
+                cache.test['percent'] = parseInt(step/cache.test.count*100);
+                cache.test['question'] = cache.test.questions[step -1];
+                $('#mn').html(TPL.render('ttQuestion',cache.test));
             },
             '/result/:id':function(id){
                 ajax('getMentalTestResult',{scaleRecordID:id},function(req){

@@ -43,6 +43,23 @@ $(function(){
         //console.log(['scroll',$(window).scrollTop()]);
     });
     $('#mn')
+        /*发表评论*/
+        .on('click','.js-comment-btn',function(){
+            var data = {
+                score:$('#score').val(),
+                paperId:$('#paperId').val(),
+                cType:$('#cType').val(),
+                summary:$('#summary').val(),
+                tuId:$('#toId').val(),
+                commentID:$('#commentID').val()
+            };
+            if(!data['score']) delete data['score'];
+            if(!data['tuId']) delete data['tuId'];
+            if(!data['commentID']) delete data['commentID'];
+            ajax('saveComment',data,function(req){
+                console.log(req);
+            })
+        })
         .on('click','.js-tt-list-tabs',function(){
             if($(this).hasClass('cur')) return;
             var index = $(this).index();
@@ -79,10 +96,10 @@ $(function(){
                 $('.js-api-output').html('没有找到 window.bm 对象，请确定接口是否已经初始化！[浏览器下无bm对象]');
             }
         })
-        .on('click','.js-test',function(){
+        /*.on('click','.js-test',function(){
             cache.test.cur = $(this).data('id');
             location.hash = '/bm/tt/scale/'+cache.test.cur;
-        })
+        })*/
         .on('click','.js-more-test',function(){
             var _this = this;
             var data = $(this).data();
@@ -96,7 +113,9 @@ $(function(){
             var _this = this;
             var data = $(this).data();
             data['paperId'] = data['paperid'];
+            delete data['paperid'];
             data['cType'] = data['ctype'];
+            delete data['ctype'];
             ajax('getCommentList',data,function(req){
                 //var data = {};
                 data['items'] = req.list;
@@ -131,12 +150,13 @@ $(function(){
             $('.js-level-click span').removeClass('icon-xingji').addClass('icon-xingjiline');
             $('.js-level-click span:lt('+index+')').removeClass('icon-xingjiline').addClass('icon-xingji')
                 /*.siblings('span').removeClass('icon-xingji').addClass('icon-xingjiline');*/
+            $('#score').val(index);
             console.log(index);
         })
 });
 
 function ajax(url,data,callback,errorback){
-    errorback = errorback || function(req){alert(req['errorMsg'])};
+    errorback = errorback || function(req){alert(req['msg'])};
     var remoteUrl = '';
     if(debug)
         remoteUrl = './test/'+url+'.json';
@@ -154,7 +174,27 @@ function ajax(url,data,callback,errorback){
             else errorback(req);
         },
         error:function(){
-            errorback({errorMsg:'网络通讯错误，请确定网络是否稳定'+url});
+            errorback({msg:'网络通讯错误，请确定网络是否稳定'+url});
         }
     })
+}
+function loadAllQuestion(scaleID,page,count,versionCode,userSource){
+    if(Math.ceil(count/10)<page) return;
+    ajax('getMentalTestQuestion',{
+        scaleID:scaleID,
+        page:page,
+        versionCode:versionCode,
+        userSource:userSource
+    },function(req){
+        cache.test.questions = req.list;
+        cache.test.questions.concat(req.list);
+        loadAllQuestion(scaleID,page+1,count,versionCode,userSource);
+        /*
+        cache.test.title = req.title;
+        cache.test.count = req.count;
+        cache.test.description = req.description;
+        cache.test.curQuestions = 0;
+        cache.test.scaleRecordID = req.ScaleRecordID;
+        $('#mn').html(TPL.render('ttScale',cache.test));*/
+    });
 }

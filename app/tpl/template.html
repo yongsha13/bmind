@@ -261,16 +261,17 @@
         </div>
         {{/if}}
         <form>
-            <input type="hidden" name="score" value="0">
-            <input type="hidden" name="paperId" value="${paperId}">
-            <input type="hidden" name="cType" value="${cType}">
-            <input type="hidden" name="toId">
-            <input type="hidden" name="commentID">
+            <input type="hidden" id="score" name="score" value="0">
+            <input type="hidden" id="paperId" name="paperId" value="${paperId}">
+            <input type="hidden" id="cType" name="cType" value="${cType}">
+            <input type="hidden" id="toId" name="toId" value="${tuId}">
+            <input type="hidden" id="commentID" name="commentID" value="${commentID}">
             {{if: ${cType}==1 }}
-            <textarea name="summary" placeholder="我也评论几句"></textarea>
+            <textarea id="summary" name="summary" placeholder="我也评论几句"></textarea>
             {{else}}
-            <textarea name="summary" placeholder="说几句评价吧"></textarea>
+            <textarea id="summary" name="summary" placeholder="说几句评价吧"></textarea>
             {{/if}}
+            <div class="ctrl"><a href="javascript:;" class="btn red js-comment-btn">发表评论</a></div>
         </form>
     </div>
 
@@ -344,7 +345,7 @@
         src='./images/avatar-1.jpg'
         )}}
         <div class="li-cnt">
-            <h3><a class="js-test" data-id="${item.scaleID}" href="javascript:;">${item.title}</a></h3>
+            <h3><a href="#/bm/tt/scale/${item.scaleID}">${item.title}</a></h3>
             <div class="category">${item.sort}</div>
         </div>
         {{use: liFooter(

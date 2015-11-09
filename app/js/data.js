@@ -13,7 +13,7 @@ var tplData = {
             {url:'#/bm/my/group/1',title:'活动圈',rule:'#/bm/my/group/:typeId',args:'typeId:活动圈类型ID'},
             {url:'#/bm/tt/index',title:'心理测评',rule:'#/bm/tt/index',args:'无'},
             {url:'#/bm/tt/list/1',title:'心理测评列表',rule:'#/bm/tt/index/:sort',args:'sort:1->专业测试/2->趣味测试'},
-            {url:'#/bm/list',title:'打开量表[数据在列表中，无法使用]',rule:'#/bm/list',args:'无'},
+            {url:'#/bm/tt/scale/2',title:'量表测评',rule:'#/bm/tt/scale/:scaleID',args:'scaleID:量表ID'},
             {url:'#/bm/tt/result/102',title:'测评结果',rule:'#/bm/tt/result/:scaleRecordID',args:'caleRecordID:测评量表ID'},
             {url:'#/bm/list',title:'[未完待续]',rule:'#/bm/xxx',args:'无'}
         ]
