@@ -85,7 +85,6 @@ $(function(){
                 questionID:questionID,
                 optionsID:optionID
             },function(){});
-            //console.log(questionID,optionID);
         })
         .on('click','.js-api-submit',function(){
             window['apiIndex']?window['apiIndex']++:(window['apiIndex'] = 1);
