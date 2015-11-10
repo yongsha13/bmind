@@ -90,8 +90,11 @@ $(function(){
         .on('click','.js-api-submit',function(){
             window['apiIndex']?window['apiIndex']++:(window['apiIndex'] = 1);
             if(window['bm']){
-                $('.js-api-output').html('执行：window.bm.api('+$('#js-api-id').val()+','+window['apiIndex']+',"'+$('#js-api-args').val()+'");<br>等待接口回调...');
-                window.bm.api($('#js-api-id').val(),window['apiIndex'],$('#js-api-args').val());
+                var apiId = $('#js-api-id').val();
+                var apiIndex = window['apiIndex'];
+                var apiArgs = $('#js-api-args').val();
+                $('.js-api-output').html('执行：window.bm.api('+apiId+','+apiIndex+',"'+apiArgs+'");<br>等待接口回调...');
+                window.bm.api(apiId,apiIndex,apiArgs);
             }else{
                 $('.js-api-output').html('没有找到 window.bm 对象，请确定接口是否已经初始化！[浏览器下无bm对象]');
             }
