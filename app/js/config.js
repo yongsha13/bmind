@@ -14,7 +14,6 @@
             $('#mn>div').hide();
             window.scrollTo(0, 0);
             $('#mn').addClass('top');
-            //console.log('bm');
             window['isPlayerUI'] = false;
         },
         '/api':function(){
@@ -25,21 +24,9 @@
         },
         '/fm': {
             '/index': function () {
-                //console.log(TPL.render('fmIndex'),{});
                 ajax('getMusic',{type:0,page:1,property:0},function(req){
                     $('#mn').html(TPL.render('fmIndex',{items:req.list,page:2,type:0,property:0}));
                 })
-
-                /*ajax('getMusic',{type:0,page:1,property:0},function(req){
-                    var data = {};
-                    data['musicList'] = req.list;
-                    data['musicPage'] = 2;
-                    data['type'] = 0;
-                    data['property'] = 0;
-
-                    $('#fm_hot').html($.templates['fmList'].render(data));
-                });*/
-
             },
             '/player/:id': function (id) {
                 window['isPlayerUI'] = true;
@@ -52,6 +39,7 @@
                     ajax('getCommentList',{page:1,paperId:id,cType:3},function(req){
                         //console.log(req);
                         data['items'] = req.list;
+                        data['score'] = req.userScore;
                         /*for(var i=0;i<data['commentList'].length;i++)
                             data['commentList'][i].time = data['commentList'][i].time.split(' ')[0];*/
                         data['page'] = 2;
@@ -112,8 +100,8 @@
                     })
                 })
             },
-            '/edit/:cType/:paperId': function (cType,paperId) {
-                $('#mn').html(TPL.render('commentEdit',{cType:cType,paperId:paperId,tuId:'',commentID:''}));
+            '/edit/:cType/:paperId/:score': function (cType,paperId,score) {
+                $('#mn').html(TPL.render('commentEdit',{cType:cType,paperId:paperId,tuId:'',commentID:'',score:score}));
             },
             '/edit/:cType/:paperId/:tuId/:commentID':function(cType,paperId,tuId,commentID){
                 $('#mn').html(TPL.render('commentEdit',{cType:cType,paperId:paperId,tuId:tuId,commentID:commentID}));
@@ -143,7 +131,11 @@
                 render('myGroup');
             },
             '/test':function(){
-                render('myTest');
+                ajax('getUserScale',{page:1},function(req){
+                    console.log(TPL.render('myTest',{items:req.list}));
+                    $('#mn').html(TPL.render('myTest',{items:req.list,page:2}));
+                });
+
             },
             '/music':function(){
                 render('myMusic');

@@ -10,6 +10,7 @@ var tplData = {
             {url:'#/bm/comment/list/3/131',title:'评论列表',rule:'#/bm/comment/list/:cType/:paperId',args:'cType:页面类型;paperId:页面对象ID'},
             {url:'#/bm/comment/edit/3/131',title:'评论编辑界面',rule:'#/bm/comment/edit/:cType/:paperId',args:'cType:页面类型;paperId:页面对象ID'},
             {url:'#/bm/my/active',title:'我的动态',rule:'#/bm/my/active',args:'无'},
+            {url:'#/bm/my/test',title:'我的测评',rule:'#/bm/my/test',args:'无'},
             {url:'#/bm/my/group/1',title:'活动圈',rule:'#/bm/my/group/:typeId',args:'typeId:活动圈类型ID'},
             {url:'#/bm/tt/index',title:'心理测评',rule:'#/bm/tt/index',args:'无'},
             {url:'#/bm/tt/list/1',title:'心理测评列表',rule:'#/bm/tt/index/:sort',args:'sort:1->专业测试/2->趣味测试'},

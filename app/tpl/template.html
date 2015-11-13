@@ -31,17 +31,16 @@
 
 {{target: fmListLi(master=listLi)}}<!--音频列表-->
 {{block: cnt}}
+<a href="#/bm/fm/player/${item.id}">
     {{use: liAvatar(
-        link="#/bm/fm/professor/"+${item.professorId},
-        src="./images/avatar-1.jpg"
+    src=${item.picPath}
     )}}
-    <div class="cnt">        
+    <div class="cnt">
         {{use: levelScore(score=${item.avg})}}
         <span class="professor">主播：${item.professor}</span>
-        <h3>
-            <a href="#/bm/fm/player/${item.id}">${item.title}</a>
-        </h3>
+        <h3>${item.title}</h3>
     </div>
+</a>
     {{use: liFooter(
             category={
                 id:${item.musicType},
@@ -89,7 +88,8 @@
     </select><br>
     <label>测试参数：</label><br>
     <textarea name="" id="js-api-args" placeholder="{method:1,url:['http://xxx.xx/xx']}"></textarea>
-    <a href="javascript:;" class="btn js-api-submit">提交</a>
+    <a href="javascript:;" class="btn js-api-submit">提交</a><br>
+    <a href="javascript:;" class="btn js-api-submit-2">提交2</a>
     <label>打印数据：</label><br>
     <p class="js-api-output">
         调起时，params将会是一个json的字符串<br>
@@ -121,11 +121,9 @@
 </div>
 
 {{target:liAvatar}}<!-- 列表头像 -->
-<div class="avatar">
-    <a href="${link}">
+<span class="avatar">
         <img src="${src}">
-    </a>
-</div>
+</span>
 
 {{target:liHeader}}<!-- 列表顶部内容 -->
 
@@ -201,18 +199,24 @@
             <h2><a href="#/bm/fm/professor/${professorId}">主播：${professor}</a></h2>
             <p>${musicDes}</p>
             <div class="ctrl">
-                <a href="#/bm/comment/edit/3/${id}"><span class="icon-pinglun1 iconfont"><br><em>评论</em></span></a>
+                <a href="#/bm/comment/edit/3/${id}/${score}"><span class="icon-pinglun1 iconfont"><br><em>评论</em></span></a>
             </div>
         </article>
     </div>
 
 {{target: commentListLi(master=listLi)}}
     {{block:cnt}}
+<a href="#/bm/comment/edit/${cType}/${paperId}/${item.userId}/${item.commentID}">
     <div class="info">
-        <span class="author">${item.nickName}</span>
+        <span class="author">{{if: ${item.nickName} }}${item.nickName}{{else}}${item.userId}{{/if}}</span>
+        {{if: ${item.tuId} }}
+        <em>回复</em> <span class="author">${item.tuName}</span>
+        {{/if}}
         <span class="time"><span class="icon-shijian iconfont"></span>${item.time | date}</span>
     </div>
     <p>${item.summary}</p>
+</a>
+
     {{/block}}
     {{block:more}}
     <a class="more js-more-comment" href="javascript:;" data-page="${page}" data-paperId="${paperId}" data-cType="${cType}">更多评论</a>
@@ -254,29 +258,23 @@
 
 {{target: commentEdit}}
     <div class="comment">
-        {{if: ${cType}==1 }}
-
-        {{else}}
-        <div class="level-ctrl js-level-click">
-            <label>星级评分</label>
-            <span class="icon-xingjiline iconfont"></span>
-            <span class="icon-xingjiline iconfont"></span>
-            <span class="icon-xingjiline iconfont"></span>
-            <span class="icon-xingjiline iconfont"></span>
-            <span class="icon-xingjiline iconfont"></span>
-        </div>
+        {{if: ${cType}==3 && ${score}==0 }}<!--1:心理测评，3：情绪调频-->
+            <div class="level-ctrl js-level-click">
+                <label>星级评分</label>
+                <span class="icon-xingjiline iconfont"></span>
+                <span class="icon-xingjiline iconfont"></span>
+                <span class="icon-xingjiline iconfont"></span>
+                <span class="icon-xingjiline iconfont"></span>
+                <span class="icon-xingjiline iconfont"></span>
+            </div>
         {{/if}}
         <form>
-            <input type="hidden" id="score" name="score" value="0">
+            <input type="hidden" id="score" name="score" value="${score}">
             <input type="hidden" id="paperId" name="paperId" value="${paperId}">
             <input type="hidden" id="cType" name="cType" value="${cType}">
             <input type="hidden" id="toId" name="toId" value="${tuId}">
             <input type="hidden" id="commentID" name="commentID" value="${commentID}">
-            {{if: ${cType}==1 }}
-            <textarea id="summary" name="summary" placeholder="我也评论几句"></textarea>
-            {{else}}
-            <textarea id="summary" name="summary" placeholder="说几句评价吧"></textarea>
-            {{/if}}
+            <textarea id="summary" name="summary" placeholder="{{if: ${cType}==1 }}我也评论几句{{else}}说几句评价吧{{/if}}"></textarea>
             <div class="ctrl"><a href="javascript:;" class="btn red js-comment-btn">发表评论</a></div>
         </form>
     </div>
@@ -311,8 +309,7 @@
     {{block:cnt}}
         <div class="info">
             {{use: liAvatar(
-            link="javascript:;",
-            src="./images/avatar-1.jpg"
+            src=${item.avatar}
             )}}
             <span class="author">${item.name}</span>
             <span class="time">${item.time}</span>
@@ -321,34 +318,42 @@
         <p>${item.summary}</p>
     {{/block}}
 
-{{target: myTestListLi(master=ListLi)}}
-    {{block:cnt}}
-        {{use: liAvatar(
-        link="javascript:;",
-        src="./images/avatar-1.jpg"
-        )}}
-        <div class="li-cnt">
-            <h3>观正念的力量</h3>
-            {{use: liFooter(
-            category={
-            id:${item.musicType},
-            name:${item.musicTypeName}
-            },
-            comment={
-            count:${item.commentTimes}
-            },
-            like={
-            count:${item.playTimes}
-            }
-            )}}
-        </div>
-    {{/block}}
+{{target: myTest}}
+    <div class="my">
+        <ul class="my-test">
+            {{import: myTestListLi}}
+        </ul>
+    </div>
+
+{{target: myTestListLi(master=listLi) }}
+{{block: cnt}}
+<a href="#/bm/tt/result/${item.scaleRecordID}">
+    {{use: liAvatar(
+    src=${item.picPath}
+    )}}
+    <div class="li-cnt">
+        <h3>${item.title}</h3>
+        <div class="category">${item.sort}</div>
+    </div>
+</a>
+
+{{use: liFooter(
+    comment={
+        count:${item.commentNum}
+    },
+    like={
+        count:${item.testNum}
+    }
+)}}
+{{/block}}
+{{block:more}}
+<a href="javascript:;" class="more js-more-test" data-page="${page}" data-type="${type}">更多测试</a>
+{{/block}}
 
 {{target: ttListLi(master=listLi) }}
     {{block: cnt}}
         {{use: liAvatar(
-        link='',
-        src='./images/avatar-1.jpg'
+        src=${item.picPath}
         )}}
         <div class="li-cnt">
             <h3><a href="#/bm/tt/scale/${item.scaleID}">${item.title}</a></h3>
@@ -469,13 +474,13 @@
 {{target: ttResult}}
     <div class="tt">
         <div class="result">
-            <h2>怒路症指数量表测试结果</h2>
+            <h2>${title}</h2>
             <h3>测试结果</h3>
-            <p>{{if: ${resultDes} }}${resultDes}{{else}}暂无内容{{/if}}</p>
+            <p>{{if: ${resultDes} }}${resultDes}{{else}}暂无结果{{/if}}</p>
             <h3>参考建议</h3>
-            <p>${suggest}</p>
+            <p>{{if: ${suggest} }}${suggest}{{else}}暂无建议{{/if}}</p>
             <h3>提醒</h3>
-            <p>本测试的结果仅作为参考，不是最终诊断结果，如果对此有疑问，可点击下列链接请咨询师解答。</p>
+            <p>${remind}</p>
             <div class="ctrl">
                 <a href="javascript:;" class="btn green">分享</a>
                 <a href="javascript:;" class="btn orange">请咨询师解疑</a>
