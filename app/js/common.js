@@ -23,7 +23,7 @@ var bmApi = {
     api:function(apiName,data,callback){
         this.index++;
         var id = this.getIdByName(apiName);
-        if(id<=0){alert('调用的接口不存在');return;}
+        if(id<=0){alert('调用的接口不存在,apiName:'+apiName+',id:'+id);return;}
         if(!window['bm']){alert('接口对象不存在');return}
         alert('调用接口 id:'+id+',index:'+this.index+',data:'+JSON.stringify(data));
         window['bm']['api'](id,index,JSON.stringify(data));
@@ -45,6 +45,11 @@ var bmApi = {
             if(crumb == this.callback.crumb) return this.callbacks[i].fun;
         return null;
     }
+};
+function bmCallback(res){
+    alert('接口回调:'+JSON.stringify(res));
+    var fun = bmApi.getCallback(res.crumb);
+    if(fun && typeof fun=='function') fun(data);
 }
 /*function bmCallback(apiId,crumb,status,data){
     $('.js-api-output').html(function(i,v){return v+'<br>回调：apiId'+crumb+','+status,+','+JSON.stringify(data)});
@@ -120,11 +125,14 @@ $(function(){
         .on('click','.js-api-submit',function(){
             window['apiIndex']?window['apiIndex']++:(window['apiIndex'] = 1);
             if(window['bm']){
-                var apiId = parseInt($('#js-api-id').val());
-                var apiIndex = window['apiIndex'];
+                var apiId = $('#js-api-id').val();
+                //var apiIndex = window['apiIndex'];
                 var apiArgs = $('#js-api-args').val();
-                $('.js-api-output').html('执行：window.bm.api('+apiId+','+apiIndex+',"'+apiArgs+'");<br>等待接口回调...');
-                window.bm.api(apiId,apiIndex,apiArgs);
+                $('.js-api-output').html('执行：window.bm.api('+apiId+','+bmApi.index+',"'+apiArgs+'");<br>等待接口回调...');
+                bmApi.api(apiId,apiArgs,function(res){
+                    alert(res);
+                    $('.js-api-output').html(res);
+                })
             }else{
                 $('.js-api-output').html('没有找到 window.bm 对象，请确定接口是否已经初始化！[浏览器下无bm对象]');
             }

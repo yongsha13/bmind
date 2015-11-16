@@ -21,16 +21,16 @@ var tplData = {
     },
     bmApi:{
         list:[
-            {id:1,title:'获取用户信息'},
-            {id:2,title:'登录'},
-            {id:3,title:'播放器'},
-            {id:4,title:'文件下载'},
-            {id:5,title:'聊天'},
-            {id:6,title:'上传图片'},
-            {id:7,title:'分享'},
-            {id:8,title:'地理位置'},
-            {id:9,title:'标题控制'},
-            {id:10,title:'弹提示消息'}
+            {id:1, name:'user-info', title:'获取用户信息'},
+            {id:2, name:'login',     title:'登录'},
+            {id:3, name:'player',    title:'播放器'},
+            {id:4, name:'download',  title:'文件下载'},
+            {id:5, name:'chat',      title:'聊天'},
+            {id:6, name:'upload',    title:'上传图片'},
+            {id:7, name:'share',     title:'分享'},
+            {id:8, name:'location',  title:'地理位置'},
+            {id:9, name:'title',     title:'标题控制'},
+            {id:10,name:'alert',     title:'弹提示消息'}
         ]
     }
 }

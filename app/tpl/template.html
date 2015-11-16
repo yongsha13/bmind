@@ -83,11 +83,12 @@
     <label>接口选择：</label>
     <select name="" id="js-api-id">
         {{for: ${list} as ${api} }}
-        <option value="${api.id}">${api.id}.${api.title}</option>
+        <option value="${api.name}">${api.id}.${api.title}</option>
         {{/for}}
     </select><br>
     <label>测试参数：</label><br>
-    <textarea name="" id="js-api-args" placeholder="{method:1,url:['http://xxx.xx/xx']}"></textarea>
+    <textarea name="" id="js-api-args" placeholder="{method:1,url:['http://xxx.xx/xx']}"
+            >{id:1,url:'http://www.ydeap.com/sencemusic/9097_2014_10_25_23_2_58..mp3'}</textarea>
     <a href="javascript:;" class="btn js-api-submit">提交</a><br>
     <a href="javascript:;" class="btn js-api-submit-2">提交2</a>
     <label>打印数据：</label><br>
