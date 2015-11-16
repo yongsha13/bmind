@@ -20,6 +20,7 @@
             $('#mn').html(TPL.render('bmAPI',{list:tplData.bmApi.list,outStr:JSON.stringify(tplData.bmApi)}));
         },
         '/list':function(){
+            console.log()
             $('#mn').html(TPL.render('bmList',{items:tplData.bmList.list}));
         },
         '/fm': {
@@ -35,7 +36,10 @@
                     //console.log(req);
 
                     data = req.list[0];
-
+                    alert('准备调用接口');
+                    bmApi.api('player',{id:1,url:data.filePath},function(res){
+                        alert(JSON.stringify(res));
+                    });
                     ajax('getCommentList',{page:1,paperId:id,cType:3},function(req){
                         //console.log(req);
                         data['items'] = req.list;

@@ -16,9 +16,39 @@ var TPL = new etpl.Engine({
     commandOpen:'{{',
     commandClose:'}}'
 });
-function bmCallback(apiId,crumb,status,data){
-    $('.js-api-output').html(function(i,v){return v+'<br>回调：apiId'+crumb+','+status,+','+JSON.stringify(data)});
+var bmApi = {
+    index:0,
+    apiNames:['','user-info','login','player','download','chat','upload','share','location','title','alert'],
+    callbacks:[],
+    api:function(apiName,data,callback){
+        this.index++;
+        var id = this.getIdByName(apiName);
+        if(id<=0){alert('调用的接口不存在');return;}
+        if(!window['bm']){alert('接口对象不存在');return}
+        alert('调用接口 id:'+id+',index:'+this.index+',data:'+JSON.stringify(data));
+        window['bm']['api'](id,index,JSON.stringify(data));
+        this.callbacks.push({apiId:id,crumb:this.index,fun:callback});
+        window['bmCallback'] ||
+        (window['bmCallback'] = function(res){
+            alert('接口回调:'+JSON.stringify(res));
+            var fun = this.getCallback(res.crumb);
+            if(fun && typeof fun=='function') fun(data);
+        });
+    },
+    getIdByName:function(apiName){
+        for(var i=0;i<this.apiNames.length;i++)
+            if(apiName == this.apiNames[i]) return i;
+        return 0;
+    },
+    getCallback:function(crumb){
+        for(var i=0;i<this.callbacks.length;i++)
+            if(crumb == this.callback.crumb) return this.callbacks[i].fun;
+        return null;
+    }
 }
+/*function bmCallback(apiId,crumb,status,data){
+    $('.js-api-output').html(function(i,v){return v+'<br>回调：apiId'+crumb+','+status,+','+JSON.stringify(data)});
+}*/
 TPL.addFilter('date',function(source,useExtra){
     //console.log(source);
     return source.split(' ')[0];
