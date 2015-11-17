@@ -37,8 +37,8 @@
 
                     data = req.list[0];
                     alert('准备调用接口');
-                    bmApi.api('player',{id:1,url:data.filePath},function(res){
-                        alert(JSON.stringify(res));
+                    bmApi.api('player',{method:1,url:data.filePath,playId:id},function(res){
+                        //alert(JSON.stringify(res));
                     });
                     ajax('getCommentList',{page:1,paperId:id,cType:3},function(req){
                         //console.log(req);

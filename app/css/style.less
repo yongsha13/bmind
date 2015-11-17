@@ -29,7 +29,7 @@
 html,body{ background: @bg-cr-h2;}
 #mn{ font-size: .8rem;}
 .top .fm .player{ padding-top: 0;
-  >img{display: block; /*.fadeIn(0,-6rem); .animation(fadeIn .5s ease-in-out)*/}
+  .pic{ height: 10rem; background-repeat: no-repeat; background-position: center center; background-size: cover;}
   .player-ctrl{position: relative; /*.fadeIn(0,-6rem); .animation(fadeIn .5s ease-in-out)*/}
 }
 .example{
@@ -129,9 +129,10 @@ html,body{ background: @bg-cr-h2;}
     li{ border-bottom: 1px solid @bd-cr-h1; padding: .5rem 0;
       &:last-child{ border: none;}
       .info{ line-height: 3rem;
-        .avatar{ display: inline-block; width: 2rem; height: 2rem; overflow: hidden; border-radius: 2rem; text-align: center; vertical-align: middle;
-          img{ height: 100%;}
-        }
+        .avatar{ display: inline-block; width: 2rem; height: 2rem; border-radius: 2rem;
+          background-position: center center;
+          -webkit-background-size: cover;
+          background-size: cover;}
         .author{ color: @ft-cr-h6;}
         .time,.status{ float: right; padding-left: 1rem; font-size: .8rem;}
         .time{ color: @ft-cr-h5;}
@@ -245,8 +246,10 @@ html,body{ background: @bg-cr-h2;}
   li{ padding: .5rem .5rem 0; margin-bottom: .5rem; background: @bg-cr-h0;
     a{
       display: block; overflow: hidden;}
-    .avatar{ float: left; width: 4rem; height: 4rem; border-radius: 5rem; text-align: center; overflow: hidden;
-      img{ height: 100%;}
+    .avatar{ float: left; width: 4rem; height: 4rem; border-radius: 5rem;
+      background-position: center center;
+      -webkit-background-size: cover;
+      background-size: cover;
     }
     .li-cnt{ padding-left: 5rem; line-height: 2rem; margin: 0;
       h3{ font-weight: 500; color: @ft-cr-h3; font-size: 1.1rem;}
@@ -257,8 +260,10 @@ html,body{ background: @bg-cr-h2;}
 }
 .list{
   li{margin-top: .5rem; background: #ffffff; padding: .5rem; overflow: hidden; clear: both;
-    .avatar{float: left; width: 4rem; height: 4rem; border-radius: 2.5rem; text-align: center; overflow: hidden;
-      img{ height: 100%;}
+    .avatar{float: left; width: 4rem; height: 4rem; border-radius: 2.5rem;
+      background-position: center center;
+      -webkit-background-size: cover;
+      background-size: cover;
     }
     .cnt{ margin-left: 4.5rem; overflow: hidden;
       h3{ font-weight: 500; line-height: 2rem; height: 2rem; font-size: 1rem; color: @ft-cr-h3; clear: both; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}

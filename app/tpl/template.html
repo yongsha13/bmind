@@ -88,7 +88,7 @@
     </select><br>
     <label>测试参数：</label><br>
     <textarea name="" id="js-api-args" placeholder="{method:1,url:['http://xxx.xx/xx']}"
-            >{id:1,url:'http://www.ydeap.com/sencemusic/9097_2014_10_25_23_2_58..mp3'}</textarea>
+            >{"id":1,"url":"http://www.ydeap.com/sencemusic/9097_2014_10_25_23_2_58..mp3"}</textarea>
     <a href="javascript:;" class="btn js-api-submit">提交</a><br>
     <a href="javascript:;" class="btn js-api-submit-2">提交2</a>
     <label>打印数据：</label><br>
@@ -122,9 +122,7 @@
 </div>
 
 {{target:liAvatar}}<!-- 列表头像 -->
-<span class="avatar">
-        <img src="${src}">
-</span>
+<span class="avatar" style="background-image: url(${src});"></span>
 
 {{target:liHeader}}<!-- 列表顶部内容 -->
 
@@ -170,7 +168,7 @@
 {{target: fmPlayer}}
     <div class="fm">
         <div class="player">
-            <img src="${picPath}" alt="">
+            <div class="pic" style="background-image:url(${picPath});"></div>
             <div class="player-ctrl">
                 <div class="progress"><span class="cur"></span></div>
                 <div class="time"><span class="now">00:08:32</span><span class="count">00:22:32</span></div>

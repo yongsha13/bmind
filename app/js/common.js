@@ -25,8 +25,8 @@ var bmApi = {
         var id = this.getIdByName(apiName);
         if(id<=0){alert('调用的接口不存在,apiName:'+apiName+',id:'+id);return;}
         if(!window['bm']){alert('接口对象不存在');return}
-        alert('调用接口 id:'+id+',index:'+this.index+',data:'+JSON.stringify(data));
-        window['bm']['api'](id,index,JSON.stringify(data));
+        alert('调用接口 id:'+id+',crumb:'+this.index+',data:'+JSON.stringify(data));
+        window['bm'].api(id,this.index,JSON.stringify(data));
         this.callbacks.push({apiId:id,crumb:this.index,fun:callback});
         window['bmCallback'] ||
         (window['bmCallback'] = function(res){
@@ -124,10 +124,11 @@ $(function(){
         })
         .on('click','.js-api-submit',function(){
             window['apiIndex']?window['apiIndex']++:(window['apiIndex'] = 1);
+            //console.log(JSON.parse($('#js-api-args').val()));
             if(window['bm']){
                 var apiId = $('#js-api-id').val();
                 //var apiIndex = window['apiIndex'];
-                var apiArgs = $('#js-api-args').val();
+                var apiArgs = JSON.stringify(JSON.parse($('#js-api-args').val()));
                 $('.js-api-output').html('执行：window.bm.api('+apiId+','+bmApi.index+',"'+apiArgs+'");<br>等待接口回调...');
                 bmApi.api(apiId,apiArgs,function(res){
                     alert(res);
@@ -214,7 +215,7 @@ function ajax(url,data,callback,errorback){
     if(debug)
         remoteUrl = './test/'+url+'.json';
     else
-        remoteUrl = "http://gzbmind.oicp.net:81/BmindAPI/Page/"+url+'.action';
+        remoteUrl = "/BmindAPI/Page/"+url+'.action';
     data['uid'] = params['uid'];
     $.ajax({
         url:remoteUrl,
