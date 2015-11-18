@@ -10,12 +10,7 @@
         curQuestions:0
     }
 };
-var TPL = new etpl.Engine({
-    strip:true,
-    namingConflict:'error',
-    commandOpen:'{{',
-    commandClose:'}}'
-});
+
 var bmApi = {
     index:0,
     apiNames:['','user-info','login','player','download','chat','upload','share','location','title','alert'],
@@ -65,15 +60,22 @@ function bmCallback(res){
 /*function bmCallback(apiId,crumb,status,data){
     $('.js-api-output').html(function(i,v){return v+'<br>回调：apiId'+crumb+','+status,+','+JSON.stringify(data)});
 }*/
+var TPL = new etpl.Engine({
+    strip:true,
+    namingConflict:'error',
+    commandOpen:'{{',
+    commandClose:'}}'
+});
 TPL.addFilter('date',function(source,useExtra){
     //console.log(source);
     return source.split(' ')[0];
 });
 TPL.addFilter('url',function(source,useExtra){
-   return source || 'javascript:;';
+    return source || 'javascript:;';
 });
 var debug = false;
 $(function(){
+
     $.get('./tpl/template.html',function(req){
         TPL.compile(req);
         window.router = Router(routes).configure({ recurse: 'forward' });
