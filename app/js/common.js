@@ -25,13 +25,14 @@ var bmApi = {
         var id = this.getIdByName(apiName);
         if(id<=0){alert('调用的接口不存在,apiName:'+apiName+',id:'+id);return;}
         if(!window['bm']){alert('接口对象不存在');return}
-        alert('调用接口 id:'+id+',crumb:'+this.index+',data:'+JSON.stringify(data));
+        //alert('调用接口 id:'+id+',crumb:'+this.index+',data:'+JSON.stringify(data));
+        this.callbacks[this.index] =  typeof callback=='function'?callback:function(){};
+        //this.callbacks.push({apiId:id,crumb:this.index,fn:callback});
         window['bm'].api(id,this.index,JSON.stringify(data));
-        this.callbacks.push({apiId:id,crumb:this.index,fun:callback});
         window['bmCallback'] ||
         (window['bmCallback'] = function(res){
-            alert('接口回调:'+JSON.stringify(res));
-            var fun = this.getCallback(res.crumb);
+            //alert('接口回调1:'+JSON.stringify(res));
+            var fun = this.getCallback(res['crum']);
             if(fun && typeof fun=='function') fun(data);
         });
     },
@@ -41,15 +42,25 @@ var bmApi = {
         return 0;
     },
     getCallback:function(crumb){
+        return this.callbacks[crumb];
+        /*if(this.callbacks.length>crumb) return this.callbacks[crumb];
+        return null;*/
+        /*alert('取回调函数:'+crumb+',回调列表：'+JSON.stringify(this.callbacks));
         for(var i=0;i<this.callbacks.length;i++)
-            if(crumb == this.callback.crumb) return this.callbacks[i].fun;
-        return null;
+            if(crumb == this.callback.crumb) {
+                this.callbacks[i].fn? alert('ok'):alert('error');
+                return this.callbacks[i].fn;
+            }
+        return null;*/
     }
 };
 function bmCallback(res){
-    alert('接口回调:'+JSON.stringify(res));
-    var fun = bmApi.getCallback(res.crumb);
-    if(fun && typeof fun=='function') fun(data);
+    //alert('接口回调0:'+JSON.stringify(res));
+    window.bmApi.callbacks[res['crum']]();
+    //alert(JSON.stringify(window.bmApi));
+    /*var fun = window.bmApi.getCallback(res['crum']);
+    console.log('回调');
+    if(fun && typeof fun=='function') fun(data);*/
 }
 /*function bmCallback(apiId,crumb,status,data){
     $('.js-api-output').html(function(i,v){return v+'<br>回调：apiId'+crumb+','+status,+','+JSON.stringify(data)});
@@ -78,6 +89,35 @@ $(function(){
         //console.log(['scroll',$(window).scrollTop()]);
     });
     $('#mn')
+        .on('click','.js-fm-play',function(){
+            var data = $(this).closest('.player-ctrl').data();
+            /*console.log(data);*/
+            var btn = $(this).find('span');
+            if(btn.hasClass('icon-bofangqibofang')){
+                btn.removeClass('icon-bofangqibofang').addClass('icon-zanting');
+                bmApi.api('player',{method:1,url:data.file,playId:data.id},function(res){
+                    //alert('播放回调完成');;
+                    bmApi.api('player',{method:4},function(res){
+                        alert('状态回调：'+JSON.stringify(res))
+                    });
+                    /*if(!window['listenPlayer']){
+                        window['listenPlayer'] = setInterval(function(){
+
+                        },10000);
+                    }*/
+                    //alert(JSON.stringify(res));
+                });
+            }else{
+                btn.removeClass('icon.zanting').addClass('icon-bofangqibofang');
+                bmApi.api('player',{method:3},function(res){
+
+                })
+            }
+            /*if(btn.hasClass('icon-zhanting')){
+
+            }*/
+
+        })
         /*发表评论*/
         .on('click','.js-comment-btn',function(){
             var data = {

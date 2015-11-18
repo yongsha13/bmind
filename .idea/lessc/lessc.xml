@@ -10,12 +10,12 @@
               <option name="cssDirectories">
                 <list>
                   <CssDirectory>
-                    <option name="path" value="I:\project\github\bmind\activity\11.11\css" />
+                    <option name="path" value="I:\project\github\bmind\app\css" />
                   </CssDirectory>
                 </list>
               </option>
               <option name="id" value="0" />
-              <option name="lessDirPath" value="I:\project\github\bmind\activity\11.11\css" />
+              <option name="lessDirPath" value="I:\project\github\bmind\app\css" />
               <option name="name" value="style.less" />
             </LessProfile>
           </value>

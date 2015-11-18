@@ -169,13 +169,14 @@
     <div class="fm">
         <div class="player">
             <div class="pic" style="background-image:url(${picPath});"></div>
-            <div class="player-ctrl">
+            <div class="player-ctrl"
+                    data-id="${id}" data-title="${title}" data-file="${filePath}">
                 <div class="progress"><span class="cur"></span></div>
                 <div class="time"><span class="now">00:08:32</span><span class="count">00:22:32</span></div>
                 <div class="btns">
                     <a href="javascript:;"><span class="icon-xiazai iconfont none"></span><br><em>下载</em></a>
                     <a href="javascript:;"><span class="icon-shangyishou iconfont"></span></a>
-                    <a href="javascript:;" class="cur"><span class="icon-zanting iconfont cur"></span></a>
+                    <a class="js-fm-play" href="javascript:;" class="cur"><span class="icon-bofangqibofang iconfont cur"></span></a>
                     <a href="javascript:;"><span class="icon-xiayishou iconfont"></span></a>
                     <a href="javascript:;"><span class="icon-fenxiang iconfont none"></span><br><em>分享</em></a>
                 </div>
