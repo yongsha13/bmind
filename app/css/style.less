@@ -1,4 +1,5 @@
 /*@import "_animation.less";*/
+
 /*字体颜色*/
 @ft-cr-h0 : #fff;
 @ft-cr-h1 : #ff7938; //焦点
@@ -27,9 +28,10 @@
 
 .test{}
 html,body{ background: @bg-cr-h2;}
+ul{ overflow: hidden;}
 #mn{ font-size: .8rem;}
 .top .fm .player{ padding-top: 0;
-  .pic{ height: 10rem; background-repeat: no-repeat; background-position: center center; background-size: cover;}
+  .pic{ height: 170px; background-repeat: no-repeat; background-position: center center; background-size: cover;}
   .player-ctrl{position: relative; /*.fadeIn(0,-6rem); .animation(fadeIn .5s ease-in-out)*/}
 }
 .example{
@@ -86,12 +88,15 @@ html,body{ background: @bg-cr-h2;}
     }*/
   }
   .hot{
-    padding-top: 6.4rem;}
-  .player{ padding-top: 18rem;
+    padding-top: 7.4rem;}
+  .player{ padding-top: 270px;
     >img{ display: none; width: 100%;}
     .player-ctrl{ background: @bg-cr-h3;padding: 1rem 0; box-shadow: 0 3px 5px @ft-cr-h5;position: fixed; width: 100%; top: 0;
-      .progress{ background: @ft-cr-h2; height: .2rem; line-height: .2rem; box-shadow: 1px 1px 1px @ft-cr-h4; -webkit-box-shadow: 1px 1px 1px @ft-cr-h4;
-        .cur{ display: inline-block; vertical-align: middle; height: .2rem; width: 5rem; background: @bg-cr-h2;
+      .progress{ background: @ft-cr-h2; height: .2rem; line-height: .2rem; box-shadow: 1px 1px 1px @ft-cr-h4;
+        margin: 0 0 1rem;
+        -webkit-box-shadow: 1px 1px 1px @ft-cr-h4;
+
+        .cur{ display: inline-block; vertical-align: middle; height: .2rem; width: 0; background: @bg-cr-h2;
           &:after{display:block; float: right; content: ''; vertical-align: middle; height: .75rem; width: .75rem; margin: -.275rem 0; border-radius: 1rem; background: @bg-cr-h2;}
         }
       }
@@ -198,6 +203,7 @@ html,body{ background: @bg-cr-h2;}
       li{
         line-height: 1.5rem; color: @ft-cr-h5; padding-left: 1rem;
         input[type="radio"]{
+          border: none;
           -webkit-appearance: none;
           -moz-appearance: none;
           appearance:none;
@@ -244,7 +250,7 @@ html,body{ background: @bg-cr-h2;}
     transform: rotate(60deg); -webkit-transform: rotate(60deg); -moz-transform: rotate(60deg); -ms-transform: rotate(60deg); -o-transform: rotate(60deg); transform: rotate(60deg);}
 }
 .my-test{
-  li{ padding: .5rem .5rem 0; margin-bottom: .5rem; background: @bg-cr-h0;
+  li{ padding: 1rem .5rem .5rem; margin-bottom: .5rem; background: @bg-cr-h0;
     a{
       display: block; overflow: hidden;}
     .avatar{ float: left; width: 4rem; height: 4rem; border-radius: 5rem;
@@ -253,14 +259,15 @@ html,body{ background: @bg-cr-h2;}
       background-size: cover;
     }
     .li-cnt{ padding-left: 5rem; line-height: 2rem; margin: 0;
-      h3{ font-weight: 500; color: @ft-cr-h3; font-size: 1.1rem;}
+      h3{ font-weight: 500; color: @ft-cr-h3; font-size: 1.1rem;
+        margin-bottom: .5rem;}
       .icons{clear: none; margin: 0;}
       .category{float:left; padding: .2rem .5rem; margin: .1rem; color: @ft-cr-h5; font-size: .8rem; line-height: 1rem; border: 1px solid @ic-cr-h2; border-radius: 2rem;}
     }
   }
 }
 .list{
-  li{margin-top: .5rem; background: #ffffff; padding: .5rem; overflow: hidden; clear: both;
+  li{margin-top: .5rem; background: #ffffff; padding: 1rem .5rem; overflow: hidden; clear: both;
     .avatar{float: left; width: 4rem; height: 4rem; border-radius: 2.5rem;
       background-position: center center;
       -webkit-background-size: cover;
@@ -308,6 +315,7 @@ html,body{ background: @bg-cr-h2;}
   span{ display: inline-block; padding: 0 .5rem; color: @ft-cr-h5;
     &.iconfont{ font-size: 1rem;}
     &.space{float:right;}
+    &.category{float:left; padding: .2rem .5rem; margin: .1rem; color: @ft-cr-h5; font-size: .8rem; line-height: 1rem; border: 1px solid @ic-cr-h2; border-radius: 2rem;}
   }
   .like,.comment,.time{ float: right; padding:0 .3rem;}
   .icon-xihuan{color: @ic-cr-h1;}
@@ -320,7 +328,7 @@ html,body{ background: @bg-cr-h2;}
   .icon-xingji,.icon-xingjiban{ padding: 0; color: @ic-cr-h4;}
   .icon-xingjiline{ padding: 0; color: @ft-cr-h5;}
 }
-a.more{ display: block; text-align: center; background: @bg-cr-h2; color: @ft-cr-h4; line-height: 2rem; margin: -.5rem; padding-bottom: .5rem;}
+a.more{ display: block; text-align: center; background: @bg-cr-h2; color: @ft-cr-h4; line-height: 2rem; margin: -1rem; padding: .5rem 0 .5rem;}
 
 .btn{ display: inline-block; padding: .3rem 1rem; line-height: 1.5rem; border-radius: .4rem;
   &.red{ background: @bg-cr-h1; color: #fff;}
@@ -337,5 +345,26 @@ a.more{ display: block; text-align: center; background: @bg-cr-h2; color: @ft-cr
   }
   &.orange{
     background: @ft-cr-h1; color: @ft-cr-h0;
+  }
+  &.gray{
+    background: @bg-cr-h2; color: @ft-cr-h1;
+  }
+}
+
+.alert-box{ position: fixed; width:100%; height:100%; top:0; left:0;
+  background: rgba(0, 0, 0, .3);
+  .box{ background: #fff; line-height:2rem;   padding: 1rem; margin:10rem 2rem 0;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    border-radius: .5rem;
+    p{ text-align: center;}
+    .close{ text-align: right;
+      .iconfont{ display: inline-block; width:1.5rem; height:1.5rem; color: @ft-cr-h1;}
+    }
+
+    .btn{ display: block; text-align: center; margin: 1rem 0;
+      -webkit-border-radius: 1rem;
+      -moz-border-radius: 1rem;
+      border-radius: 1rem;}
   }
 }

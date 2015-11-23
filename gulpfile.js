@@ -28,11 +28,14 @@ gulp.task('minifycss',function(){
 gulp.task('minfyjs',function(){
     gulp.src('./app/js/*.js')
         .pipe(concat('main.js'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(rename({extname:'.min.js'}))
         .pipe(gulp.dest('./app/tpl/'));
 });
-
+gulp.task('watch',function(){
+    gulp.watch('./app/css/*.css',['minifycss']);
+    gulp.watch('./app/js/*.js',['minfyjs']);
+});
 gulp.task('default'/*,['jshint']*/,function(){
     gulp.start('minifycss','minfyjs');
 });

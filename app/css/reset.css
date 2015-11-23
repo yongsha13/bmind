@@ -91,7 +91,7 @@ html { overflow-y: scroll; }
         font-size: 14px;
     }
 }
-@media screen and (min-width: 320px) and (max-width: 340px) {
+/*@media screen and (min-width: 320px) and (max-width: 340px) {
     html,
     body {
         font-size: 15px;
@@ -181,7 +181,7 @@ html { overflow-y: scroll; }
     body {
         font-size: 28px;
     }
-}
+}*/
 @media screen and (min-width: 1024px) and (max-width: 1280px) {
     html,
     body {

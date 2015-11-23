@@ -32,5 +32,55 @@ var tplData = {
             {id:9, name:'title',     title:'标题控制'},
             {id:10,name:'alert',     title:'弹提示消息'}
         ]
+    },
+    musicList:[],
+    getMusic:function(dir,id,fun){
+        console.log([dir,id,this.musicList]);
+        if(dir==0){
+            if(typeof fun=='function')
+                fun(this.getMusicPos(id));
+            else
+                return this.getMusic(id);
+            return;
+        }
+        if(id&&this.musicList.length>0){
+            var pos = this.getMusicPos(id);
+            if(dir<0 &&pos>0){
+                window.location.hash = '#/bm/fm/player/'+this.musicList[pos-1].id;
+                typeof fun=='function' && fun(this.musicList[pos-1]);
+            }
+            else if(dir>0 && pos<this.musicList.length-1){
+                window.location.hash = '#/bm/fm/player/'+this.musicList[pos+1].id;
+                typeof fun=='function' && fun(this.musicList[pos-1]);
+            }
+            else goRandomMusic();
+
+        }else goRandomMusic();
+        function goRandomMusic(){
+            this.getRandomMusic(function(res){
+                if(dir>0) tplData.musicList.push(res);
+                else tplData.musicList.unshift(res);
+                window.location.hash = '#/bm/fm/player/'+res.id;
+                typeof fun=='function' && fun(res);
+            });
+           /* ajax('getRandomMusic',{},function(res){
+                if(dir>0) tplData.musicList.push(res.music);
+                else tplData.musicList.unshift(res.music);
+                window.location.hash = '#/bm/fm/player/'+res.music.id;
+                typeof fun=='function' && fun(res.music);
+                console.log(res);
+            });*/
+        }
+    },
+    getRandomMusic:function(callback){
+        ajax('getRandomMusic',{},function(res){
+            callback(res.music);
+            console.log(res);
+        });
+    },
+    getMusicPos:function(id){
+        for(var i=0;i<this.musicList.length;i++)
+            if(this.musicList[i].id==id) return i;
+        return -1;
     }
 }

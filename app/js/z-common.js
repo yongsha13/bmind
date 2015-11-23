@@ -18,18 +18,19 @@ var bmApi = {
     api:function(apiName,data,callback){
         this.index++;
         var id = this.getIdByName(apiName);
-        if(id<=0){alert('调用的接口不存在,apiName:'+apiName+',id:'+id);return;}
-        if(!window['bm']){alert('接口对象不存在');return}
+        this.callbacks[this.index] =  typeof callback=='function'?callback:function(){alert('没有回调函数')};
+        //if(id<=0){alert('调用的接口不存在,apiName:'+apiName+',id:'+id);return;}
+        //if(!window['bm']){alert('接口对象不存在');return}
         //alert('调用接口 id:'+id+',crumb:'+this.index+',data:'+JSON.stringify(data));
-        this.callbacks[this.index] =  typeof callback=='function'?callback:function(){};
+        //this.callbacks[this.index] =  typeof callback=='function'?callback:function(){};
         //this.callbacks.push({apiId:id,crumb:this.index,fn:callback});
         window['bm'].api(id,this.index,JSON.stringify(data));
-        window['bmCallback'] ||
+        /*window['bmCallback'] ||
         (window['bmCallback'] = function(res){
             //alert('接口回调1:'+JSON.stringify(res));
             var fun = this.getCallback(res['crum']);
             if(fun && typeof fun=='function') fun(data);
-        });
+        });*/
     },
     getIdByName:function(apiName){
         for(var i=0;i<this.apiNames.length;i++)
@@ -37,6 +38,7 @@ var bmApi = {
         return 0;
     },
     getCallback:function(crumb){
+
         return this.callbacks[crumb];
         /*if(this.callbacks.length>crumb) return this.callbacks[crumb];
         return null;*/
@@ -50,8 +52,10 @@ var bmApi = {
     }
 };
 function bmCallback(res){
+    //alert('JS接收到回调：'+JSON.stringify(res));
     //alert('接口回调0:'+JSON.stringify(res));
-    window.bmApi.callbacks[res['crum']]();
+
+    window.bmApi.callbacks[res['crum']](res);
     //alert(JSON.stringify(window.bmApi));
     /*var fun = window.bmApi.getCallback(res['crum']);
     console.log('回调');
@@ -75,7 +79,7 @@ TPL.addFilter('url',function(source,useExtra){
 });
 var debug = false;
 $(function(){
-
+    window.params['userLevel'] = 1;
     $.get('./tpl/template.html',function(req){
         TPL.compile(req);
         window.router = Router(routes).configure({ recurse: 'forward' });
@@ -91,6 +95,44 @@ $(function(){
         //console.log(['scroll',$(window).scrollTop()]);
     });
     $('#mn')
+        /*提醒关闭按钮*/
+        .on('click','.alert-box .close span',function(){
+            $(this).closest('.alert-box').hide();
+        })
+        /*显示必须为会员提醒*/
+        .on('click','.js-show-join',function(){
+            $('#mn').append(TPL.render('alertBox',{}));
+        })
+        /*分享音频*/
+        .on('click','.js-fm-share',function(){
+            bmApi.api('share',{})
+        })
+        /*下载音频*/
+        .on('click','.js-fm-download',function(){
+            var id = $(this).closest('.player-ctrl').data('id');
+            bmApi.api('download',tplData.getMusic(0,id));
+        })
+        /*随机播放*/
+        .on('click','.js-random-player',function(){
+            tplData.getRandomMusic(function(res){
+                bmApi.api('player',{method:1,url:res.filePath});
+            });
+        })
+        /*上一首，下一首*/
+        .on('click','.js-fm-change',function(){
+            var id = $(this).closest('.player-ctrl').data('id');
+            if($(this).hasClass('prev')){
+                tplData.getMusic(-1,id,function(res){
+                    bmApi.api('player',{method:1,url:res.filePath});
+                });
+            }
+            if($(this).hasClass('next')){
+                tplData.getMusic(1,id,function(res){
+                    bmApi.api('player',{method:1,url:res.filePath});
+                });
+            }
+        })
+        /*播放暂停控制*/
         .on('click','.js-fm-play',function(){
             var data = $(this).closest('.player-ctrl').data();
             /*console.log(data);*/
@@ -99,9 +141,20 @@ $(function(){
                 btn.removeClass('icon-bofangqibofang').addClass('icon-zanting');
                 bmApi.api('player',{method:1,url:data.file,playId:data.id},function(res){
                     //alert('播放回调完成');;
-                    bmApi.api('player',{method:4},function(res){
-                        alert('状态回调：'+JSON.stringify(res))
-                    });
+                    window.playerStatusTime = setInterval(function(){
+                        bmApi.api('player',{method:4},function(res){
+                            var playPercent = res.data['playProcess']<0.02?0.02:res.data['playProcess'];
+                            $('.icons .level em').html(res.data['playProcess']);
+                            var downPercent = res.data['downProcess'];
+                            if(playPercent>.999){
+                                tplData.getMusic(1,$(this).closest('.player-ctrl').data('id'),function(res){
+                                    bmApi.api('player',{method:1,url:res.filePath});
+                                });
+                            }
+                            $('.progress .cur').css('width',playPercent*100+'%');
+                        })
+                    },500);
+
                     /*if(!window['listenPlayer']){
                         window['listenPlayer'] = setInterval(function(){
 
@@ -164,6 +217,7 @@ $(function(){
                 optionsID:optionID
             },function(){});
         })
+        /*api接口测试按钮*/
         .on('click','.js-api-submit',function(){
             window['apiIndex']?window['apiIndex']++:(window['apiIndex'] = 1);
             //console.log(JSON.parse($('#js-api-args').val()));
@@ -180,6 +234,7 @@ $(function(){
                 $('.js-api-output').html('没有找到 window.bm 对象，请确定接口是否已经初始化！[浏览器下无bm对象]');
             }
         })
+        /*api接口测试2*/
         .on('click','.js-api-submit-2',function(){
             window['apiIndex']?window['apiIndex']++:(window['apiIndex'] = 1);
             if(window['bm']){
@@ -196,6 +251,7 @@ $(function(){
             cache.test.cur = $(this).data('id');
             location.hash = '/bm/tt/scale/'+cache.test.cur;
         })*/
+        /*更多测评*/
         .on('click','.js-more-test',function(){
             var _this = this;
             var data = $(this).data();
@@ -205,6 +261,7 @@ $(function(){
                 $(_this).closest('li').replaceWith(TPL.render('ttListLi',data));
             });
         })
+        /*更多评论*/
         .on('click','.js-more-comment',function(){
             var _this = this;
             var data = $(this).data();
@@ -223,6 +280,7 @@ $(function(){
                 //$('#mn').html($.templates['fmPlayer'].render(data));
             })
         })
+        /*更多音频*/
         .on('click','.js-more-music',function(){
             var data = $(this).data();
             var _this = this;
@@ -234,6 +292,7 @@ $(function(){
                 $(_this).closest('li').replaceWith(TPL.render('fmListLi',data));
             })
         })
+        /*更多动态*/
         .on('click','.js-more-active',function(){
             var data = $(this).data();
             ajax('getUserDynamic',data,function(req){
@@ -241,6 +300,7 @@ $(function(){
                 $('#mn').html($.templates['myActive'].render({activeList:req.list,page:2}));
             })
         })
+        /*评分功能*/
         .on('click','.js-level-click span',function(){
             var index = $(this).index();
             $('.js-level-click span').removeClass('icon-xingji').addClass('icon-xingjiline');
@@ -265,7 +325,10 @@ function ajax(url,data,callback,errorback){
         dataType:'JSON',
         data:data,
         success:function(req){
-            console.log(req);
+            if(url == 'getMusic'&& !data.mid){//音频缓存
+                if(data.page==1) tplData.musicList = req.list;
+                else tplData.musicList.concat(req.list);
+            }
             if(parseInt(req['result'])==1) callback(req);
             else errorback(req);
         },

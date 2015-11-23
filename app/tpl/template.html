@@ -14,7 +14,7 @@
 
 {{target: listLi}}<!--列表母板-->
     {{for: ${items} as ${item} }}
-    <li>
+    <li{{if: ${item.memberLevel}==3 }} class="vip" {{/if}}>
         {{block: cnt }}未装载内容 {{/block}}
     </li>
     {{/for}}
@@ -102,8 +102,8 @@
 {{target:liFooter}}<!-- 列表底部内容 -->
 <div class="icons">
     {{if: ${category} }}
-        <span class="category">
-            <a href="#/bm/fm/category/1/${category.id}">${category.name}</a>
+        <span class="category">${category.name}
+            <!--<a href="#/bm/fm/category/1/${category.id}">${category.name}</a>-->
         </span>
     {{/if}}
     {{if: ${comment} }}
@@ -113,7 +113,7 @@
     {{/if}}
     {{if: ${like} }}
         <span class="like">
-            | <span class="icon-xihuan iconfont"></span>${like.count}
+             <span class="icon-xihuan iconfont"></span>${like.count}
         </span>
     {{/if}}
     {{if: ${time} }}
@@ -143,7 +143,7 @@
 
 {{target: fmBanner}}<!--音频banner-->
     <div class="banner">
-        <a href="javascript:;"><img src="./images/icon-1.png" alt=""/>试试手气</a>
+        <a class="js-random-player" href="javascript:;"><img src="./images/icon-1.png" alt=""/>试试手气</a>
         <a href="#/bm/fm/category/1/1"><img src="./images/icon-2.png" alt=""/>放轻松</a>
         <a href="#/bm/fm/category/1/6"><img src="./images/icon-3.png" alt=""/>好好睡</a>
         <a href="#/bm/fm/category/1/5"><img src="./images/icon-4.png" alt=""/>爱自己</a>
@@ -172,13 +172,13 @@
             <div class="player-ctrl"
                     data-id="${id}" data-title="${title}" data-file="${filePath}">
                 <div class="progress"><span class="cur"></span></div>
-                <div class="time"><span class="now">00:08:32</span><span class="count">00:22:32</span></div>
+                <!--<div class="time"><span class="now">00:08:32</span><span class="count">00:22:32</span></div>-->
                 <div class="btns">
-                    <a href="javascript:;"><span class="icon-xiazai iconfont none"></span><br><em>下载</em></a>
-                    <a href="javascript:;"><span class="icon-shangyishou iconfont"></span></a>
+                    <a class="js-fm-download" href="javascript:;"><span class="icon-xiazai iconfont none"></span><br><em>下载</em></a>
+                    <a class="js-fm-change prev" href="javascript:;"><span class="icon-shangyishou iconfont"></span></a>
                     <a class="js-fm-play" href="javascript:;" class="cur"><span class="icon-bofangqibofang iconfont cur"></span></a>
-                    <a href="javascript:;"><span class="icon-xiayishou iconfont"></span></a>
-                    <a href="javascript:;"><span class="icon-fenxiang iconfont none"></span><br><em>分享</em></a>
+                    <a class="js-fm-change next" href="javascript:;"><span class="icon-xiayishou iconfont"></span></a>
+                    <a class="js-fm-share" href="javascript:;"><span class="icon-fenxiang iconfont none"></span><br><em>分享</em></a>
                 </div>
                 <div class="status">正在下载音频</div>
             </div>
@@ -352,14 +352,17 @@
 
 {{target: ttListLi(master=listLi) }}
     {{block: cnt}}
-        {{use: liAvatar(
-        src=${item.picPath}
-        )}}
-        <div class="li-cnt">
-            <h3><a href="#/bm/tt/scale/${item.scaleID}">${item.title}</a></h3>
-            <div class="category">${item.sort}</div>
-        </div>
+<a {{if: ${userLevel}==${item.memberLevel} }}href="#/bm/tt/scale/${item.scaleID}"{{else}} href="javascript:;" class="js-show-join" {{/if}}>
+    {{use: liAvatar(
+    src=${item.picPath}
+    )}}
+    <div class="li-cnt">
+        <h3>${item.title}</h3>
         {{use: liFooter(
+        category={
+        id:${item.musicType},
+        name:${item.sort}
+        },
         comment={
         count:${item.commentNum}
         },
@@ -367,6 +370,9 @@
         count:${item.testNum}
         }
         )}}
+    </div>
+</a>
+
     {{/block}}
     {{block:more}}
         <a href="javascript:;" class="more js-more-test" data-page="${page}" data-type="${type}">更多测试</a>
@@ -489,3 +495,16 @@
             <ul class="comment"></ul>
         </div>
     </div>
+
+{{target: alertBox}}
+    <div class="alert-box">
+        <div class="box">
+            <div class="close"><span class=".icon-iconfonticonfontclose iconfont">&#xe621;</span></div>
+            <p>
+                这是会员专属喔~！<br>想体验就成为我们的会员吧！
+            </p>
+            <a href="javascript:;" class="btn orange">直接登录</a>
+            <a href="http://shop.m.taobao.com/shop/shop_index.htm?shop_id=141796130" class="btn gray">成为会员</a>
+        </div>
+    </div>
+

@@ -2,12 +2,6 @@
  * Created by wangyong on 14-9-26.
  */
 
-
-;function render(name){
-    //$('#mn').html(TPL(name,{}));
-    //$('#mn').html($.templates[name].render(tplData[name]));
-}
-
 ;var routes = {
     '/bm': {
         on: function () {
@@ -17,24 +11,27 @@
             window['isPlayerUI'] = false;
         },
         '/api':function(){
+            bmApi.api('title',{title:'接口调试'});
             $('#mn').html(TPL.render('bmAPI',{list:tplData.bmApi.list,outStr:JSON.stringify(tplData.bmApi)}));
         },
         '/list':function(){
             console.log()
+            bmApi.api('title',{title:'hash路由参数文档'});
             $('#mn').html(TPL.render('bmList',{items:tplData.bmList.list}));
         },
         '/fm': {
             '/index': function () {
+                bmApi.api('title',{title:'情绪调频'});
                 ajax('getMusic',{type:0,page:1,property:0},function(req){
                     $('#mn').html(TPL.render('fmIndex',{items:req.list,page:2,type:0,property:0}));
                 })
             },
             '/player/:id': function (id) {
+                bmApi.api('title',{title:'情绪调频'});
                 window['isPlayerUI'] = true;
                 var data = {};
                 ajax('getMusic',{type:0,page:1,property:0,mid:id},function(req){
                     //console.log(req);
-
                     data = req.list[0];
                     /*alert('准备调用接口');
                     bmApi.api('player',{method:1,url:data.filePath,playId:id},function(res){
@@ -55,6 +52,7 @@
 
             },
             '/professor/:id': function (id) {
+                bmApi.api('title',{title:'主播频道'});
                 ajax('getMusic',{type:0,page:1,property:0,professiorId:id},function(req){
                     var data = {items:req.list,professorId:id,type:0,property:0,page:2};
                     console.log(data);
@@ -63,6 +61,7 @@
                 //render('fmAuthor');
             },
             '/category/:property/:type': function (property,type) {
+                bmApi.api('title',{title:'频道分类'});
                 ajax('getMusic',{type:type,page:1,property:property},function(req){
                     var data = {
                         items:req.list,
@@ -81,6 +80,7 @@
                 //render('fmCategory');
             },
             '/search': function () {
+                bmApi.api('title',{title:'音频搜索'});
                 render('fmSearch');
             }
         },
@@ -105,19 +105,23 @@
                 })
             },
             '/edit/:cType/:paperId/:score': function (cType,paperId,score) {
+                bmApi.api('title',{title:'评论'});
                 $('#mn').html(TPL.render('commentEdit',{cType:cType,paperId:paperId,tuId:'',commentID:'',score:score}));
             },
             '/edit/:cType/:paperId/:tuId/:commentID':function(cType,paperId,tuId,commentID){
+                bmApi.api('title',{title:'回复评论'});
                 $('#mn').html(TPL.render('commentEdit',{cType:cType,paperId:paperId,tuId:tuId,commentID:commentID}));
             }
         },
         '/my':{
             '/active':function(){//动态
+                bmApi.api('title',{title:'我的动态'});
                 ajax('getUserDynamic',{uid:params['uid'],page:1},function(req){
                     $('#mn').html($.templates['myActive'].render({activeList:req.list,page:2}));
                 });
             },
             '/group/:id':function(id){//圈子
+                bmApi.api('title',{title:'我的圈子'});
                 ajax('getUserActivityList',{typeId:id,page:1},function(req){
                     var data = {
                         items:req.list,
@@ -135,6 +139,7 @@
                 render('myGroup');
             },
             '/test':function(){
+                bmApi.api('title',{title:'我的评测'});
                 ajax('getUserScale',{page:1},function(req){
                     console.log(TPL.render('myTest',{items:req.list}));
                     $('#mn').html(TPL.render('myTest',{items:req.list,page:2}));
@@ -150,8 +155,10 @@
         },
         '/tt':{
             '/index':function(){
+                bmApi.api('title',{title:'心理测评'});
                 ajax('getScaleList',{page:1,type:1},function(req){
                     var data = {
+                        userLevel:window.params['userLevel'],
                         items:req.list,
                         page:2,
                         type:1
@@ -163,6 +170,7 @@
 
             },
             '/list/:id':function(id){
+                bmApi.api('title',{title:'心理测评'});
                 ajax('getScaleBySort',{sort:id},function(req){
                     req['page'] = 2;
                     $('#mn').html(TPL.render('ttList',req));
@@ -170,6 +178,7 @@
                 render('ttList');
             },
             '/scale/:id':function(id){
+                bmApi.api('title',{title:'心理测评'});
                 ajax('getMentalTestQuestion',{
                     scaleID:id,
                     page:1,
@@ -187,6 +196,7 @@
                 });
             },
             '/question/:step':function(step){
+                bmApi.api('title',{title:'心理测评'});
                 if(cache.test.questions.length==0){
                     location.hash = '/bm/tt/index';
                     return false;
@@ -197,6 +207,7 @@
                 $('#mn').html(TPL.render('ttQuestion',cache.test));
             },
             '/result/:id':function(id){
+                bmApi.api('title',{title:'测试结果'});
                 ajax('getMentalTestResult',{scaleRecordID:id},function(req){
                     req['id'] = id;
                     $('#mn').html(TPL.render('ttResult',req));
