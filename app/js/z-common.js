@@ -38,17 +38,7 @@ var bmApi = {
         return 0;
     },
     getCallback:function(crumb){
-
         return this.callbacks[crumb];
-        /*if(this.callbacks.length>crumb) return this.callbacks[crumb];
-        return null;*/
-        /*alert('取回调函数:'+crumb+',回调列表：'+JSON.stringify(this.callbacks));
-        for(var i=0;i<this.callbacks.length;i++)
-            if(crumb == this.callback.crumb) {
-                this.callbacks[i].fn? alert('ok'):alert('error');
-                return this.callbacks[i].fn;
-            }
-        return null;*/
     }
 };
 function bmCallback(res){
