@@ -46,12 +46,12 @@ var tplData = {
         if(id&&this.musicList.length>0){
             var pos = this.getMusicPos(id);
             if(dir<0 &&pos>0){
-                window.location.hash = '#/bm/fm/player/'+this.musicList[pos-1].id;
+                //window.location.hash = '#/bm/fm/player/'+this.musicList[pos-1].id;
                 typeof fun=='function' && fun(this.musicList[pos-1]);
             }
             else if(dir>0 && pos<this.musicList.length-1){
-                window.location.hash = '#/bm/fm/player/'+this.musicList[pos+1].id;
-                typeof fun=='function' && fun(this.musicList[pos-1]);
+                //window.location.hash = '#/bm/fm/player/'+this.musicList[pos+1].id;
+                typeof fun=='function' && fun(this.musicList[pos+1]);
             }
             else goRandomMusic();
 
@@ -60,16 +60,10 @@ var tplData = {
             this.getRandomMusic(function(res){
                 if(dir>0) tplData.musicList.push(res);
                 else tplData.musicList.unshift(res);
-                window.location.hash = '#/bm/fm/player/'+res.id;
+                //window.location.hash = '#/bm/fm/player/'+res.id;
                 typeof fun=='function' && fun(res);
             });
-           /* ajax('getRandomMusic',{},function(res){
-                if(dir>0) tplData.musicList.push(res.music);
-                else tplData.musicList.unshift(res.music);
-                window.location.hash = '#/bm/fm/player/'+res.music.id;
-                typeof fun=='function' && fun(res.music);
-                console.log(res);
-            });*/
+
         }
     },
     getRandomMusic:function(callback){

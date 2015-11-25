@@ -8,6 +8,7 @@
  * npm install gulp-minify-css gulp-uglify gulp-concat gulp-rename gulp-jshint --save-dev
  */
 var gulp = require('gulp'),
+    less = require('gulp-less'),
     minifycss=require('gulp-minify-css'),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
@@ -19,7 +20,8 @@ var gulp = require('gulp'),
         .pipe(jshint.reporter('default'));
 });*/
 gulp.task('minifycss',function(){
-    return gulp.src('./app/css/*.css')
+    return gulp.src('./app/css/style.less')
+        .pipe(less())
         .pipe(concat('main.css'))
         .pipe(rename({suffix:'.min'}))
         .pipe(minifycss())
@@ -33,7 +35,7 @@ gulp.task('minfyjs',function(){
         .pipe(gulp.dest('./app/tpl/'));
 });
 gulp.task('watch',function(){
-    gulp.watch('./app/css/*.css',['minifycss']);
+    gulp.watch('./app/css/style.less',['minifycss']);
     gulp.watch('./app/js/*.js',['minfyjs']);
 });
 gulp.task('default'/*,['jshint']*/,function(){

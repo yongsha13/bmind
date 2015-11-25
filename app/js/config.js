@@ -9,6 +9,7 @@
             window.scrollTo(0, 0);
             $('#mn').addClass('top');
             window['isPlayerUI'] = false;
+            window['playerStatusTime'] && clearInterval(window['playerStatusTime']);
         },
         '/api':function(){
             bmApi.api('title',{title:'接口调试'});
@@ -31,6 +32,20 @@
                 window['isPlayerUI'] = true;
                 var data = {};
                 ajax('getMusic',{type:0,page:1,property:0,mid:id},function(req){
+                    window.playerStatusTime = setInterval(function(){
+                        bmApi.api('player',{method:4},function(res){
+                            var playPercent = res.data['playProcess']<0.02?0.02:res.data['playProcess'];
+                            $('.icons .level em').html(res.data['playProcess']);
+                            var downPercent = res.data['downProcess'];
+                            /*if(playPercent>.999){
+                                tplData.getMusic(1,$(this).closest('.player-ctrl').data('id'),function(res){
+                                    bmApi.api('player',{method:1,url:res.filePath});
+                                });
+                            }*/
+                            $('.progress .cur').css('width',playPercent*100+'%');
+                            $('article p').html(JSON.stringify(res));
+                        })
+                    },500);
                     //console.log(req);
                     data = req.list[0];
                     /*alert('准备调用接口');

@@ -1,26 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="LessManager">
-    <option name="lessProfileMap">
-      <map>
-        <entry key="0">
-          <value>
-            <LessProfile>
-              <option name="compressOutput" value="true" />
-              <option name="cssDirectories">
-                <list>
-                  <CssDirectory>
-                    <option name="path" value="I:\project\github\bmind\app\css" />
-                  </CssDirectory>
-                </list>
-              </option>
-              <option name="id" value="0" />
-              <option name="lessDirPath" value="I:\project\github\bmind\app\css" />
-              <option name="name" value="style.less" />
-            </LessProfile>
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-</project>
+<project version="4" />

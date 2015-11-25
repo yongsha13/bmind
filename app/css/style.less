@@ -1,5 +1,5 @@
 /*@import "_animation.less";*/
-
+@import "reset.css";
 /*字体颜色*/
 @ft-cr-h0 : #fff;
 @ft-cr-h1 : #ff7938; //焦点
@@ -57,38 +57,27 @@ ul{ overflow: hidden;}
 .fm{ min-width: 320px; overflow-x: auto; height: 100%;
   h2{ font-weight: 500; padding-left: .5rem; font-size: 1.2rem;}
   .banner{ position: fixed;
-    top: 0; z-index: 999;
+    width:100%;
+    top: 0; z-index: 9999;
     padding: .8rem 0 0;
+    text-align:center;
     overflow: hidden;
     background: @bg-cr-h0;
-    a{float:left; width:20%;
+    a{display: inline-block; width:20%;
       background: @bg-cr-h0;
       text-align: center;
       line-height: 1.5rem;
       img{
         display: block;
         margin: 0 auto; clear: both; overflow: hidden;
-        width: 60%;}
+        width: 4rem;}
     }
-    h2{
-      line-height: 2rem;
+    h2{ text-align:left;
+      line-height: 2rem; overflow: hidden; clear: both;
       background: @bg-cr-h2;}
-    /*.bg{margin-left: -30rem; margin-top: -66rem; width: 80rem; height: 80rem; border-radius: 50rem; background: @bg-cr-h3;}
-    .cnt{ margin-top: -13rem; height: 13rem;text-align: center;
-      .btn-1{ margin: 0 auto; width: 5rem; }
-      .iconfont{ display: inline-block; width: 2.5rem; height: 2rem; padding: 1rem .5rem 1rem 1rem; font-size: 2rem; color: @ic-cr-h3; border: 2px solid @ic-cr-h3; border-radius: 4rem;}
-      .random{ display: inline-block; border: 1px solid @ic-cr-h3; color: @ic-cr-h3; padding: .2rem .8rem; border-radius: .5rem; margin-top: .5rem; font-size: .8rem;}
-      .btn-2{ margin-top: -1.5rem;
-        a{ display: inline-block; width: 4rem; height: 4rem; margin: 0 .2rem;  text-align: center; color: @ft-cr-h5; font-size: .8rem;vertical-align: text-top;
-          &:first-child,&:last-child{ vertical-align: text-bottom;}
-          img{ width: 100%;}
-        }
-      }
-
-    }*/
   }
   .hot{
-    padding-top: 7.4rem;}
+    padding-top: 8.4rem;}
   .player{ padding-top: 270px;
     >img{ display: none; width: 100%;}
     .player-ctrl{ background: @bg-cr-h3;padding: 1rem 0; box-shadow: 0 3px 5px @ft-cr-h5;position: fixed; width: 100%; top: 0;
@@ -267,7 +256,7 @@ ul{ overflow: hidden;}
   }
 }
 .list{
-  li{margin-top: .5rem; background: #ffffff; padding: 1rem .5rem; overflow: hidden; clear: both;
+  li{margin-top: .5rem; background: #ffffff; padding: 1rem .5rem .5rem; overflow: hidden; clear: both;
     .avatar{float: left; width: 4rem; height: 4rem; border-radius: 2.5rem;
       background-position: center center;
       -webkit-background-size: cover;
@@ -315,7 +304,7 @@ ul{ overflow: hidden;}
   span{ display: inline-block; padding: 0 .5rem; color: @ft-cr-h5;
     &.iconfont{ font-size: 1rem;}
     &.space{float:right;}
-    &.category{float:left; padding: .2rem .5rem; margin: .1rem; color: @ft-cr-h5; font-size: .8rem; line-height: 1rem; border: 1px solid @ic-cr-h2; border-radius: 2rem;}
+    &.category{ padding: .2rem .5rem; margin: .1rem; color: @ft-cr-h5; font-size: .8rem; line-height: 1rem; border: 1px solid @ic-cr-h2; border-radius: 2rem;}
   }
   .like,.comment,.time{ float: right; padding:0 .3rem;}
   .icon-xihuan{color: @ic-cr-h1;}
