@@ -20,7 +20,7 @@ var bmApi = {
         var id = this.getIdByName(apiName);
         this.callbacks[this.index] =  typeof callback=='function'?callback:function(){/*alert('没有回调函数')*/};
         //if(id<=0){alert('调用的接口不存在,apiName:'+apiName+',id:'+id);return;}
-        if(!window['bm']){alert('接口对象不存在');return}
+        if(!window['bm']){/*alert('接口对象不存在');*/return}
         //alert('调用接口 id:'+id+',crumb:'+this.index+',data:'+JSON.stringify(data));
         this.callbacks[this.index] =  typeof callback=='function'?callback:function(){};
         //this.callbacks.push({apiId:id,crumb:this.index,fn:callback});
