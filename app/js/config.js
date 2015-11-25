@@ -131,7 +131,7 @@
         '/my':{
             '/active':function(){//动态
                 bmApi.api('title',{title:'我的动态'});
-                ajax('getUserDynamic',{uid:params['uid'],page:1},function(req){
+                ajax('getUserDynamic',{page:1},function(req){
                     $('#mn').html($.templates['myActive'].render({activeList:req.list,page:2}));
                 });
             },

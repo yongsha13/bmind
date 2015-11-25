@@ -18,7 +18,7 @@ var bmApi = {
     api:function(apiName,data,callback){
         this.index++;
         var id = this.getIdByName(apiName);
-        this.callbacks[this.index] =  typeof callback=='function'?callback:function(){alert('没有回调函数')};
+        this.callbacks[this.index] =  typeof callback=='function'?callback:function(){/*alert('没有回调函数')*/};
         //if(id<=0){alert('调用的接口不存在,apiName:'+apiName+',id:'+id);return;}
         if(!window['bm']){alert('接口对象不存在');return}
         //alert('调用接口 id:'+id+',crumb:'+this.index+',data:'+JSON.stringify(data));
@@ -143,7 +143,7 @@ $(function(){
             if(btn.hasClass('icon-bofangqibofang')){
                 btn.removeClass('icon-bofangqibofang').addClass('icon-zanting');
                 var data = {method:1,url:data.file,playId:data.id};
-                alert(JSON.stringify(data));
+                //alert(JSON.stringify(data));
                 bmApi.api('player',data,function(res){
                     //alert('播放回调完成');;
 
@@ -220,7 +220,7 @@ $(function(){
                 var apiArgs = JSON.stringify(JSON.parse($('#js-api-args').val()));
                 $('.js-api-output').html('执行：window.bm.api('+apiId+','+bmApi.index+',"'+apiArgs+'");<br>等待接口回调...');
                 bmApi.api(apiId,apiArgs,function(res){
-                    alert(res);
+                    //(res);
                     $('.js-api-output').html(res);
                 })
             }else{
