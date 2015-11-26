@@ -81,11 +81,17 @@ ul{ overflow: hidden;}
   .player{ padding-top: 270px;
     >img{ display: none; width: 100%;}
     .player-ctrl{ background: @bg-cr-h3;padding: 1rem 0; box-shadow: 0 3px 5px @ft-cr-h5;position: fixed; width: 100%; top: 0;
-      .progress{ background: @ft-cr-h2; height: .2rem; line-height: .2rem; box-shadow: 1px 1px 1px @ft-cr-h4;
-        margin: 0 0 1rem;
+      .progress{ background: @ft-cr-h2; height: .2rem; line-height: .2rem; box-shadow: 1px 1px 1px @ft-cr-h4; position: relative;
+        //margin: 0 0 1rem;
         -webkit-box-shadow: 1px 1px 1px @ft-cr-h4;
-
-        .cur{ display: inline-block; vertical-align: middle; height: .2rem; width: 0; background: @bg-cr-h2;
+        .down{
+          display: block;
+          position: absolute;
+          width: 0;
+          height: .2rem;
+          background: @ft-cr-h4;}
+        .cur{ display: block;
+          position: absolute; vertical-align: middle; height: .2rem; width: 0; background: @bg-cr-h2;
           &:after{display:block; float: right; content: ''; vertical-align: middle; height: .75rem; width: .75rem; margin: -.275rem 0; border-radius: 1rem; background: @bg-cr-h2;}
         }
       }

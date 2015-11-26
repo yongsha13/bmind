@@ -34,13 +34,16 @@ var tplData = {
         ]
     },
     musicList:[],
+    /*从音频列表中取音频，无音频时，随机取一个*/
     getMusic:function(dir,id,fun){
         console.log([dir,id,this.musicList]);
         if(dir==0){
+            var pos = this.getMusicPos(id);
+            var music = pos<0?null:this.musicList[pos];
             if(typeof fun=='function')
-                fun(this.getMusicPos(id));
+                fun(music);
             else
-                return this.getMusic(id);
+                return music;
             return;
         }
         if(id&&this.musicList.length>0){

@@ -1,7 +1,23 @@
 /**
  * Created by wangyong on 14-9-26.
  */
+function fmtTime(time,fmt){
+    var t = new Date(time);
+    var o = {
+        "M+" : t.getMonth()+1,                 //月份
+        "d+" : t.getDate(),                    //日
+        "h+" : t.getHours(),                   //小时
+        "m+" : t.getMinutes(),                 //分
+        "s+" : t.getSeconds(),                 //秒
+        "q+" : Math.floor((t.getMonth()+3)/3), //季度
+        "S"  : t.getMilliseconds()             //毫秒
+    };
+    for(var k in o)
+        if(new RegExp("("+ k +")").test(fmt))
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+    return fmt;
 
+}
 ;var routes = {
     '/bm': {
         on: function () {
@@ -33,17 +49,39 @@
                 var data = {};
                 ajax('getMusic',{type:0,page:1,property:0,mid:id},function(req){
                     window.playerStatusTime = setInterval(function(){
-                        bmApi.api('player',{method:4},function(res){
-                            var playPercent = res.data['playProcess']<0.02?0.02:res.data['playProcess'];
-                            $('.icons .level em').html(res.data['playProcess']);
+                        /*todo 正在播放的音频与当前浏览的音频同步逻辑 */
+                        bmApi.api('player',{method:4},function(res){//$('article p').html(JSON.stringify(res));
+                            var playPercent = res.data['playProcess'];/*<0.02?0.02:res.data['playProcess'];*/
+
                             var downPercent = res.data['downProcess'];
-                            /*if(playPercent>.999){
-                                tplData.getMusic(1,$(this).closest('.player-ctrl').data('id'),function(res){
-                                    bmApi.api('player',{method:1,url:res.filePath});
+                            var duration = parseInt(res.data['duration']);
+                            var countTime = fmtTime(duration*1000,'mm:ss');
+                            var currentTime = fmtTime(parseInt(res.data['duration']*res.data['playProcess'])*1000,'mm:ss');
+                            /*播放进度条控制*/
+                            $('.progress .cur').css('width',(playPercent*97+3)+'%');
+                            $('.progress .down').css('width',(downPercent*100)+'%');
+                            $('.player-ctrl .now').html(currentTime);
+                            $('.player-ctrl .count').html(countTime);
+                            //$('.icons .level em').html(res.data['playProcess']);
+                            //$('article p').html(JSON.stringify(res));
+                            /*自动下一首*/
+                            playPercent>0.999 &&
+                            tplData.getMusic(1,id,function(res){
+                                var data = {method:1,url:res.filePath,playId:res.id};
+                                //alert('找到下一首：'+JSON.stringify(data));
+                                bmApi.api('player',data,function(res){
+                                    //alert('下一首回调：'+JSON.stringify(res));
+
                                 });
-                            }*/
-                            $('.progress .cur').css('width',playPercent*100+'%');
-                            $('article p').html(JSON.stringify(res));
+                                location.hash = '/bm/fm/player/'+data.playId;
+                            });
+
+                            function fmt(num){
+                                num = parseInt(num);
+                                var s = num%60;
+                                var m = parseInt(num/60);
+                                return m>9?m:'0'+m + ':'+ (s>9?s:'0'+s);
+                            }
                         })
                     },500);
                     //console.log(req);
@@ -132,7 +170,7 @@
             '/active':function(){//动态
                 bmApi.api('title',{title:'我的动态'});
                 ajax('getUserDynamic',{page:1},function(req){
-                    $('#mn').html($.templates['myActive'].render({activeList:req.list,page:2}));
+                    $('#mn').html(TPL.render('myActive',{items:req.list,page:2}));
                 });
             },
             '/group/:id':function(id){//圈子

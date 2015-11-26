@@ -175,8 +175,8 @@
             <div class="pic" style="background-image:url(${picPath});"></div>
             <div class="player-ctrl"
                     data-id="${id}" data-title="${title}" data-file="${filePath}">
-                <div class="progress"><span class="cur"></span></div>
-                <!--<div class="time"><span class="now">00:08:32</span><span class="count">00:22:32</span></div>-->
+                <div class="progress"><span class="down"></span><span class="cur"></span></div>
+                <div class="time"><span class="now">00:00</span><span class="count">00:00</span></div>
                 <div class="btns">
                     <a class="js-fm-download" href="javascript:;"><span class="icon-xiazai iconfont none"></span><br><em>下载</em></a>
                     <a class="js-fm-change prev" href="javascript:;"><span class="icon-shangyishou iconfont"></span></a>
@@ -308,6 +308,13 @@
     </a>
 
     {{/block}}
+
+{{target: myActive}}
+    <div class="my">
+        <ul class="active">
+            {{import: myActiveListLi}}
+        </ul>
+    </div>
 
 {{target: myActiveListLi}}
     {{block:cnt}}
