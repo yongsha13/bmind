@@ -96,12 +96,29 @@ $(function(){
         })
         /*分享音频*/
         .on('click','.js-fm-share',function(){
-            bmApi.api('share',{})
+            var id = $(this).closest('.player-ctrl').data('id');
+            var music = tplData.getMusic(0,id,function(res){});
+            var data = {
+                title:music.title,
+                content:'主播：'+music.professor,
+                link:'http://gzbmind.oicp.net:81/BmindPage/fm/player/m-'+id+'/'+params['uid'],
+                src:music.picPath
+            }
+            bmApi.api('share',data)
         })
         /*下载音频*/
-        .on('click','.js-fm-download',function(){
+        .on('click','.js-fm-download',function(){//alert('点击下载');
             var id = $(this).closest('.player-ctrl').data('id');
-            bmApi.api('download',tplData.getMusic(0,id));
+            //alert('获取音频数据：'+id);
+            tplData.getMusic(0,id,function(data){
+                //alert('重组音频数据：'+JSON.stringify(data));
+                data['url'] = data['filePath'];
+                //alert('准备下载：'+JSON.stringify(data));
+                bmApi.api('download',data,function(res){
+                    alert('回调：'+JSON.stringify(res));
+                });
+            });
+
         })
         /*随机播放*/
         .on('click','.js-random-player',function(){
@@ -118,9 +135,10 @@ $(function(){
                     var data = {method:1,url:res.filePath,playId:res.id};
                     //alert('找到上一首：'+JSON.stringify(data));
                     bmApi.api('player',data,function(res){
-                        //alert('上一首回调：'+JSON.stringify(res));
-                        location.hash = '/bm/fm/player/'+data.playId;
+                        alert('上一首回调：'+JSON.stringify(res));
+
                     });
+                    location.hash = '/bm/fm/player/'+data.playId;
                 });
             }
             if($(this).hasClass('next')){
@@ -129,9 +147,10 @@ $(function(){
                     var data = {method:1,url:res.filePath,playId:res.id};
                     //alert('找到下一首：'+JSON.stringify(data));
                     bmApi.api('player',data,function(res){
-                        //alert('下一首回调：'+JSON.stringify(res));
-                        location.hash = '/bm/fm/player/'+data.playId;
+                        alert('下一首回调：'+JSON.stringify(res));
+
                     });
+                    location.hash = '/bm/fm/player/'+data.playId;
                 });
             }
         })
@@ -296,11 +315,16 @@ $(function(){
         /*评分功能*/
         .on('click','.js-level-click span',function(){
             var index = $(this).index();
-            $('.js-level-click span').removeClass('icon-xingji').addClass('icon-xingjiline');
-            $('.js-level-click span:lt('+index+')').removeClass('icon-xingjiline').addClass('icon-xingji')
+            $('.js-level-click span').each(function(i,v){
+                if(i<index)$(v).removeClass('icon-xingjiline').addClass('icon-xingji');
+                else $(v).removeClass('icon-xingji').addClass('icon-xingjiline');
+                //console.log(i,v);
+            })
+            /*$('.js-level-click span').removeClass('icon-xingji').addClass('icon-xingjiline');
+            $('.js-level-click span:lt('+index+')').removeClass('icon-xingjiline').addClass('icon-xingji')*/
                 /*.siblings('span').removeClass('icon-xingji').addClass('icon-xingjiline');*/
             $('#score').val(index);
-            console.log(index);
+            //console.log(index);
         })
 });
 
