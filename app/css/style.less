@@ -108,7 +108,7 @@ ul{ overflow: hidden;}
         }
         em{ display: inline-block; color: @ft-cr-h5; line-height: 1.2rem; font-size: .8rem;}
       }
-      .status{ display: none; position: absolute; width: 100%; bottom: 0; line-height: 1.2rem; text-align: center; border: 1px solid @bd-cr-h1; color: @ft-cr-h1; background: @bg-cr-h4; font-size: .8rem;}
+      .status{ display: none; position: absolute; width: 100%; bottom: -1.2rem; line-height: 1.2rem; text-align: center; border: 1px solid @bd-cr-h1; box-sizing: border-box; color: @ft-cr-h1; background: @bg-cr-h4; font-size: .8rem;}
     }
     /*&.top{ padding-top: 6.6rem;
       &.tips{ padding-top: 7.8rem;}
@@ -244,7 +244,7 @@ ul{ overflow: hidden;}
   &:after{display: block; content: ''; position: absolute; top: -2.4rem; left: -1.1rem; z-index:998; width: 3rem; height: 4rem; background: @bg-cr-h1;
     transform: rotate(60deg); -webkit-transform: rotate(60deg); -moz-transform: rotate(60deg); -ms-transform: rotate(60deg); -o-transform: rotate(60deg); transform: rotate(60deg);}
 }
-.my-test{
+.my-test{overflow:visible;
   li{ padding: 1rem .5rem .5rem; margin-bottom: .5rem; background: @bg-cr-h0;
     a{
       display: block; overflow: hidden;}
@@ -261,7 +261,7 @@ ul{ overflow: hidden;}
     }
   }
 }
-.list{
+.list{ overflow: visible;
   li{margin-top: .5rem; background: #ffffff; padding: 1rem .5rem .5rem; overflow: hidden; clear: both;
     .avatar{float: left; width: 4rem; height: 4rem; border-radius: 2.5rem;
       background-position: center center;
@@ -280,7 +280,7 @@ ul{ overflow: hidden;}
   article{
     h1{ font-weight: 500; font-size: 1.1rem; line-height: 1.2rem; text-align: center; padding-top: 1rem;}
     h2{ font-weight: 500; font-size: .8rem; line-height: 1.5rem; color: @ft-cr-h1; text-align: center;}
-    p{ padding: 0 .5rem; text-indent: 1.6rem; line-height: 1.2rem; font-size: .8rem;}
+    .cnt{ padding: 0 .5rem; text-indent: 1.6rem; line-height: 1.3rem; font-size: .8rem;}
   }
   .ctrl{ padding: .5rem; text-align: right;
     a{ display: inline-block; text-align: center;}
@@ -304,6 +304,7 @@ ul{ overflow: hidden;}
 
   textarea{display: block; border: none; width: 100%; height: 20rem; box-sizing: border-box; padding: .5rem;}
   .ctrl{
+    padding: .5rem 0;
     text-align: center;}
 }
 .icons{ margin-top: 1rem; line-height: 2rem; color: @ft-cr-h5; overflow: hidden; clear: both; font-size: .8rem;

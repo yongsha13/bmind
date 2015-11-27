@@ -51,6 +51,8 @@ function fmtTime(time,fmt){
                     window.playerStatusTime = setInterval(function(){
                         /*todo 正在播放的音频与当前浏览的音频同步逻辑 */
                         bmApi.api('player',{method:4},function(res){//$('article p').html(JSON.stringify(res));
+                            //$('article .cnt').html(JSON.stringify(res)+'<br>'+res['playId']+':'+id);
+                            if(res['data']&&res.data['playId']!=id) return false;
                             var playPercent = res.data['playProcess'];/*<0.02?0.02:res.data['playProcess'];*/
 
                             var downPercent = res.data['downProcess'];
@@ -63,7 +65,7 @@ function fmtTime(time,fmt){
                             $('.player-ctrl .now').html(currentTime);
                             $('.player-ctrl .count').html(countTime);
                             //$('.icons .level em').html(res.data['playProcess']);
-                            //$('article p').html(JSON.stringify(res));
+                            //$('article .cnt').html(JSON.stringify(res));
                             /*自动下一首*/
                             playPercent>0.999 &&
                             tplData.getMusic(1,id,function(res){
@@ -127,7 +129,7 @@ function fmtTime(time,fmt){
                         property:property,
                         page:2
                     };
-                    console.log(data);
+                    console.log(['分类数据：',data]);
                     $('#mn').html(TPL.render('fmCategory',data));
                 })
                 //render('fmCategory');
@@ -173,8 +175,12 @@ function fmtTime(time,fmt){
                     $('#mn').html(TPL.render('myActive',{items:req.list,page:2}));
                 });
             },
-            '/group/:id':function(id){//圈子
+            '/group':function(){
                 bmApi.api('title',{title:'我的圈子'});
+                location.hash = '/bm/my/group/1';
+            },
+            '/group/:id':function(id){//圈子
+
                 ajax('getUserActivityList',{typeId:id,page:1},function(req){
                     var data = {
                         items:req.list,
@@ -189,7 +195,6 @@ function fmtTime(time,fmt){
                     };
                     $('#mn').html(TPL.render('myGroup',data));
                 });
-                render('myGroup');
             },
             '/test':function(){
                 bmApi.api('title',{title:'我的评测'});
@@ -224,11 +229,29 @@ function fmtTime(time,fmt){
             },
             '/list/:id':function(id){
                 bmApi.api('title',{title:'心理测评'});
-                ajax('getScaleBySort',{sort:id},function(req){
-                    req['page'] = 2;
+                var reqData = {
+                    sort:id,
+                    page:1
+                }
+                ajax('getScaleBySort',reqData,function(req){
+
                     $('#mn').html(TPL.render('ttList',req));
                 });
-                render('ttList');
+                /*$(window).scroll(function(){
+                    if ($(document).height() - $(this).scrollTop() - $(this).height()<100){
+                        reqData['page'] ++;
+                        ajax('getScaleBySort',reqData,function(req){
+                            var data = {
+                                items:req.list
+                            }
+                            data['items'] = req.list;
+                            data['page'] = parseInt(data['page']) +1;
+                            $('a.more').closest('li').replaceWith(TPL.render('ttListLi',data));
+                        });
+                    }
+
+                });*/
+                //render('ttList');
             },
             '/scale/:id':function(id){
                 bmApi.api('title',{title:'心理测评'});
@@ -249,7 +272,7 @@ function fmtTime(time,fmt){
                 });
             },
             '/question/:step':function(step){
-                bmApi.api('title',{title:'心理测评'});
+                //bmApi.api('title',{title:'心理测评'});
                 if(cache.test.questions.length==0){
                     location.hash = '/bm/tt/index';
                     return false;

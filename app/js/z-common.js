@@ -115,7 +115,18 @@ $(function(){
                 data['url'] = data['filePath'];
                 //alert('准备下载：'+JSON.stringify(data));
                 bmApi.api('download',data,function(res){
-                    alert('回调：'+JSON.stringify(res));
+
+                    var status = parseInt(res.data['downloadResult']);
+                    status = status?status:3;
+                    $('article .cnt').html(JSON.stringify(res)+":"+status);
+                    var tips = ['','下载失败','下载完成','正在下载','已经下载'];
+                    var $dom = $('.player-ctrl .status');
+                    if(status>0) $dom.html(tips[status]).slideDown();
+                    if(status==2)
+                        setTimeout(function(){
+                            $dom.slideUp();
+                        },5000);
+                    //alert('回调：'+JSON.stringify(res));
                 });
             });
 
@@ -200,7 +211,7 @@ $(function(){
             if(!data['tuId']) delete data['tuId'];
             if(!data['commentID']) delete data['commentID'];
             ajax('saveComment',data,function(req){
-                console.log(req);
+                history.go(-1);
             })
         })
         .on('click','.js-tt-list-tabs',function(){
