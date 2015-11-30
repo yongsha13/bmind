@@ -122,7 +122,7 @@ $(function(){
                     var tips = ['','下载失败','下载完成','正在下载','已经下载'];
                     var $dom = $('.player-ctrl .status');
                     if(status>0) $dom.html(tips[status]).slideDown();
-                    if(status==2)
+                    if(status!=3)
                         setTimeout(function(){
                             $dom.slideUp();
                         },5000);
@@ -345,7 +345,7 @@ function ajax(url,data,callback,errorback){
     if(debug)
         remoteUrl = './test/'+url+'.json';
     else
-        remoteUrl = "/BmindAPI/Page/"+url+'.action';
+        remoteUrl = "/BmindAPINew/Page/"+url+'.action';
     data['uid'] = params['uid'];
     $.ajax({
         url:remoteUrl,
