@@ -329,11 +329,7 @@ $(function(){
             $('.js-level-click span').each(function(i,v){
                 if(i<index)$(v).removeClass('icon-xingjiline').addClass('icon-xingji');
                 else $(v).removeClass('icon-xingji').addClass('icon-xingjiline');
-                //console.log(i,v);
             })
-            /*$('.js-level-click span').removeClass('icon-xingji').addClass('icon-xingjiline');
-            $('.js-level-click span:lt('+index+')').removeClass('icon-xingjiline').addClass('icon-xingji')*/
-                /*.siblings('span').removeClass('icon-xingji').addClass('icon-xingjiline');*/
             $('#score').val(index);
             //console.log(index);
         })
