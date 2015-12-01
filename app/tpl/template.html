@@ -38,7 +38,7 @@
 
 <a
         {{if: ${roleId} < ${item.memberLevel} }}
-            class="js-show-join" href="javascript:;"
+            class="js-show-join" data-type="music" href="javascript:;"
         {{else}}
             href="#/bm/fm/player/${item.id}"
         {{/if}}
@@ -372,7 +372,7 @@
     {{block: cnt}}
 <a
         {{if: ${roleId} < ${item.memberLevel} }}
-            href="javascript:;" class="js-show-join"
+            href="javascript:;" class="js-show-join" data-type="test"
         {{else}}
             href="#/bm/tt/scale/${item.scaleID}"
         {{/if}}>

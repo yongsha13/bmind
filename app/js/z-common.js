@@ -92,7 +92,12 @@ $(function(){
         })
         /*显示必须为会员提醒*/
         .on('click','.js-show-join',function(){
-            bmApi.api('location',{});
+            if($(this).attr(type)=='music'){
+                bmApi.api('location',{text:tplData.tips.memberMusic});
+            }
+            if($(this).attr(type)=='test'){
+                bmApi.api('location',{text:tplData.tips.memberTest});
+            }
             //$('#mn').append(TPL.render('alertBox',{}));
         })
         /*分享音频*/

@@ -34,6 +34,10 @@ var tplData = {
             {id:10,name:'alert',     title:'弹提示消息'}
         ]
     },
+    tips:{
+        memberTest:'该测试只对会员开放，点击购买前往购买会员，若已有帐号，请前往登录',
+        memberMusic:'该音频只对会员开放，点击购买前往购买会员，若已有帐号，请前往登录'
+    },
     musicList:[],
     /*从音频列表中取音频，无音频时，随机取一个*/
     getMusic:function(dir,id,fun){
