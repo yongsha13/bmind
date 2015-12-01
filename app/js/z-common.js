@@ -16,8 +16,10 @@ var bmApi = {
     apiNames:['','user-info','login','player','download','chat','upload','share','location','title','alert'],
     callbacks:[],
     api:function(apiName,data,callback){
+
         this.index++;
         var id = this.getIdByName(apiName);
+        alert('JS调用接口：'+id+'； 数据：'+JSON.stringify(data));
         this.callbacks[this.index] =  typeof callback=='function'?callback:function(){/*alert('没有回调函数')*/};
         //if(id<=0){alert('调用的接口不存在,apiName:'+apiName+',id:'+id);return;}
         if(!window['bm']){/*alert('接口对象不存在');*/return}
@@ -33,9 +35,10 @@ var bmApi = {
         });*/
     },
     getIdByName:function(apiName){
-        for(var i=0;i<this.apiNames.length;i++)
+        return this.apiNames.indexOf(apiName);
+        /*for(var i=0;i<this.apiNames.length;i++)
             if(apiName == this.apiNames[i]) return i;
-        return 0;
+        return 0;*/
     },
     getCallback:function(crumb){
         return this.callbacks[crumb];
@@ -43,7 +46,7 @@ var bmApi = {
 };
 function bmCallback(res){
 
-    //alert('JS接收到回调：'+JSON.stringify(res));
+    alert('JS接收到回调：'+JSON.stringify(res));
     //alert('接口回调0:'+JSON.stringify(res));
 
     window.bmApi.callbacks[res['crum']](res);
@@ -86,6 +89,7 @@ $(function(){
         //console.log(['scroll',$(window).scrollTop()]);
     });
     $('#mn')
+        /*咨询师按钮*/
         .on('click','.js-ask',function(){
             bmApi.api('chat',{});
         })
@@ -95,10 +99,10 @@ $(function(){
         })
         /*显示必须为会员提醒*/
         .on('click','.js-show-join',function(){
-            if($(this).attr(type)=='music'){
+            if($(this).attr("type")=='music'){
                 bmApi.api('location',{text:tplData.tips.memberMusic});
             }
-            if($(this).attr(type)=='test'){
+            if($(this).attr("type")=='test'){
                 bmApi.api('location',{text:tplData.tips.memberTest});
             }
             //$('#mn').append(TPL.render('alertBox',{}));
@@ -293,6 +297,7 @@ $(function(){
             var data = $(this).data();
             ajax('getScaleList',data,function(req){
                 data['items'] = req.list;
+                data['roleId'] = tplData.roleId;
                 data['page'] = parseInt(data['page']) +1;
                 $(_this).closest('li').replaceWith(TPL.render('ttListLi',data));
             });
@@ -324,6 +329,7 @@ $(function(){
             ajax('getMusic',$(this).data(),function(req){
                 //var data = {};
                 data['items'] = req.list;
+                data['roleId'] = tplData.roleId;
                 data['page'] = parseInt(data['page'])+1;
                 $(_this).closest('li').replaceWith(TPL.render('fmListLi',data));
             })

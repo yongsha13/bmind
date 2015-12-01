@@ -26,11 +26,14 @@ function fmtTime(time,fmt){
             $('#mn').addClass('top');
             window['isPlayerUI'] = false;
             window['playerStatusTime'] && clearInterval(window['playerStatusTime']);
-            bmApi.api('user-info',{},function(res){
+            //alert('准备取用户信息');
+            bmApi.api('user-info',{},function(res){//获取用户信息
+                //alert(JSON.stringify(res));
                 tplData.roleId = res.data.roleId;
-                alert(tplData.roleId);
+                //alert(tplData.roleId);
                 //alert(JSON.stringify(res));
             })
+            bmApi.api('player',{method:6});//显示左上角正在播放的图标
         },
         '/api':function(){
             bmApi.api('title',{title:'接口调试'});
@@ -56,10 +59,11 @@ function fmtTime(time,fmt){
                 var data = {};
                 ajax('getMusic',{type:0,page:1,property:0,mid:id},function(req){
                     window.playerStatusTime = setInterval(function(){
-                        /*todo 正在播放的音频与当前浏览的音频同步逻辑 */
+
                         bmApi.api('player',{method:4},function(res){//$('article p').html(JSON.stringify(res));
                             //$('article .cnt').html(JSON.stringify(res)+'<br>'+res['playId']+':'+id);
                             if(res['data']&&res.data['playId']!=id) return false;
+                            bmApi.api('player',{method:5});//隐藏左上角正在播放的图标
                             var playPercent = res.data['playProcess'];/*<0.02?0.02:res.data['playProcess'];*/
 
                             var downPercent = res.data['downProcess'];
