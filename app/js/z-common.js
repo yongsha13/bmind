@@ -86,6 +86,9 @@ $(function(){
         //console.log(['scroll',$(window).scrollTop()]);
     });
     $('#mn')
+        .on('click','.js-ask',function(){
+            bmApi.api('chat',{});
+        })
         /*提醒关闭按钮*/
         .on('click','.alert-box .close span',function(){
             $(this).closest('.alert-box').hide();
