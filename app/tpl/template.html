@@ -18,7 +18,7 @@
 
 {{target: listLi}}<!--列表母板-->
     {{for: ${items} as ${item} }}
-    <li{{if: ${item.memberLevel}==3 }} class="vip" {{/if}}>
+    <li{{if: ${item.memberLevel}>1 }} class="vip" {{/if}}>
         {{block: cnt }}未装载内容 {{/block}}
     </li>
     {{/for}}
@@ -35,7 +35,14 @@
 
 {{target: fmListLi(master=listLi)}}<!--音频列表-->
 {{block: cnt}}
-<a href="#/bm/fm/player/${item.id}">
+
+<a
+        {{if: ${roleId} < ${item.memberLevel} }}
+            class="js-show-join" href="javascript:;"
+        {{else}}
+            href="#/bm/fm/player/${item.id}"
+        {{/if}}
+>
     {{use: liAvatar(
     src=${item.picPath}
     )}}
@@ -363,7 +370,12 @@
 
 {{target: ttListLi(master=listLi) }}
     {{block: cnt}}
-<a {{if: ${userLevel}==${item.memberLevel} }}href="#/bm/tt/scale/${item.scaleID}"{{else}} href="javascript:;" class="js-show-join" {{/if}}>
+<a
+        {{if: ${roleId} < ${item.memberLevel} }}
+            href="javascript:;" class="js-show-join"
+        {{else}}
+            href="#/bm/tt/scale/${item.scaleID}"
+        {{/if}}>
     {{use: liAvatar(
     src=${item.picPath}
     )}}

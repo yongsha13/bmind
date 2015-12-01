@@ -1,4 +1,5 @@
 var tplData = {
+    roleId:1,//权限
     bmList:{
         list:[
             {url:'#/bm/fm/index',title:'情绪调频首页',rule:'#/bm/fm/index',args:'无'},

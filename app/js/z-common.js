@@ -92,7 +92,8 @@ $(function(){
         })
         /*显示必须为会员提醒*/
         .on('click','.js-show-join',function(){
-            $('#mn').append(TPL.render('alertBox',{}));
+            bmApi.api('location',{});
+            //$('#mn').append(TPL.render('alertBox',{}));
         })
         /*分享音频*/
         .on('click','.js-fm-share',function(){
@@ -229,16 +230,17 @@ $(function(){
             for(var i=0;i<questions.length;i++)
                 if(questions[i]['questionID'] == questionID)
                     questions[i]['result'] = optionID;
-            var btnStr =
+            /*var btnStr =
                 cur >= cache.test.questions.length?
                     '<a class="btn red" href="#/bm/tt/result/'+cache.test.scaleRecordID+'">查看结果</a>':
                     '<a class="btn red" href="#/bm/tt/question/'+(cur+1)+'">下一题</a>'
-            $('.js-questions-next').replaceWith(btnStr);
+            $('.js-questions-next').replaceWith(btnStr);*/
             ajax('saveOptionsRecord',{
                 scaleRecordID:cache.test.scaleRecordID,
                 questionID:questionID,
                 optionsID:optionID
             },function(){});
+            location.hash = '/bm/tt/question/'+(parseInt($(this).data('cur'))+1);
         })
         /*api接口测试按钮*/
         .on('click','.js-api-submit',function(){
@@ -370,7 +372,7 @@ function loadAllQuestion(scaleID,page,count,versionCode,userSource){
         userSource:userSource
     },function(req){
         cache.test.questions = req.list;
-        cache.test.questions.concat(req.list);
+        cache.test.questions = cache.test.questions.concat(req.list);
         loadAllQuestion(scaleID,page+1,count,versionCode,userSource);
         /*
         cache.test.title = req.title;

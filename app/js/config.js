@@ -26,6 +26,11 @@ function fmtTime(time,fmt){
             $('#mn').addClass('top');
             window['isPlayerUI'] = false;
             window['playerStatusTime'] && clearInterval(window['playerStatusTime']);
+            bmApi.api('user-info',{},function(res){
+                tplData.roleId = res.data.roleId;
+                alert(tplData.roleId);
+                //alert(JSON.stringify(res));
+            })
         },
         '/api':function(){
             bmApi.api('title',{title:'接口调试'});
@@ -39,8 +44,10 @@ function fmtTime(time,fmt){
         '/fm': {
             '/index': function () {
                 bmApi.api('title',{title:'情绪调频'});
-                ajax('getMusic',{type:0,page:1,property:0},function(req){
-                    $('#mn').html(TPL.render('fmIndex',{items:req.list,page:2,type:0,property:0}));
+
+                ajax('getMusic',{type:0,page:1,property:0},function(res){
+                    var data = {roleId:tplData.roleId,items:res.list,page:2,type:0,property:0};
+                    $('#mn').html(TPL.render('fmIndex',data));
                 })
             },
             '/player/:id': function (id) {
@@ -88,6 +95,7 @@ function fmtTime(time,fmt){
                     },500);
                     //console.log(req);
                     data = req.list[0];
+                    data.roleId = tplData.roleId;
                     /*alert('准备调用接口');
                     bmApi.api('player',{method:1,url:data.filePath,playId:id},function(res){
                         //alert(JSON.stringify(res));
@@ -218,6 +226,7 @@ function fmtTime(time,fmt){
                     var data = {
                         userLevel:window.params['userLevel'],
                         items:req.list,
+                        roleId:tplData.roleId,
                         page:2,
                         type:1
                     };
@@ -233,9 +242,9 @@ function fmtTime(time,fmt){
                     sort:id,
                     page:1
                 }
-                ajax('getScaleBySort',reqData,function(req){
-
-                    $('#mn').html(TPL.render('ttList',req));
+                ajax('getScaleBySort',reqData,function(res){
+                    res['roleId'] = tplData.roleId;
+                    $('#mn').html(TPL.render('ttList',res));
                 });
                 /*$(window).scroll(function(){
                     if ($(document).height() - $(this).scrollTop() - $(this).height()<100){
