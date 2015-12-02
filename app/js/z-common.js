@@ -15,11 +15,21 @@ var bmApi = {
     index:0,
     apiNames:['','user-info','login','player','download','chat','upload','share','location','title','alert'],
     callbacks:[],
+    waitCallback:false,
+    beginWaitTime:0,
     api:function(apiName,data,callback){
-
+        if(this.waitCallback){
+            setTimeout(function(){
+                this.api(apiName,data,callback);
+            },100);
+            return;
+        }
+        this.waitCallback = true;
+        this.beginWaitTime = new Date();
         this.index++;
         var id = this.getIdByName(apiName);
-        alert('JS调用接口：'+id+'； 数据：'+JSON.stringify(data));
+        die('call-'+id+'-'+this.index,'JS-API调用接口：',data);
+        //alert('JS调用接口：'+id+'； 数据：'+JSON.stringify(data));
         this.callbacks[this.index] =  typeof callback=='function'?callback:function(){/*alert('没有回调函数')*/};
         //if(id<=0){alert('调用的接口不存在,apiName:'+apiName+',id:'+id);return;}
         if(!window['bm']){/*alert('接口对象不存在');*/return}
@@ -45,8 +55,9 @@ var bmApi = {
     }
 };
 function bmCallback(res){
-
-    alert('JS接收到回调：'+JSON.stringify(res));
+    bmApi.waitCallback = false;
+    die('back','JS-API回调',res);
+    //alert('JS接收到回调：'+JSON.stringify(res));
     //alert('接口回调0:'+JSON.stringify(res));
 
     window.bmApi.callbacks[res['crum']](res);
@@ -89,6 +100,18 @@ $(function(){
         //console.log(['scroll',$(window).scrollTop()]);
     });
     $('#mn')
+        .on('click','.share-ctrl',function(){
+            var c = ['icon-bofangqibofang','icon-zanting'];
+            var btn = $(this).find('span');
+            if(btn.hasClass(c[0])){
+                $('#audio')[0].play();
+                btn.removeClass(c[0]).addClass(c[1]);
+            }else{
+                $('#audio')[0].pause();
+                btn.removeClass(c[1]).addClass(c[0]);
+            }
+
+        })
         /*咨询师按钮*/
         .on('click','.js-ask',function(){
             bmApi.api('chat',{});
@@ -398,5 +421,16 @@ function loadAllQuestion(scaleID,page,count,versionCode,userSource){
         cache.test.curQuestions = 0;
         cache.test.scaleRecordID = req.ScaleRecordID;
         $('#mn').html(TPL.render('ttScale',cache.test));*/
+    });
+}
+
+function die(method,descript,data){
+    data['描述'] = descript;
+    $.ajax({
+        url:'/debug?method='+method,
+        type:'POST',
+        data:data,
+        success:function(res){},
+        error:function(){}
     });
 }

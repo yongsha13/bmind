@@ -531,3 +531,33 @@
         </div>
     </div>
 
+{{target: shareMusic}}
+<div class="fm">
+    <div class="player">
+        <div class="pic" style="background-image:url(${picPath});"></div>
+        <div class="share-ctrl">
+            <span class="icon-bofangqibofang iconfont"></span>
+        </div>
+        <audio id="audio" src="${filePath}"></audio>
+        <div class="article">
+            <div class="icons">
+                {{use: levelScore(score=${avg})}}
+            </div>
+            <article>
+                <h1>${title}</h1>
+                <h2><a href="#/bm/fm/professor/${professorId}">主播：${professor}</a></h2>
+                <div class="cnt">${musicDes}</div>
+            </article>
+        </div>
+        <div class="app-download">
+
+            <img src="images/e.png" alt="心灵e站"/>
+            <a href="#" class="btn orange">免费下载</a>
+            <div class="cnt">
+                <h2>心灵e站</h2>
+                <p>在这里，遇见更好的你</p>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -17,6 +17,7 @@ var tplData = {
             {url:'#/bm/tt/list/1',title:'心理测评列表',rule:'#/bm/tt/index/:sort',args:'sort:1->专业测试/2->趣味测试'},
             {url:'#/bm/tt/scale/2',title:'量表测评',rule:'#/bm/tt/scale/:scaleID',args:'scaleID:量表ID'},
             {url:'#/bm/tt/result/102',title:'测评结果',rule:'#/bm/tt/result/:scaleRecordID',args:'caleRecordID:测评量表ID'},
+            {url:'#/bm/share/music/195',title:'音频分享页',rule:'#/bm/share/music/:playId',args:'playId:音频ID；另：页面的params.uid必须要有用户ID'},
             {url:'#/bm/list',title:'[未完待续]',rule:'#/bm/xxx',args:'无'}
         ]
     },

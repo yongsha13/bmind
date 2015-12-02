@@ -30,10 +30,12 @@ function fmtTime(time,fmt){
             bmApi.api('user-info',{},function(res){//获取用户信息
                 //alert(JSON.stringify(res));
                 tplData.roleId = res.data.roleId;
+
                 //alert(tplData.roleId);
                 //alert(JSON.stringify(res));
-            })
+            });
             bmApi.api('player',{method:6});//显示左上角正在播放的图标
+            //
         },
         '/api':function(){
             bmApi.api('title',{title:'接口调试'});
@@ -312,6 +314,14 @@ function fmtTime(time,fmt){
                     });
                 });
 
+            }
+        },
+        '/share':{
+            '/music/:id':function(id){
+                ajax('getMusic',{type:0,page:1,property:0,mid:id},function(req){
+                    data = req.list[0];
+                    $('#mn').html(TPL.render('shareMusic',data));
+                });
             }
         }
     }
