@@ -13,36 +13,41 @@
 
 var bmApi = {
     index:0,
-    apiNames:['','user-info','login','player','download','chat','upload','share','location','title','alert'],
+    apiNames:['','user-info','login','player','download','chat','my-music','share','member','title','alert','del-music'],
     callbacks:[],
+    timeOut:3000,
     waitCallback:false,
     beginWaitTime:0,
     api:function(apiName,data,callback){
+        if(this.beginWaitTime>0){
+            var nowTime = new Date().getTime();
+            if(nowTime-this.beginWaitTime>this.timeOut){
+                this.beginWaitTime = 0;
+                this.waitCallback = false;
+                var index = this.callbacks.length-1;
+                var callback = this.callbacks[index];
+                trace('timeout-'+index,'接口超时',{});
+            }
+        }
+        /*处理并发情况，并发会被覆盖*/
         if(this.waitCallback){
+            trace('wait-'+this.getIdByName(apiName)+'-'+this.index,'接口被锁定，等待100毫秒',data);
             setTimeout(function(){
-                this.api(apiName,data,callback);
+                bmApi.api(apiName,data,callback);
             },100);
             return;
         }
+        /*加并发锁*/
         this.waitCallback = true;
-        this.beginWaitTime = new Date();
+        this.beginWaitTime = new Date().getTime();
         this.index++;
         var id = this.getIdByName(apiName);
-        die('call-'+id+'-'+this.index,'JS-API调用接口：',data);
-        //alert('JS调用接口：'+id+'； 数据：'+JSON.stringify(data));
-        this.callbacks[this.index] =  typeof callback=='function'?callback:function(){/*alert('没有回调函数')*/};
-        //if(id<=0){alert('调用的接口不存在,apiName:'+apiName+',id:'+id);return;}
-        if(!window['bm']){/*alert('接口对象不存在');*/return}
-        //alert('调用接口 id:'+id+',crumb:'+this.index+',data:'+JSON.stringify(data));
+        if(!window['bm']){trace('error-'+id+'-'+this.index,'接口不存在',data);return}
+        trace('call-'+id+'-'+this.index,'JS-API调用接口：', $.extend({crumb:this.index,apiId:id},data));
+        /*回调函数置入回调函数等待队列*/
         this.callbacks[this.index] =  typeof callback=='function'?callback:function(){};
-        //this.callbacks.push({apiId:id,crumb:this.index,fn:callback});
+        /*调用接口*/
         window['bm'].api(id,this.index,JSON.stringify(data));
-        /*window['bmCallback'] ||
-        (window['bmCallback'] = function(res){
-            //alert('接口回调1:'+JSON.stringify(res));
-            var fun = this.getCallback(res['crum']);
-            if(fun && typeof fun=='function') fun(data);
-        });*/
     },
     getIdByName:function(apiName){
         return this.apiNames.indexOf(apiName);
@@ -56,11 +61,13 @@ var bmApi = {
 };
 function bmCallback(res){
     bmApi.waitCallback = false;
-    die('back','JS-API回调',res);
+    bmApi.beginWaitTime = 0;
+    window.bmApi.callbacks[res['crum']](res);
+    trace('back-'+res.apiId+'-'+res.crum,'JS-API回调',res);
     //alert('JS接收到回调：'+JSON.stringify(res));
     //alert('接口回调0:'+JSON.stringify(res));
 
-    window.bmApi.callbacks[res['crum']](res);
+
     //alert(JSON.stringify(window.bmApi));
     /*var fun = window.bmApi.getCallback(res['crum']);
     console.log('回调');
@@ -100,6 +107,18 @@ $(function(){
         //console.log(['scroll',$(window).scrollTop()]);
     });
     $('#mn')
+        /*删除我的音乐*/
+        .on('click','.js-my-music-del',function(){
+            var _this = this;
+            bmApi.api('del-music',{url:$(this).data('url')},function(){
+                $(_this).closest('li').remove();
+            });
+        })
+        /*显示我的音乐操作界面*/
+        .on('click','.js-show-operation',function(){
+            $(this).closest('li').addClass('cur').siblings().removeClass('cur');
+        })
+        /*分享页播放控制*/
         .on('click','.share-ctrl',function(){
             var c = ['icon-bofangqibofang','icon-zanting'];
             var btn = $(this).find('span');
@@ -170,7 +189,8 @@ $(function(){
         /*随机播放*/
         .on('click','.js-random-player',function(){
             tplData.getRandomMusic(function(res){
-                bmApi.api('player',{method:1,url:res.filePath});
+                bmApi.api('player',{method:1,url:res.filePath,playId:res.id});
+                bmApi.api('player',{method:4});
             });
         })
         /*上一首，下一首*/
@@ -424,8 +444,10 @@ function loadAllQuestion(scaleID,page,count,versionCode,userSource){
     });
 }
 
-function die(method,descript,data){
-    data['描述'] = descript;
+function trace(method,descript,data){
+    return false;
+    //data['描述'] = descript;
+    data = $.extend({'描述':descript},data);
     $.ajax({
         url:'/debug?method='+method,
         type:'POST',

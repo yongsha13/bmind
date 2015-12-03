@@ -190,6 +190,8 @@ function fmtTime(time,fmt){
                 });
             },
             '/group':function(){
+                /*location.hash = '/bm/my/music';
+                return false;*/
                 bmApi.api('title',{title:'我的圈子'});
                 location.hash = '/bm/my/group/1';
             },
@@ -202,9 +204,11 @@ function fmtTime(time,fmt){
                         typeId:id,
                         cur:id,
                         tabs:[
-                            {id:1,url:'#/bm/my/group/1',name:'线下活动资讯'},
+                            {id:1,url:'#/bm/my/group/1',name:'官方活动'},
+                            {id:2,url:'#/bm/my/group/2',name:'找心吧'}
+                            /*{id:1,url:'#/bm/my/group/1',name:'线下活动资讯'},
                             {id:2,url:'#/bm/my/group/2',name:'线上活动招募令'},
-                            {id:3,url:'#/bm/my/group/3',name:'更多即将开放'}
+                            {id:3,url:'#/bm/my/group/3',name:'更多即将开放'}*/
                         ]
                     };
                     $('#mn').html(TPL.render('myGroup',data));
@@ -219,7 +223,13 @@ function fmtTime(time,fmt){
 
             },
             '/music':function(){
-                render('myMusic');
+                bmApi.api('title',{title:'我的音频'});
+                bmApi.api('my-music',{},function(res){
+                    trace('data','数据调试',res);
+                    $('#mn').html(TPL.render('myMusic',{items:res.data.list}));
+                });
+
+                //render('myMusic');
             },
             '/plan':function(){
                 render('myPlan');

@@ -290,6 +290,47 @@
         </form>
     </div>
 
+{{target: myMusic}}
+    <div class="list my">
+        <ul class="music">
+            {{import: myMusicListLi}}
+        </ul>
+    </div>
+
+{{target: myMusicListLi(master=listLi)}}
+{{block: cnt}}
+
+<a
+        class="js-show-operation" data-type="music" href="javascript:;"
+>
+{{use: liAvatar(
+    src=${item.picPath}
+)}}
+<div class="cnt">
+    {{use: levelScore(score=${item.avg})}}
+    <span class="professor">主播：${item.professor}</span>
+    <h3>${item.title}</h3>
+</div>
+    {{use: liFooter(
+    category={
+    id:${item.musicType},
+    name:${item.musicTypeName}
+    },
+    comment={
+    count:${item.commentTimes}
+    },
+    like={
+    count:${item.playTimes}
+    }
+    )}}
+</a>
+
+<div class="operation">
+    <a href="#/bm/fm/player/${item.id}" class="btn play">播放</a>
+    <a href="javascript:;" data-url="${item.filePath}" class="btn del js-my-music-del">删除</a>
+</div>
+{{/block}}
+
 {{target: myGroup}}
     <div class="my">
         {{import: tabs}}

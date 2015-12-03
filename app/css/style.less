@@ -180,6 +180,16 @@ ul{ overflow: hidden;}
       li{ border-top: 1px solid @bd-cr-h1; margin: 0;}
     }
   }
+
+  .music li{ position: relative;
+    .operation{ -webkit-transition: right .5s ease; transition: right .5s ease; position: absolute; right: -10rem; top: 0; height: 100%; background: @bg-cr-h2; padding: 0 1rem;
+      .btn{ display: block; line-height: 1.5rem; width: 6rem; color: @ft-cr-h0; text-align: center; margin: 1rem 0;
+        &.play{ background: @bg-cr-h6;}
+        &.del{ background: @bg-cr-h1;}
+      }
+    }
+    &.cur .operation{ right: 0;}
+  }
 }
 .tt{
   .index{
