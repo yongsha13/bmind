@@ -260,11 +260,13 @@ ul{ overflow: hidden;}
 .tabs{ line-height: 3rem;
   .ti{text-align: center; font-size: 1rem;
     span{ float: left; border-bottom: 2px solid @bd-cr-h1;
-      &.cur{ color: @ft-cr-h1; border-bottom: 2px solid @ft-cr-h1;}
+      &.cur{ color: @ft-cr-h1; border-bottom: 2px solid @ft-cr-h1; overflow: hidden;}
     }
   }
   &.col-2 .ti span{ width: 50%;}
   &.col-3 .ti span{ width: 33.33%;}
+  &.col-4 .ti span{ width: 25%;}
+  &.col-5 .ti span{ width: 20%;}
 }
 .vip{ position: relative; overflow: hidden;
   &:before{display: block; content: 'VIP'; font-size: .7rem; line-height: 1.1rem; padding: 0 .1rem; position: absolute;left: 0; top: 0; z-index:999; color: #fff;}
