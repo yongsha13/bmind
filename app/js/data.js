@@ -29,11 +29,12 @@ var tplData = {
             {id:3, name:'player',    title:'播放器'},
             {id:4, name:'download',  title:'文件下载'},
             {id:5, name:'chat',      title:'聊天'},
-            {id:6, name:'upload',    title:'上传图片'},
+            {id:6, name:'my-music',  title:'我的音频'},
             {id:7, name:'share',     title:'分享'},
-            {id:8, name:'location',  title:'地理位置'},
+            {id:8, name:'member',    title:'会员弹窗'},
             {id:9, name:'title',     title:'标题控制'},
-            {id:10,name:'alert',     title:'弹提示消息'}
+            {id:10,name:'alert',     title:'弹提示消息'},
+            {id:11,name:'del-music', title:'删除音频'}
         ]
     },
     tips:{

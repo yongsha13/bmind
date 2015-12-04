@@ -192,27 +192,41 @@ function fmtTime(time,fmt){
             '/group':function(){
                 /*location.hash = '/bm/my/music';
                 return false;*/
-                bmApi.api('title',{title:'我的圈子'});
-                location.hash = '/bm/my/group/1';
+
             },
             '/group/:id':function(id){//圈子
-
-                ajax('getUserActivityList',{typeId:id,page:1},function(req){
-                    var data = {
-                        items:req.list,
-                        page:2,
-                        typeId:id,
-                        cur:id,
-                        tabs:[
-                            {id:1,url:'#/bm/my/group/1',name:'官方活动'},
-                            {id:2,url:'#/bm/my/group/2',name:'找心吧'}
-                            /*{id:1,url:'#/bm/my/group/1',name:'线下活动资讯'},
-                            {id:2,url:'#/bm/my/group/2',name:'线上活动招募令'},
-                            {id:3,url:'#/bm/my/group/3',name:'更多即将开放'}*/
-                        ]
-                    };
-                    $('#mn').html(TPL.render('myGroup',data));
+                if(!id){
+                    bmApi.api('title',{title:'我的圈子'});
+                    location.hash = '/bm/my/group/1';
+                }
+                ajax('getUserActivityType',{},function(res){
+                    var tabs = [];
+                    for(var i=0;i<res.list.length;i++)
+                        tabs.push({
+                            id:res.list[i].typeId,
+                            url:'#/bm/my/group/'+res.list[i].typeId,
+                            name:res.list[i].typeName
+                        });
+                    ajax('getUserActivityList',{typeId:tabs[0].id,page:1},function(req){
+                        var data = {
+                            items:req.list,
+                            page:2,
+                            typeId:id,
+                            cur:id,
+                            tabs:tabs
+                            /*tabs:[
+                                {id:1,url:'#/bm/my/group/1',name:'官方活动'},
+                                {id:2,url:'#/bm/my/group/2',name:'找心吧'}
+                                {id:1,url:'#/bm/my/group/1',name:'线下活动资讯'},
+                                 {id:2,url:'#/bm/my/group/2',name:'线上活动招募令'},
+                                 {id:3,url:'#/bm/my/group/3',name:'更多即将开放'}
+                            ]*/
+                        };
+                        $('#mn').html(TPL.render('myGroup',data));
+                    });
+                    console.log(res);
                 });
+
             },
             '/test':function(){
                 bmApi.api('title',{title:'我的评测'});
