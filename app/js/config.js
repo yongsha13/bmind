@@ -238,12 +238,30 @@ function fmtTime(time,fmt){
             },
             '/music':function(){
                 bmApi.api('title',{title:'我的音频'});
-                bmApi.api('my-music',{},function(res){
-                    trace('data','数据调试',res);
-                    $('#mn').html(TPL.render('myMusic',{items:res.data.list}));
-                });
-
+                location.hash = '/bm/my/music/2';
                 //render('myMusic');
+            },
+            '/music/:id':function(id){
+                var data = {
+                    cur:id,
+                    tabs:[
+                        {id:1,url:'#/bm/my/music/1',name:'我的下载'},
+                        {id:2,url:'#/bm/my/music/2',name:'最近播放'}
+                    ],
+                }
+                if(id==1){
+                    bmApi.api('my-music',{},function(res){
+                        data['items'] = res.data.list;
+                        //trace('data','数据调试',res);
+                        $('#mn').html(TPL.render('myMusic',data));
+                    });
+                }else{
+                    ajax('getCollectionMusic',{page:1},function(res){
+                        data['items'] = res.list;
+                        data['page'] = 2;
+                        $('#mn').html(TPL.render('myMusic',data));
+                    })
+                }
             },
             '/plan':function(){
                 render('myPlan');

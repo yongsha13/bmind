@@ -85,15 +85,22 @@ $(function(){
             }
             //$('#mn').append(TPL.render('alertBox',{}));
         })
+        .on('click','.js-tt-share',function(){
+            var data = {
+                type:1,
+                text:$(this).data('txt'),
+                sharUrl:$(this).data('share-url')
+            };
+            bmApi.api('share',data)
+        })
         /*分享音频*/
         .on('click','.js-fm-share',function(){
             var id = $(this).closest('.player-ctrl').data('id');
             var music = tplData.getMusic(0,id,function(res){});
             var data = {
-                title:music.title,
-                content:'主播：'+music.professor,
-                link:'http://gzbmind.oicp.net:81/BmindPage/fm/player/m-'+id+'/'+params['uid'],
-                src:music.picPath
+                type:2,
+                text:'主播：'+music.professor,
+                sharUrl:music.shareURL
             }
             bmApi.api('share',data)
         })
