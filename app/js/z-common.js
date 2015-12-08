@@ -375,7 +375,7 @@ function loadAllQuestion(scaleID,page,count,versionCode,userSource){
         versionCode:versionCode,
         userSource:userSource
     },function(req){
-        cache.test.questions = req.list;
+        //cache.test.questions = req.list;
         cache.test.questions = cache.test.questions.concat(req.list);
         loadAllQuestion(scaleID,page+1,count,versionCode,userSource);
         /*
