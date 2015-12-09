@@ -46,9 +46,14 @@ $(function(){
         /*删除我的音乐*/
         .on('click','.js-my-music-del',function(){
             var _this = this;
-            bmApi.api('del-music',{url:$(this).data('url')},function(){
-                $(_this).closest('li').remove();
-            });
+            if($(this).data('type')==1)//删除我的下载
+                bmApi.api('del-music',{url:$(this).data('url')},function(){
+                    $(_this).closest('li').remove();
+                });
+            else//删除播放记录
+                ajax('delPlayMusicRecord',{playRecordId:$(this).data('id')},function(){
+                    $(_this).closest('li').remove();
+                });
         })
         /*显示我的音乐操作界面*/
         .on('click','.js-show-operation',function(){
@@ -88,6 +93,7 @@ $(function(){
         .on('click','.js-tt-share',function(){
             var data = {
                 type:1,
+                title:$(this).data('title'),
                 text:$(this).data('txt'),
                 sharUrl:$(this).data('share-url')
             };
@@ -99,6 +105,7 @@ $(function(){
             var music = tplData.getMusic(0,id,function(res){});
             var data = {
                 type:2,
+                title:music.title,
                 text:'主播：'+music.professor,
                 sharUrl:music.shareURL
             }
@@ -147,7 +154,7 @@ $(function(){
                     //alert('找到上一首：'+JSON.stringify(data));
                     bmApi.api('player',data,function(res){
                         //alert('上一首回调：'+JSON.stringify(res));
-                        ajax('addPlayMusicRecord',{musicId:res.id,versionCode:1,userSource:2});
+                        ajax('addPlayMusicRecord',{musicId:data.playId,versionCode:1,userSource:2});
                     });
                     location.hash = '/bm/fm/player/'+data.playId;
                 });
@@ -159,7 +166,7 @@ $(function(){
                     //alert('找到下一首：'+JSON.stringify(data));
                     bmApi.api('player',data,function(res){
                         //alert('下一首回调：'+JSON.stringify(res));
-                        ajax('addPlayMusicRecord',{musicId:res.id,versionCode:1,userSource:2});
+                        ajax('addPlayMusicRecord',{musicId:data.playId,versionCode:1,userSource:2});
                     });
                     location.hash = '/bm/fm/player/'+data.playId;
                 });
@@ -176,7 +183,7 @@ $(function(){
                 //alert(JSON.stringify(data));
                 bmApi.api('player',data,function(res){
                     //alert('播放回调完成');;
-                    ajax('addPlayMusicRecord',{musicId:res.id,versionCode:1,userSource:2});
+                    ajax('addPlayMusicRecord',{musicId:data.id,versionCode:1,userSource:2});
 
                     /*if(!window['listenPlayer']){
                         window['listenPlayer'] = setInterval(function(){
