@@ -43,6 +43,10 @@ $(function(){
         //console.log(['scroll',$(window).scrollTop()]);
     });
     $('#mn')
+        /*在新的webview中打开，历史记录不记录hash地址*/
+        /*.on('click','.js-new-web',function(){
+            bmApi.api('new-web-view',{url:location.href.split('#')[0]+$(this).data('href')})
+        })*/
         /*删除我的音乐*/
         .on('click','.js-my-music-del',function(){
             var _this = this;
@@ -229,6 +233,7 @@ $(function(){
         })
         /*心理评测答题*/
         .on('click','.js-questions input',function(){
+            var _this = this;
             var questionID = $(this).data('question-id');
             var optionID = $(this).data('option-id');
             var cur = $(this).data('cur');
@@ -249,7 +254,7 @@ $(function(){
             if($(this).data('cur')==questions.length)
                 $(this).closest('.question').find('.ctrl').html('<a class="btn red" href="#/bm/tt/result/'+cache.test.scaleRecordID+'">查看结果</a>');
             else
-                location.hash = '/bm/tt/question/'+(parseInt($(this).data('cur'))+1);
+                setTimeout(function(){location.hash = '/bm/tt/question/'+(parseInt($(_this).data('cur'))+1);},500);
         })
         /*api接口测试按钮*/
         .on('click','.js-api-submit',function(){

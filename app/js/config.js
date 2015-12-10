@@ -320,6 +320,9 @@ function fmtTime(time,fmt){
             },
             '/scale/:id':function(id){
                 bmApi.api('title',{title:'心理测评'});
+                bmApi.api('new-web-view',{url:location.href.split('#')[0]+'#/bm/tt/scale-view/'+id})
+            },
+            '/scale-view/:id':function(id){
                 ajax('getMentalTestQuestion',{
                     scaleID:id,
                     page:1,
