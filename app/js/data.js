@@ -1,4 +1,5 @@
 var tplData = {
+    useInfo:false,
     roleId:1,//权限
     bmList:{
         list:[

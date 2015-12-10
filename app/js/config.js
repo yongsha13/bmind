@@ -27,8 +27,10 @@ function fmtTime(time,fmt){
             window['isPlayerUI'] = false;
             window['playerStatusTime'] && clearInterval(window['playerStatusTime']);
             //alert('准备取用户信息');
+            !tplData.userInfo &&
             bmApi.api('user-info',{},function(res){//获取用户信息
                 //alert(JSON.stringify(res));
+                tplData.userInfo = true;
                 tplData.roleId = res.data.roleId;
 
                 //alert(tplData.roleId);
@@ -237,11 +239,16 @@ function fmtTime(time,fmt){
 
             },
             '/music':function(){
-                bmApi.api('title',{title:'我的音频'});
-                location.hash = '/bm/my/music/2';
+                var p = location.hash.split('/');
+                console.log(p);
+                if(p[p.length-1]=='music'){
+                    bmApi.api('title',{title:'我的音频'});
+                    location.hash = '/bm/my/music/2';
+                }
                 //render('myMusic');
             },
             '/music/:id':function(id){
+                if(!id) id==2;
                 var data = {
                     cur:id,
                     tabs:[
@@ -249,6 +256,7 @@ function fmtTime(time,fmt){
                         {id:2,url:'#/bm/my/music/2',name:'最近播放'}
                     ],
                 }
+                console.log(data);
                 if(id==1){
                     bmApi.api('my-music',{},function(res){
                         data['items'] = res.data.list;
@@ -256,7 +264,7 @@ function fmtTime(time,fmt){
                         $('#mn').html(TPL.render('myMusic',data));
                     });
                 }else{
-                    ajax('getCollectionMusic',{page:1},function(res){
+                    ajax('getPlayMusicRecord',{pageSize:20},function(res){
                         data['items'] = res.list;
                         data['page'] = 2;
                         $('#mn').html(TPL.render('myMusic',data));

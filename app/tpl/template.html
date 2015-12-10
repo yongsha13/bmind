@@ -25,7 +25,7 @@
     <li>
         {{if: ${items}.length==10}}
             {{block: more}}{{/block}}
-        {{elif: ${page}==2}}
+        {{elif: ${page}==2&&${items}.length==0}}
         <a href="javascript:;" class="more none">暂无内容</a>
         {{else}}
         <a href="javascript:;" class="more none">没有更多</a>
@@ -328,7 +328,7 @@
 
 <div class="operation">
     <a href="#/bm/fm/player/${item.id}" class="btn play">播放</a>
-    <a href="javascript:;" data-url="${item.filePath}" class="btn del js-my-music-del">删除</a>
+    <a href="javascript:;" data-type="${cur}" data-id="${item.id}" data-url="${item.filePath}" class="btn del js-my-music-del">删除</a>
 </div>
 {{/block}}
 
@@ -553,7 +553,11 @@
             <h3>提醒</h3>
             <p>${remind}</p>
             <div class="ctrl">
-                <a href="javascript:;" data-share-url="${shareURL}" class="btn green js-tt-share">分享</a>
+                <a href="javascript:;"
+                   data-share-url="${shareUrl}"
+                   data-title="${title}"
+                   data-content="${resultDes}"
+                   class="btn green js-tt-share">分享</a>
                 <a href="javascript:;" class="btn orange js-ask">请咨询师解疑</a>
             </div>
             <a href="#/bm/comment/edit/1/${id}" class="btn comment-btn"><span class="icon-pinglun1 iconfont"></span>我也评论几句</a>

@@ -68,9 +68,9 @@ function bmCallback(res){
  $('.js-api-output').html(function(i,v){return v+'<br>回调：apiId'+crumb+','+status,+','+JSON.stringify(data)});
  }*/
 function trace(method,descript,data){
-    return false;
+    //return false;
     //data['描述'] = descript;
-    data = $.extend({'描述':descript},data);
+    data = $.extend({'描述':descript,'接口名称':bmApi.apiNames[data.apiId]},data);
     $.ajax({
         url:'/debug?method='+method,
         type:'POST',
