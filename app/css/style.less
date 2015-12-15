@@ -55,7 +55,7 @@ html,body{ background: @bg-cr-h2;}
   p{ min-height: 2rem; background: @bg-cr-h0;}
   .btn{ display: block; margin: 0 3rem; line-height: 1.5rem; font-size: 1rem; text-align: center; color: @ft-cr-h0; background: @ft-cr-h1;}
 }
-.fm{ min-width: 320px; overflow-x: auto; height: 100%;
+.fm{ min-width: 300px; overflow: hidden; height: 100%;
   h2{ font-weight: 500; padding-left: .5rem; font-size: 1.2rem;}
   .banner{ position: fixed;
     width:100%;
@@ -120,11 +120,13 @@ html,body{ background: @bg-cr-h2;}
         text-shadow: 0 0 5px #333;
       }
     }
-    .app-download{ position:fixed; bottom:0; width: 100%; padding:1rem .5rem; box-sizing: border-box; background:#e3e3e3;
+    .app-download{ position:fixed; bottom:0; width: 100%; padding:1rem .5rem; box-sizing: border-box; background:#000;
       img{float:left; width:3rem; margin:-.5rem 0;}
       .cnt{ margin: -.5rem 6rem -.5rem 3rem;
-        h2{ line-height: 2rem;}
-        p{ line-height: 1rem; padding-left: .5rem; color: @ft-cr-h4;}
+        h2{ line-height: 2rem;
+          font-size: .8rem; color:@ft-cr-h6}
+        p{ line-height: 1rem; padding-left: .5rem; color: @ft-cr-h5;}
+
       }
       .btn{float:right; width: 4rem; text-align: center;}
     }

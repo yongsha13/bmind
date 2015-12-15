@@ -22,6 +22,9 @@ TPL.addFilter('date',function(source,useExtra){
     //console.log(source);
     return source.split(' ')[0];
 });
+TPL.addFilter('pre',function(source,useExtra){
+    return source.replace(/\n|\r|(\r\n)|(\u0085)|(\u2028)|(\u2029)/g, "</p><p>");
+});
 TPL.addFilter('url',function(source,useExtra){
     return source || 'javascript:;';
 });
@@ -105,14 +108,17 @@ $(function(){
         })
         /*分享音频*/
         .on('click','.js-fm-share',function(){
+            //trace('data',{});
             var id = $(this).closest('.player-ctrl').data('id');
-            var music = tplData.getMusic(0,id,function(res){});
+            var music = tplData.getMusic(0,id);
+            console.log([id,music]);
             var data = {
                 type:2,
                 title:music.title,
                 text:'主播：'+music.professor,
                 sharUrl:music.shareURL
             }
+            //trace('data',data);
             bmApi.api('share',data)
         })
         /*下载音频*/
@@ -362,9 +368,10 @@ function ajax(url,data,callback,errorback){
         dataType:'JSON',
         data:data,
         success:function(req){
-            if(url == 'getMusic'&& !data.mid){//音频缓存
-                if(data.page==1) tplData.musicList = req.list;
-                else tplData.musicList.concat(req.list);
+            if(url == 'getMusic'){//音频缓存
+                tplData.push(req.list);
+                /*if(data.page==1) tplData.musicList = req.list;
+                else tplData.musicList.concat(req.list);*/
             }
             if(parseInt(req['result'])==1) callback(req);
             else errorback(req);

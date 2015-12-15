@@ -21,7 +21,7 @@ var bmApi = {
     waitCallback:false,
     beginWaitTime:0,
     api:function(apiName,data,callback){
-        if(!window['bm']){trace('error','接口对象不存在',data);return}
+        //if(!window['bm']){trace('error','接口对象不存在',data);return}
         if(this.beginWaitTime>0){
             var nowTime = new Date().getTime();
             if(nowTime-this.beginWaitTime>this.timeOut){
@@ -29,12 +29,12 @@ var bmApi = {
                 this.waitCallback = false;
                 var index = this.callbacks.length-1;
                 var callback = this.callbacks[index];
-                trace('timeout-'+index,'接口超时',{});
+                this.getIdByName(apiName)==3 || trace('timeout-'+index,'接口超时',{});
             }
         }
         /*处理并发情况，并发会被覆盖*/
         if(this.waitCallback){
-            trace('wait-'+this.getIdByName(apiName)+'-'+this.index,'接口被锁定，等待100毫秒',data);
+            //trace('wait-'+this.getIdByName(apiName)+'-'+this.index,'接口被锁定，等待100毫秒',data);
             setTimeout(function(){
                 bmApi.api(apiName,data,callback);
             },100);
@@ -46,11 +46,11 @@ var bmApi = {
         this.index++;
         var id = this.getIdByName(apiName);
 
-        trace('call-'+id+'-'+this.index,'JS-API调用接口：', $.extend({crumb:this.index,apiId:id},data));
+        id==3 || trace('call-'+id+'-'+this.index,'JS-API调用接口：', $.extend({crumb:this.index,apiId:id},data));
         /*回调函数置入回调函数等待队列*/
         this.callbacks[this.index] =  typeof callback=='function'?callback:function(){};
         /*调用接口*/
-        window['bm'].api(id,this.index,JSON.stringify(data));
+        window['bm'] && window['bm'].api(id,this.index,JSON.stringify(data));
     },
     getIdByName:function(apiName){
         return this.apiNames.indexOf(apiName);
@@ -66,7 +66,7 @@ function bmCallback(res){
     bmApi.waitCallback = false;
     bmApi.beginWaitTime = 0;
     window.bmApi.callbacks[res['crum']](res);
-    trace('back-'+res.apiId+'-'+res.crum,'JS-API回调',res);
+    res.apiId==3 || trace('back-'+res.apiId+'-'+res.crum,'JS-API回调',res);
     //alert('JS接收到回调：'+JSON.stringify(res));
     //alert('接口回调0:'+JSON.stringify(res));
 

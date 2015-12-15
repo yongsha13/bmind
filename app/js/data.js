@@ -45,7 +45,7 @@ var tplData = {
     musicList:[],
     /*从音频列表中取音频，无音频时，随机取一个*/
     getMusic:function(dir,id,fun){
-        console.log([dir,id,this.musicList]);
+        //console.log([dir,id,this.musicList]);
         if(dir==0){
             var pos = this.getMusicPos(id);
             var music = pos<0?null:this.musicList[pos];
@@ -69,13 +69,20 @@ var tplData = {
 
         }else goRandomMusic();
         function goRandomMusic(){
-            this.getRandomMusic(function(res){
+            tplData.getRandomMusic(function(res){
                 if(dir>0) tplData.musicList.push(res);
                 else tplData.musicList.unshift(res);
                 //window.location.hash = '#/bm/fm/player/'+res.id;
                 typeof fun=='function' && fun(res);
             });
 
+        }
+    },
+    push:function(music){
+        if($.isArray(music)){
+            this.musicList = this.musicList.concat(music);
+        }else{
+            this.musicList.push(music);
         }
     },
     getRandomMusic:function(callback){
