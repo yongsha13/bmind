@@ -340,7 +340,7 @@ function fmtTime(time,fmt){
                 });
             },
             '/question/:step':function(step){
-                //bmApi.api('title',{title:'心理测评'});
+                bmApi.api('title',{title:'心理测评'});
                 if(cache.test.questions.length==0){
                     location.hash = '/bm/tt/index';
                     return false;

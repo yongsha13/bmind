@@ -219,11 +219,18 @@ $(function(){
                 score:$('#score').val(),
                 paperId:$('#paperId').val(),
                 cType:$('#cType').val(),
-                summary:$('#summary').val(),
+                summary: $.trim($('#summary').val()),
                 tuId:$('#toId').val(),
                 commentID:$('#commentID').val()
             };
-
+            if(data.summary.length==0){
+                alert("评论的内容不能为空");
+                return;
+            }
+            if(data.summary.length>200){
+                alert('评论的字数不能超过200字');
+                return;
+            }
             if(!data['score']) delete data['score'];
             if(!data['tuId']) delete data['tuId'];
             if(!data['commentID']) delete data['commentID'];

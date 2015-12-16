@@ -15,12 +15,11 @@
           <FilterInfo>
             <option name="description" value="lessc error format" />
             <option name="name" value="lessc" />
-            <option name="regExp" value="$MESSAGE$$FILE_PATH$?:$LINE$:$COLUMN$" />
+            <option name="regExp" value="D:/Personal/Documents$FILE_PATH$?:$LINE$:$COLUMN$" />
           </FilterInfo>
         </array>
       </option>
       <option name="outputFromStdout" value="true" />
-      <option name="passParentEnvs" value="true" />
       <option name="program" value="$PROJECT_DIR$/activity/11.11/css/style.less" />
       <option name="scopeName" value="Project Files" />
       <option name="trackOnlyRoot" value="false" />
