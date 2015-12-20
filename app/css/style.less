@@ -20,20 +20,53 @@
 @bd-cr-h0 : #fff;
 @bd-cr-h1 : #cacaca; //正常
 @bd-cr-h2 : #f95d5d; //分类
+@bd-cr-h3 : #efefef; //淡边框
 /*图标颜色*/
 @ic-cr-h1 : #f46473; //喜欢
 @ic-cr-h2 : #6cbae5; //评论
 @ic-cr-h3 : #a3d830; //当前
 @ic-cr-h4 : #ff7938; //级别
 
-a:active{ background: #fff;}
-.test{}
-html,body{ background: @bg-cr-h2;}
+@keyframes line-scale-pulse-out-rapid {
+  0% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1); }
+
+  80% {
+    -webkit-transform: scaley(0.3);
+    transform: scaley(0.3); }
+
+  90% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1); } }
+
+html,body{ background: @bg-cr-h2; }
 /*ul{ overflow: hidden;}*/
-#mn{ font-size: .8rem;}
-.top .fm .player{ padding-top: 0;
-  .pic{ height: 170px; background-repeat: no-repeat; background-position: center center; background-size: cover;}
-  .player-ctrl{position: relative; /*.fadeIn(0,-6rem); .animation(fadeIn .5s ease-in-out)*/}
+#mn{ font-size: .8rem; }
+.loading{ width:100%; height:100%; text-align: center; margin-top:10rem;
+  .loader{ display: inline-block;
+    div{
+      background: @ft-cr-h1;
+      width: .4rem;
+      height: 4rem;
+      border-radius:.2rem;
+      margin:.2rem;
+      animation-fill-mode:both;
+      display:inline-block;
+      animation:line-scale-pulse-out-rapid .9s 0s infinite cubic-bezier(.11,.49,.38,.78);
+      &:nth-child(1),
+      &:nth-child(5){ animation-delay: .5s;}
+      &:nth-child(2),
+      &:nth-child(4){ animation-delay: .25s;}
+    }
+
+  }
+  p{ padding:2rem; font-size:1.2rem; color: @ft-cr-h5;}
+;}
+.top .fm .player{ padding-top: 270px;
+  .pic{ display: none;}
+
+  .player-ctrl{position: fixed; /*.fadeIn(0,-6rem); .animation(fadeIn .5s ease-in-out)*/}
 }
 .example{
   h2{ font-weight: 500; line-height: 2rem; font-weight: 500; text-align: center;}
@@ -79,9 +112,10 @@ html,body{ background: @bg-cr-h2;}
   }
   .hot{
     padding-top: 8.4rem;}
-  .player{ padding-top: 270px;
+  .player{ padding-top: 0;
+    .pic{ height: 170px; background-repeat: no-repeat; background-position: center center; background-size: cover;}
     >img{ display: none; width: 100%;}
-    .player-ctrl{ background: @bg-cr-h3;padding: 1rem 0; box-shadow: 0 3px 5px @ft-cr-h5;position: fixed; width: 100%; top: 0;
+    .player-ctrl{ background: @bg-cr-h3;padding: 1rem 0 0; box-shadow: 0 3px 5px @ft-cr-h5;position: relative; width: 100%; top: 0;
       .progress{ background: @ft-cr-h2; height: .2rem; line-height: .2rem; box-shadow: 1px 1px 1px @ft-cr-h4; position: relative;
         //margin: 0 0 1rem;
         -webkit-box-shadow: 1px 1px 1px @ft-cr-h4;
@@ -99,12 +133,15 @@ html,body{ background: @bg-cr-h2;}
       .time{ padding: .5rem; font-size: .7rem; color: @ft-cr-h5;
         .count{ float: right;}
       }
-      .btns{ padding: .2rem 0 .5rem; text-align: center;
-        a{ display: inline-block; width: 2rem; height: 2rem; margin: 0 .7rem; overflow: visible; vertical-align: middle; font-size: .8rem; text-align: center;
-          &.cur{ width: 3rem;}
+      .pos{ margin-top: -3.5rem; height: 3.5rem;}
+      .btns{ padding: .5rem 1.5rem .5rem; text-align: center; height:auto; overflow: hidden;
+        a{float:left; width: 20%; height: 2.5rem;  overflow: visible; vertical-align: middle; font-size: .8rem; text-align: center;
+          &.cur{}
+          &.prev span{ text-indent: -.1rem;}
+          &.next span{ text-indent: .05rem;}
         }
-        span{ display: inline-block; padding: .5rem; font-size: 1rem; line-height: 1rem; border:1px solid @bd-cr-h0; border-radius: 10rem; color: @ft-cr-h0;
-          &.cur{ vertical-align: middle; border: 1px solid @ic-cr-h3; color: @ic-cr-h3; font-size: 2rem; line-height: 2rem; margin: -.5rem 0 0 -.5rem;}
+        span{ display: inline-block; width:.8rem; height:.8rem; overflow: hidden; padding: .5rem; font-size: .8rem; line-height: .8rem; border:1px solid @bd-cr-h0; border-radius: 10rem; color: @ft-cr-h0;
+          &.cur{ vertical-align: middle; width:1.5rem; height:1.5rem; border: 1px solid @ic-cr-h3; color: @ic-cr-h3; font-size: 1.5rem; line-height: 1.5rem; margin-top: -.4rem }
           &.none{ /*border: none; font-size: 1.2rem;*/}
         }
         em{ display: inline-block; color: @ft-cr-h5; line-height: 1.2rem; font-size: .8rem;}
@@ -143,10 +180,11 @@ html,body{ background: @bg-cr-h2;}
       }
     }
   }
+  .icons{ margin-top:0;}
 }
 .my{
   .active{ background: @bg-cr-h0; padding: 0 .5rem;
-    li{ border-bottom: 1px solid @bd-cr-h1; padding: .5rem 0;
+    li{ border-bottom: 1px solid @bd-cr-h3; padding: .5rem 0;
       &:last-child{ border: none;}
       .info{ line-height: 3rem;
         .avatar{ display: inline-block; width: 2rem; height: 2rem; border-radius: 2rem;
@@ -162,7 +200,7 @@ html,body{ background: @bg-cr-h2;}
     }
   }
   .group{ background: @bg-cr-h0;padding: 0 .5rem;
-    li{ padding: .5rem 0 0;  border-bottom: 1px solid @bd-cr-h1; line-height: 1.5rem;
+    li{ padding: .5rem 0 0;  border-bottom: 1px solid @bd-cr-h3; line-height: 1.5rem;
       &:last-child{ border: none;}
       h4{ font-weight: 500; text-align: left; font-size: .8rem; color: @ft-cr-h1;}
       h3{ font-weight: 500; text-align: left; font-size: 1rem; color: @ft-cr-h3; line-height: 2rem;}
@@ -180,7 +218,7 @@ html,body{ background: @bg-cr-h2;}
       .percent{float:right;}
     }
     .comment{
-      li{ border-top: 1px solid @bd-cr-h1; margin: 0;}
+      li{ border-top: 1px solid @bd-cr-h3; margin: 0;}
     }
   }
 
@@ -197,7 +235,7 @@ html,body{ background: @bg-cr-h2;}
 .tt{
   .index{
     >img{ display: block; width: 100%;}
-    .bar{ text-align: center; background: @bg-cr-h0; border-bottom: 1px solid @bd-cr-h1;
+    .bar{ text-align: center; background: @bg-cr-h0; border-bottom: 1px solid @bd-cr-h3;
       a{ width: 5rem; display: inline-block; margin: 1rem; line-height: 1.5rem; text-align: center;
         img{ width: 70%;}
       }
@@ -211,9 +249,9 @@ html,body{ background: @bg-cr-h2;}
     p{ line-height: 1.3rem; font-size: .8rem; padding: 1rem; text-indent: 1.6rem; color: @ft-cr-h4;}
 
   }
-  .ctrl{ padding: 1rem; text-align: center; border-top: 1px solid @bd-cr-h1;}
+  .ctrl{ padding: 1rem; text-align: center; border-top: 1px solid @bd-cr-h3;}
   .question{ margin: 1rem; border-radius: 1rem; background: @bg-cr-h0;
-    h2{ font-weight: 500; text-align: center; line-height: 4rem; color: @ft-cr-h4; font-size: 1rem; border-bottom: 1px solid @bd-cr-h1;}
+    h2{ font-weight: 500; text-align: center; line-height: 4rem; color: @ft-cr-h4; font-size: 1rem; border-bottom: 1px solid @bd-cr-h3;}
     p{font-weight: 500; line-height: 1rem; color: @ft-cr-h3; font-size: .8rem;  padding: 1rem;}
     .progress{ color: @ft-cr-h5; padding: 1rem; overflow: hidden;
       label{float:left;
@@ -226,7 +264,7 @@ html,body{ background: @bg-cr-h2;}
     }
     ul{ padding-bottom: 2rem;
       li{
-        line-height: 1.5rem; color: @ft-cr-h5; padding-left: 1rem;
+        line-height: 2rem; color: @ft-cr-h5; padding-left: 1.5rem;
         input[type="radio"]{
           border: none;
           -webkit-appearance: none;
@@ -239,8 +277,8 @@ html,body{ background: @bg-cr-h2;}
           -webkit-font-smoothing: antialiased;
           -webkit-text-stroke-width: 0.2px;
           -moz-osx-font-smoothing: grayscale;
-
-          &:after,checked:after{ display: block; content: '\e614'; width: 1rem; height: 1rem; }
+          background:none;
+          &:after,checked:after{ display: block; content: '\e614'; width: 1rem; height: 1rem; background: none; }
           &:checked:after{ content:'\e602';
             color: @ic-cr-h1;}
         }
@@ -251,7 +289,7 @@ html,body{ background: @bg-cr-h2;}
   }
   .result{ margin: 1rem; border-radius: 1rem; background: @bg-cr-h0;
     h2{ font-weight: 500; text-align: center; line-height: 4rem; color: @ft-cr-h4; font-size: 1rem; }
-    h3{ font-weight: 500; padding: 0 .5rem; font-size: .8rem; color: @ft-cr-h1; line-height: 2rem; border-top: 1px solid @bd-cr-h1;}
+    h3{ font-weight: 500; padding: 0 .5rem; font-size: .8rem; color: @ft-cr-h1; line-height: 2rem; border-top: 1px solid @bd-cr-h3;}
     p{ font-size: .8rem; padding: 0 .5rem; line-height: 1.5rem; text-indent: 1.6rem;}
     .btn{ width: 6rem;}
     .comment-btn{ width: 100%; border: 1px solid @bg-cr-h6; box-sizing: border-box;font-size: .8rem;
@@ -293,7 +331,7 @@ html,body{ background: @bg-cr-h2;}
       h3{ font-weight: 500; color: @ft-cr-h3; font-size: 1.1rem;
         margin-bottom: .5rem;}
       .icons{clear: none; margin: 0;}
-      .category{float:left; padding: .2rem .5rem; margin: .1rem; color: @ft-cr-h5; font-size: .8rem; line-height: 1rem; border: 1px solid @ic-cr-h2; border-radius: 2rem;}
+      .category{ padding: .1rem .5rem; vertical-align: middle; /*margin: .1rem;*/ color: @ft-cr-h5; font-size: .5rem; line-height: 1rem; border: .5px solid @ic-cr-h2; border-radius: 2rem;}
     }
   }
 }
@@ -308,28 +346,36 @@ html,body{ background: @bg-cr-h2;}
       h3{ font-weight: 500; line-height: 2rem; height: 2rem; font-size: 1rem; color: @ft-cr-h3; clear: both; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
       .professor{float:right;font-size: 1rem; line-height: 1.2rem; padding: 0 .5rem; color: @ft-cr-h5; font-size: .8rem;}
     }
-    .category{ border: 1px solid @ic-cr-h2; border-radius: 1rem; padding: .1rem .5rem; line-height: 1rem; color: @ft-cr-h5; font-size: .8rem;}
+    .category{ border: .5px solid @ic-cr-h2; border-radius: 1rem; padding: .1rem .5rem; line-height: 1rem; color: @ft-cr-h5; font-size: .5rem;}
   }
 }
-.article{
+.article{ padding-top: .5rem;
   .icons{ margin-top: 0;}
   article{
     h1{ font-weight: 500; font-size: 1.1rem; line-height: 1.2rem; text-align: center; padding-top: 1rem;}
     h2{ font-weight: 500; font-size: .8rem; line-height: 1.5rem; color: @ft-cr-h1; text-align: center;}
-    .cnt{ padding: 0 .5rem; text-indent: 1.6rem; line-height: 1.3rem; font-size: .8rem;}
+    .cnt{ padding: 0 .5rem .5rem; text-indent: 1.6rem; line-height: 1.3rem; font-size: .8rem;}
   }
-  .ctrl{ padding: .5rem; text-align: right;
+  .ctrl{ padding: .5rem; text-align: right; background: @bg-cr-h4;
     a{ display: inline-block; text-align: center;}
     em{ font-size: .5rem;}
   }
 }
 .comment{
   li{ line-height: 1.5rem; margin-bottom: .5rem; padding: .5rem; background:@bg-cr-h0;
-    .info{
+    .avatar{float:left; width:2rem; height: 2rem; border-radius: 2rem;
+      background-position: center center;
+      -webkit-background-size: cover;
+      background-size: cover;
+    }
+    .info{ margin-left: 2.5rem;
       .author{ color: @ft-cr-h1; font-size: .9rem;}
+
+    }
+    p{ margin-left:2.5rem; line-height: 1.2rem; font-size: .8rem; color: @ft-cr-h4;}
+    .ctrl{ overflow: hidden; padding:0; margin-bottom: -.5rem;
       .time{ float: right; font-size: .8rem; color: @ft-cr-h5;}
     }
-    p{ line-height: 1.2rem; font-size: .8rem; color: @ft-cr-h4;}
   }
   .level-ctrl{ font-size: 1.5rem; line-height: 4rem; text-align: center; color: @ft-cr-h1;
     .iconfont{ font-size: 1.5rem;}
@@ -347,7 +393,7 @@ html,body{ background: @bg-cr-h2;}
   span{ display: inline-block; padding: 0 .5rem; color: @ft-cr-h5;
     &.iconfont{ font-size: 1rem;}
     &.space{float:right;}
-    &.category{ padding: .2rem .5rem; margin: .1rem; color: @ft-cr-h5; font-size: .8rem; line-height: 1rem; border: 1px solid @ic-cr-h2; border-radius: 2rem;}
+    &.category{ padding: .1rem .5rem; vertical-align: middle; /*margin: .1rem;*/ color: @ft-cr-h5; font-size: .5rem; line-height: 1rem; border: .5px solid @ic-cr-h2; border-radius: 2rem;}
   }
   .like,.comment,.time{ float: right; padding:0 .3rem;}
   .icon-xihuan{color: @ic-cr-h1;}
@@ -398,5 +444,17 @@ a.more{ display: block; text-align: center; background: @bg-cr-h2; color: @ft-cr
       -webkit-border-radius: 1rem;
       -moz-border-radius: 1rem;
       border-radius: 1rem;}
+  }
+}
+
+.confirm-box{ position:fixed; width:100%; height:100%; top:0; left:0; background: rgba(0,0,0,.3);
+  .box{ position: absolute; bottom:-10rem; width:100%; background: #fff; line-height:2rem; text-align: center;
+    -webkit-transition: bottom .5s; -moz-transition: bottom .5s; -ms-transition: bottom .5s; -o-transition: bottom .5s; transition: bottom .5s;
+    h2{ font-weight:500; padding: .5rem 1rem 0; font-size:1rem; line-height:2rem; text-align: left; color: @ft-cr-h1; border-bottom: .1rem solid @ft-cr-h1;}
+    p{ text-align: center; line-height:1.5rem; padding:.5rem;}
+    .btn{ display: inline-block; width:45%; text-align: center; margin:1rem 0; border-radius: 1rem; box-sizing: border-box;
+      &.ok{ background: @ft-cr-h1; color: #fff;}
+      &.cancel{ background: @bg-cr-h2; color: @ft-cr-h1;}
+    }
   }
 }

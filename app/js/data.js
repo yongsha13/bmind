@@ -39,14 +39,14 @@ var tplData = {
         ]
     },
     tips:{
-        memberTest:'该测试只对会员开放，点击购买前往购买会员，若已有帐号，请前往登录',
-        memberMusic:'该音频只对会员开放，点击购买前往购买会员，若已有帐号，请前往登录'
+        memberTest:"该测试只对会员开放，点击购买前往购买会员，若已有帐号，请前往登录",
+        memberMusic:"该音频只对会员开放，点击购买前往购买会员，若已有帐号，请前往登录"
     },
     musicList:[],
     /*从音频列表中取音频，无音频时，随机取一个*/
     getMusic:function(dir,id,fun){
         //console.log([dir,id,this.musicList]);
-        if(dir==0){
+        if(dir==0){/*获取当前音频信息*/
             var pos = this.getMusicPos(id);
             var music = pos<0?null:this.musicList[pos];
             if(typeof fun=='function')
@@ -57,14 +57,26 @@ var tplData = {
         }
         if(id&&this.musicList.length>0){
             var pos = this.getMusicPos(id);
-            if(dir<0 &&pos>0){
+            dir = dir/1;
+            trace('getCacheMusic','取缓存音频',{pos:pos,dir:dir});
+            if((pos>0&&dir<0)||pos<this.musicList.length-1&&dir>0){
+                var reMusic = this.musicList[pos+dir];
+                trace('cacheMusic','缓存音频',reMusic);
+                trace('role','权限数据',{roleId:tplData.roleId,memberLevel:reMusic['memberLevel']});
+                if(reMusic['memberLevel'] > tplData.roleId){
+                    bmApi.api('member',{text:tplData.tips.memberMusic});
+                    return false;
+                }
+                typeof fun=='function' && fun(reMusic);
+            }
+            /*if(dir<0 &&pos>0){
                 //window.location.hash = '#/bm/fm/player/'+this.musicList[pos-1].id;
                 typeof fun=='function' && fun(this.musicList[pos-1]);
             }
             else if(dir>0 && pos<this.musicList.length-1){
                 //window.location.hash = '#/bm/fm/player/'+this.musicList[pos+1].id;
                 typeof fun=='function' && fun(this.musicList[pos+1]);
-            }
+            }*/
             else goRandomMusic();
 
         }else goRandomMusic();

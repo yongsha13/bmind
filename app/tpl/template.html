@@ -1,5 +1,13 @@
 <!--使用etpl模板，详情见：https://github.com/ecomfe/etpl-->
 
+{{target: loading}}
+<div class="loading">
+    <div class="loader">
+        <div></div><div></div><div></div><div></div><div></div>
+    </div>
+    <p>正在加载</p>
+</div>
+
 {{target: levelScore}}<!--评分等级-->
     <span class="level">
         {{var: levels = [1,2,3,4,5] }}
@@ -23,7 +31,7 @@
     </li>
     {{/for}}
     <li>
-        {{if: ${items}.length==10}}
+        {{if: ${items.length}==10}}
             {{block: more}}{{/block}}
         {{elif: ${page}==2&&${items}.length==0}}
         <a href="javascript:;" class="more none">暂无内容</a>
@@ -37,6 +45,7 @@
 {{block: cnt}}
 
 <a
+
         {{if: ${roleId} < ${item.memberLevel} }}
             class="js-show-join" data-type="music" href="javascript:;"
         {{else}}
@@ -50,20 +59,21 @@
         {{use: levelScore(score=${item.avg})}}
         <span class="professor">主播：${item.professor}</span>
         <h3>${item.title}</h3>
+        {{use: liFooter(
+        category={
+        id:${item.musicType},
+        name:${item.musicTypeName}
+        },
+        comment={
+        count:${item.commentTimes}
+        },
+        like={
+        count:${item.playTimes}
+        }
+        )}}
     </div>
 </a>
-    {{use: liFooter(
-            category={
-                id:${item.musicType},
-                name:${item.musicTypeName}
-            },            
-            comment={
-                count:${item.commentTimes}
-            },
-            like={
-                count:${item.playTimes}
-            }  
-    )}}
+
 {{/block}}
 {{block: more}}
 <a href="javascript:;" class="more js-more-music"
@@ -99,7 +109,7 @@
     </select><br>
     <label>测试参数：</label><br>
     <textarea name="" id="js-api-args" placeholder="{method:1,url:['http://xxx.xx/xx']}"
-            >{"id":1,"url":"http://www.ydeap.com/sencemusic/9097_2014_10_25_23_2_58..mp3"}</textarea>
+            >{"text":"该音频只对会员开放，点击购买前往购买会员，若已有帐号，请前往登录"}</textarea>
     <a href="javascript:;" class="btn js-api-submit">提交</a><br>
     <a href="javascript:;" class="btn js-api-submit-2">提交2</a>
     <label>打印数据：</label><br>
@@ -184,6 +194,7 @@
                     data-id="${id}" data-title="${title}" data-file="${filePath}">
                 <div class="progress"><span class="down"></span><span class="cur"></span></div>
                 <div class="time"><span class="now">00:00</span><span class="count">00:00</span></div>
+                <div class="pos"></div>
                 <div class="btns">
                     <a class="js-fm-download" href="javascript:;"><span class="icon-xiazai iconfont none"></span><!--<br><em>下载</em>--></a>
                     <a class="js-fm-change prev" href="javascript:;"><span class="icon-shangyishou iconfont"></span></a>
@@ -218,14 +229,20 @@
 {{target: commentListLi(master=listLi)}}
     {{block:cnt}}
 <a href="#/bm/comment/edit/${cType}/${paperId}/${item.userId}/${item.commentID}">
+    {{use: liAvatar(
+    src=${item.userPicPath}
+    )}}
     <div class="info">
         <span class="author">{{if: ${item.nickName} }}${item.nickName}{{else}}${item.userId}{{/if}}</span>
         {{if: ${item.tuId} }}
         <em>回复</em> <span class="author">${item.tuName}</span>
         {{/if}}
-        <span class="time"><span class="icon-shijian iconfont"></span>${item.time | date}</span>
+
     </div>
     <p>${item.summary}</p>
+    <div class="ctrl">
+        <span class="time"><span class="icon-shijian iconfont"></span>${item.time | date}</span>
+    </div>
 </a>
 
     {{/block}}
@@ -334,10 +351,19 @@
 
 {{target: myGroup}}
     <div class="my">
-        {{import: tabs}}
-        <ul class="group">
-            {{import: myGroupListLi}}
-        </ul>
+        <div class="tabs col-${tabs.length}">
+            <div class="ti">
+                {{for: ${tabs} as ${tab},${index} }}
+                    <span class="js-my-group-tabs{{if: ${index}==0}} cur{{/if}}">${tab.name}</span>
+                {{/for}}
+            </div>
+            <ul class="cnt group">
+                {{use: myGroupListLi(items=${tab1.items},page=2,typeId=${tab1.typeId})}}
+            </ul>
+            <ul class="cnt group" style="display: none;">
+                {{use: myGroupListLi(items=${tab2.items},page=2,typeId=${tab2.typeId})}}
+            </ul>
+        </div>
     </div>
 
 {{target: myGroupListLi(master=listLi)}}
@@ -355,7 +381,9 @@
         }
         )}}
     </a>
-
+    {{/block}}
+    {{block:more}}
+<a href="javascript:;" data-page="${page}" data-typeId="${typeId}" class="more js-more-group">更多内容</a>
     {{/block}}
 
 {{target: myActive}}
@@ -365,7 +393,7 @@
         </ul>
     </div>
 
-{{target: myActiveListLi}}
+{{target: myActiveListLi(master=listLi)}}
     {{block:cnt}}
         <div class="info">
             {{use: liAvatar(
@@ -376,6 +404,9 @@
             <span class="status">${item.comm}</span>
         </div>
         <p>${item.summary}</p>
+    {{/block}}
+    {{block:more}}
+<a href="javascript:;" class="more">更多动态</a>
     {{/block}}
 
 {{target: myTest}}
@@ -548,12 +579,14 @@
             <h2>${title}</h2>
             <h3>测试结果</h3>
             <p>{{if: ${resultDes} }}${resultDes}{{else}}暂无结果{{/if}}</p>
+            {{if: ${suggest} }}
             <h3>参考建议</h3>
-            <p>{{if: ${suggest} }}${suggest}{{else}}暂无建议{{/if}}</p>
+            <p>${suggest}</p>
             <h3>提醒</h3>
             <p>${remind}</p>
+            {{/if}}
             <div class="ctrl">
-                <a href="javascript:;" class="btn gray">重新测试</a><br>
+                <a href="#/bm/tt/scale/${scaleID}" class="btn gray">重新测试</a><br>
                 <a href="javascript:;"
                    data-share-url="${shareUrl}"
                    data-title="${title}"
@@ -575,6 +608,16 @@
             </p>
             <a href="javascript:;" class="btn orange">直接登录</a>
             <a href="http://shop.m.taobao.com/shop/shop_index.htm?shop_id=141796130" class="btn gray">成为会员</a>
+        </div>
+    </div>
+
+{{target: confirmBox}}
+    <div class="confirm-box">
+        <div class="box">
+            <h2>${title}</h2>
+            <p>${content}</p>
+            <span class="btn ok">${okValue}</span>
+            <span class="btn cancel">${cancelValue}</span>
         </div>
     </div>
 

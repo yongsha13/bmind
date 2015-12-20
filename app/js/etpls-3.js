@@ -1485,7 +1485,7 @@
     Engine.prototype.parse = function (source) {
         if (source) {
             var targetNames = parseSource(source, this);
-            console.log(this.targets);
+            //console.log(this.targets);
             if (targetNames.length) {
                 return this.targets[targetNames[0]].getRenderer();
             }

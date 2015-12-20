@@ -23,7 +23,8 @@ function fmtTime(time,fmt){
         on: function () {
             $('#mn>div').hide();
             window.scrollTo(0, 0);
-            $('#mn').addClass('top');
+            $('#mn').html(TPL.render('loading',{}));
+            urlHistory.go(location.hash);
             window['isPlayerUI'] = false;
             window['playerStatusTime'] && clearInterval(window['playerStatusTime']);
             //alert('准备取用户信息');
@@ -44,14 +45,13 @@ function fmtTime(time,fmt){
             $('#mn').html(TPL.render('bmAPI',{list:tplData.bmApi.list,outStr:JSON.stringify(tplData.bmApi)}));
         },
         '/list':function(){
-            console.log()
             bmApi.api('title',{title:'hash路由参数文档'});
             $('#mn').html(TPL.render('bmList',{items:tplData.bmList.list}));
         },
         '/fm': {
             '/index': function () {
                 bmApi.api('title',{title:'情绪调频'});
-
+                bmApi.api('new-web-view',{method:3,itemType:1})
                 ajax('getMusic',{type:0,page:1,property:0},function(res){
                     var data = {roleId:tplData.roleId,items:res.list,page:2,type:0,property:0};
                     $('#mn').html(TPL.render('fmIndex',data));
@@ -59,6 +59,7 @@ function fmtTime(time,fmt){
             },
             '/player/:id': function (id) {
                 bmApi.api('title',{title:'情绪调频'});
+                bmApi.api('new-web-view',{method:3,itemType:2})
                 window['isPlayerUI'] = true;
                 var data = {};
                 ajax('getMusic',{type:0,page:1,property:0,mid:id},function(req){
@@ -69,7 +70,7 @@ function fmtTime(time,fmt){
                             if(res['data']&&res.data['playId']!=id) return false;
                             bmApi.api('player',{method:5});//隐藏左上角正在播放的图标
                             var playPercent = res.data['playProcess'];/*<0.02?0.02:res.data['playProcess'];*/
-
+                            var playing = res.data['playStatus']&&res.data['playStatus']==1?true:false;
                             var downPercent = res.data['downProcess'];
                             var duration = parseInt(res.data['duration']);
                             var countTime = fmtTime(duration*1000,'mm:ss');
@@ -79,6 +80,11 @@ function fmtTime(time,fmt){
                             $('.progress .down').css('width',(downPercent*100)+'%');
                             $('.player-ctrl .now').html(currentTime);
                             $('.player-ctrl .count').html(countTime);
+                            /*播放状态控制*/
+                            var targetBtn = $('.js-fm-play span');
+                            if(playing && targetBtn.hasClass('icon-bofangqibofang')){
+                                targetBtn.removeClass('icon-bofangqibofang').addClass('icon-zanting');
+                            }
                             //$('.icons .level em').html(res.data['playProcess']);
                             //$('article .cnt').html(JSON.stringify(res));
                             /*自动下一首*/
@@ -123,19 +129,22 @@ function fmtTime(time,fmt){
 
             },
             '/professor/:id': function (id) {
-                bmApi.api('title',{title:'主播频道'});
+                bmApi.api('title',{title:'情绪调频'});
+                bmApi.api('new-web-view',{method:3,itemType:2})
                 ajax('getMusic',{type:0,page:1,property:0,professiorId:id},function(req){
-                    var data = {items:req.list,professorId:id,type:0,property:0,page:2};
-                    console.log(data);
+                    var data = {roleId:tplData.roleId,items:req.list,professorId:id,type:0,property:0,page:2};
+                    //console.log(data);
                     $('#mn').html(TPL.render('fmProfessor',data));
                 })
                 //render('fmAuthor');
             },
             '/category/:property/:type': function (property,type) {
-                bmApi.api('title',{title:'频道分类'});
+                bmApi.api('title',{title:'情绪调频'});
+                bmApi.api('new-web-view',{method:3,itemType:2})
                 ajax('getMusic',{type:type,page:1,property:property},function(req){
                     var data = {
                         items:req.list,
+                        roleId:tplData.roleId,
                         cur:property,
                         tabs:[
                             {id:1,url:'#/bm/fm/category/1/'+type,name:'音频'},
@@ -145,7 +154,7 @@ function fmtTime(time,fmt){
                         property:property,
                         page:2
                     };
-                    console.log(['分类数据：',data]);
+                    //console.log(['分类数据：',data]);
                     $('#mn').html(TPL.render('fmCategory',data));
                 })
                 //render('fmCategory');
@@ -188,59 +197,63 @@ function fmtTime(time,fmt){
             '/active':function(){//动态
                 bmApi.api('title',{title:'我的动态'});
                 ajax('getUserDynamic',{page:1},function(req){
-                    $('#mn').html(TPL.render('myActive',{items:req.list,page:2}));
+                    var data = {items:req.list||[],page:2};
+                    //console.log(data);
+                    $('#mn').html(TPL.render('myActive',data));
                 });
             },
             '/group':function(){
                 /*location.hash = '/bm/my/music';
                 return false;*/
+                var id=1;
+                var data = {};
+                ajax('getUserActivityType',{},function(res){
+                    data['tabs'] = [];
+                    for(var i=0;i<res.list.length;i++)
+                        data['tabs'].push({
+                            id:res.list[i].typeId,
+                            url:'#/bm/my/group/'+res.list[i].typeId,
+                            name:res.list[i].typeName
+                        });
+                    ajax('getUserActivityList',{typeId:data['tabs'][0].id,page:1},function(req){
+                        data['tab1'] = {
+                            items:req.list,
+                            page:2,
+                            typeId:data['tabs'][0].id,
+                            cur:id,
+                        };
+                        ajax('getUserActivityList',{typeId:data['tabs'][1].id,page:1},function(req){
+                            data['tab2'] = {
+                                items:req.list,
+                                page:2,
+                                typeId:data['tabs'][1].id,
+                                cur:id,
+                            };
+                            $('#mn').html(TPL.render('myGroup',data));
+                        });
 
+                    });
+                });
             },
             '/group/:id':function(id){//圈子
                 if(!id){
                     bmApi.api('title',{title:'我的圈子'});
                     location.hash = '/bm/my/group/1';
                 }
-                ajax('getUserActivityType',{},function(res){
-                    var tabs = [];
-                    for(var i=0;i<res.list.length;i++)
-                        tabs.push({
-                            id:res.list[i].typeId,
-                            url:'#/bm/my/group/'+res.list[i].typeId,
-                            name:res.list[i].typeName
-                        });
-                    ajax('getUserActivityList',{typeId:tabs[0].id,page:1},function(req){
-                        var data = {
-                            items:req.list,
-                            page:2,
-                            typeId:id,
-                            cur:id,
-                            tabs:tabs
-                            /*tabs:[
-                                {id:1,url:'#/bm/my/group/1',name:'官方活动'},
-                                {id:2,url:'#/bm/my/group/2',name:'找心吧'}
-                                {id:1,url:'#/bm/my/group/1',name:'线下活动资讯'},
-                                 {id:2,url:'#/bm/my/group/2',name:'线上活动招募令'},
-                                 {id:3,url:'#/bm/my/group/3',name:'更多即将开放'}
-                            ]*/
-                        };
-                        $('#mn').html(TPL.render('myGroup',data));
-                    });
-                    console.log(res);
-                });
+
 
             },
             '/test':function(){
                 bmApi.api('title',{title:'我的评测'});
                 ajax('getUserScale',{page:1},function(req){
-                    console.log(TPL.render('myTest',{items:req.list}));
+                    //console.log(TPL.render('myTest',{items:req.list}));
                     $('#mn').html(TPL.render('myTest',{items:req.list,page:2}));
                 });
 
             },
             '/music':function(){
                 var p = location.hash.split('/');
-                console.log(p);
+                //console.log(p);
                 if(p[p.length-1]=='music'){
                     bmApi.api('title',{title:'我的音频'});
                     location.hash = '/bm/my/music/2';
@@ -256,7 +269,7 @@ function fmtTime(time,fmt){
                         {id:2,url:'#/bm/my/music/2',name:'最近播放'}
                     ],
                 }
-                console.log(data);
+                //console.log(data);
                 if(id==1){
                     bmApi.api('my-music',{},function(res){
                         data['items'] = res.data.list;
@@ -272,7 +285,7 @@ function fmtTime(time,fmt){
                 }
             },
             '/plan':function(){
-                render('myPlan');
+                //render('myPlan');
             }
         },
         '/tt':{
@@ -320,7 +333,22 @@ function fmtTime(time,fmt){
             },
             '/scale/:id':function(id){
                 bmApi.api('title',{title:'心理测评'});
-                bmApi.api('new-web-view',{url:location.href.split('#')[0]+'#/bm/tt/scale-view/'+id})
+                ajax('getMentalTestQuestion',{
+                    scaleID:id,
+                    page:1,
+                    versionCode:1,
+                    userSource:1
+                },function(req){
+                    cache.test.questions = req.list;
+                    cache.test.title = req.title;
+                    cache.test.count = req.count;
+                    cache.test.description = req.description;
+                    cache.test.curQuestions = 0;
+                    cache.test.scaleRecordID = req.ScaleRecordID;
+                    $('#mn').html(TPL.render('ttScale',cache.test));
+                    loadAllQuestion(id,2,req.count,1,1);
+                });
+                //bmApi.api('new-web-view',{url:location.href.split('#')[0]+'#/bm/tt/scale-view/'+id})
             },
             '/scale-view/:id':function(id){
                 ajax('getMentalTestQuestion',{
@@ -340,6 +368,7 @@ function fmtTime(time,fmt){
                 });
             },
             '/question/:step':function(step){
+                urlHistory.pop();//取消历史记录
                 bmApi.api('title',{title:'心理测评'});
                 if(cache.test.questions.length==0){
                     location.hash = '/bm/tt/index';

@@ -40,9 +40,9 @@ $(function(){
     //window['params']['uid'] = 32844;
     $(window).scroll(function(){
         if($(window).scrollTop()<170)
-            $('#mn').addClass('top');
-        else
             $('#mn').removeClass('top');
+        else
+            $('#mn').addClass('top');
         //console.log(['scroll',$(window).scrollTop()]);
     });
     $('#mn')
@@ -50,6 +50,10 @@ $(function(){
         /*.on('click','.js-new-web',function(){
             bmApi.api('new-web-view',{url:location.href.split('#')[0]+$(this).data('href')})
         })*/
+        .on('click','.js-push-a',function(){
+            var url = location.href.split('#')[0];
+            bmApi.api('new-web-view',{url:url+$(this).data('href')});
+        })
         /*删除我的音乐*/
         .on('click','.js-my-music-del',function(){
             var _this = this;
@@ -89,11 +93,12 @@ $(function(){
         })
         /*显示必须为会员提醒*/
         .on('click','.js-show-join',function(){
-            if($(this).attr("type")=='music'){
-                bmApi.api('location',{text:tplData.tips.memberMusic});
+            //trace('click','点击了',{type:$(this).attr('')});
+            if($(this).data("type")=='music'){
+                bmApi.api('member',{text:tplData.tips.memberMusic});
             }
-            if($(this).attr("type")=='test'){
-                bmApi.api('location',{text:tplData.tips.memberTest});
+            if($(this).data("type")=='test'){
+                bmApi.api('member',{text:tplData.tips.memberTest});
             }
             //$('#mn').append(TPL.render('alertBox',{}));
         })
@@ -101,7 +106,7 @@ $(function(){
             var data = {
                 type:1,
                 title:$(this).data('title'),
-                text:$(this).data('txt'),
+                text:$(this).data('content'),
                 sharUrl:$(this).data('share-url')
             };
             bmApi.api('share',data)
@@ -160,6 +165,7 @@ $(function(){
             if($(this).hasClass('prev')){
                 //alert('准备上一首'+id);
                 tplData.getMusic(-1,id,function(res){
+                    if(!res) return;
                     var data = {method:1,url:res.filePath,playId:res.id};
                     //alert('找到上一首：'+JSON.stringify(data));
                     bmApi.api('player',data,function(res){
@@ -172,6 +178,7 @@ $(function(){
             if($(this).hasClass('next')){
                 //alert('准备下一首'+id);
                 tplData.getMusic(1,id,function(res){
+                    if(!res) return;
                     var data = {method:1,url:res.filePath,playId:res.id};
                     //alert('找到下一首：'+JSON.stringify(data));
                     bmApi.api('player',data,function(res){
@@ -181,6 +188,15 @@ $(function(){
                     location.hash = '/bm/fm/player/'+data.playId;
                 });
             }
+        })
+        .on('click','.player-ctrl .pos',function(e){
+            trace('in','点击',{});
+            var x = e.originalEvent.x || e.originalEvent.layerX || 0;
+            var w = $(document).width();
+            var t = $('.player-ctrl .time .count').html().split(':');
+            var s = parseInt(t[0])*60+parseInt(t[1]);
+            bmApi.api('player',{method:7,time:parseInt(s*x/w)});
+            trace('mouse','鼠标位置',{x:x,w:w,t:t,s:s,time:parseInt(s*x/w)})
         })
         /*播放暂停控制*/
         .on('click','.js-fm-play',function(){
@@ -193,7 +209,7 @@ $(function(){
                 //alert(JSON.stringify(data));
                 bmApi.api('player',data,function(res){
                     //alert('播放回调完成');;
-                    ajax('addPlayMusicRecord',{musicId:data.id,versionCode:1,userSource:2});
+                    ajax('addPlayMusicRecord',{musicId:data.playId,versionCode:1,userSource:2});
 
                     /*if(!window['listenPlayer']){
                         window['listenPlayer'] = setInterval(function(){
@@ -238,11 +254,16 @@ $(function(){
                 history.go(-1);
             })
         })
-        .on('click','.js-tt-list-tabs',function(){
+        .on('click','.js-tt-list-tabs,.js-my-group-tabs',function(){
             if($(this).hasClass('cur')) return;
             var index = $(this).index();
             $(this).addClass('cur').siblings().removeClass('cur');
-            $(this).closest('.tabs').find('.cnt').hide().end().find('.cnt:eq('+index+')').show();
+            /*$(this).closest('.tabs').find('>.cnt').each(function(i,v){
+                console.log([i,v]);
+                i==index?$(v).show():$(v).hide();
+            });*/
+            //$(this).closest('.tabs').find('.cnt:eq('+index+')').show().siblings('.cnt').hide();
+            $(this).closest('.tabs').find('>.cnt').hide().end().find('>.cnt:eq('+index+')').show();
         })
         /*心理评测答题*/
         .on('click','.js-questions input',function(){
@@ -298,6 +319,18 @@ $(function(){
             cache.test.cur = $(this).data('id');
             location.hash = '/bm/tt/scale/'+cache.test.cur;
         })*/
+        /*更多圈子*/
+        .on('click','.js-more-group',function(){
+            var _this = this;
+            var data = $(this).data();
+            data['typeId'] = data['typeid'];
+            ajax('getUserActivityList',data,function(res){
+                data['items'] = res.list;
+                data['page'] = parseInt(data['page']) +1;
+                $(_this).closest('li').replaceWith(TPL.render('myGroupListLi',data));
+            })
+            //console.log(data);
+        })
         /*更多测评*/
         .on('click','.js-more-test',function(){
             var _this = this;
@@ -361,51 +394,5 @@ $(function(){
         })
 });
 
-function ajax(url,data,callback,errorback){
-    errorback = errorback || function(req){alert(req['msg'])};
-    var remoteUrl = '';
-    if(debug)
-        remoteUrl = './test/'+url+'.json';
-    else
-        remoteUrl = "/BmindAPINew/Page/"+url+'.action';
-    data['uid'] = params['uid'];
-    $.ajax({
-        url:remoteUrl,
-        type:'POST',
-        dataType:'JSON',
-        data:data,
-        success:function(req){
-            if(url == 'getMusic'){//音频缓存
-                tplData.push(req.list);
-                /*if(data.page==1) tplData.musicList = req.list;
-                else tplData.musicList.concat(req.list);*/
-            }
-            if(parseInt(req['result'])==1) callback(req);
-            else errorback(req);
-        },
-        error:function(){
-            errorback({msg:'网络通讯错误，请确定网络是否稳定'+url});
-        }
-    })
-}
-function loadAllQuestion(scaleID,page,count,versionCode,userSource){
-    if(Math.ceil(count/10)<page) return;
-    ajax('getMentalTestQuestion',{
-        scaleID:scaleID,
-        page:page,
-        versionCode:versionCode,
-        userSource:userSource
-    },function(req){
-        //cache.test.questions = req.list;
-        cache.test.questions = cache.test.questions.concat(req.list);
-        loadAllQuestion(scaleID,page+1,count,versionCode,userSource);
-        /*
-        cache.test.title = req.title;
-        cache.test.count = req.count;
-        cache.test.description = req.description;
-        cache.test.curQuestions = 0;
-        cache.test.scaleRecordID = req.ScaleRecordID;
-        $('#mn').html(TPL.render('ttScale',cache.test));*/
-    });
-}
+
 
