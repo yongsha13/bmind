@@ -27,6 +27,18 @@
 @ic-cr-h3 : #a3d830; //当前
 @ic-cr-h4 : #ff7938; //级别
 
+@-webkit-keyframes line-scale-pulse-out-rapid {
+  0% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1); }
+
+  80% {
+    -webkit-transform: scaley(0.3);
+    transform: scaley(0.3); }
+
+  90% {
+    -webkit-transform: scaley(1);
+    transform: scaley(1); } }
 @keyframes line-scale-pulse-out-rapid {
   0% {
     -webkit-transform: scaley(1);
@@ -50,14 +62,17 @@ html,body{ background: @bg-cr-h2; }
       width: .4rem;
       height: 4rem;
       border-radius:.2rem;
+      -webkit-border-radius: .2rem;
       margin:.2rem;
       animation-fill-mode:both;
+      -webkit-animation-fill-mode:both;
       display:inline-block;
       animation:line-scale-pulse-out-rapid .9s 0s infinite cubic-bezier(.11,.49,.38,.78);
+      -webkit-animation:line-scale-pulse-out-rapid .9s 0s infinite cubic-bezier(.11,.49,.38,.78);
       &:nth-child(1),
-      &:nth-child(5){ animation-delay: .5s;}
+      &:nth-child(5){ animation-delay: .5s; -webkit-animation-delay: .5s;}
       &:nth-child(2),
-      &:nth-child(4){ animation-delay: .25s;}
+      &:nth-child(4){ animation-delay: .25s; -webkit-animation-delay: .25s;}
     }
 
   }
