@@ -11,7 +11,7 @@ hash路由：director
 样式编译：less
 
 #目录结构
-
+<pre>
 app
   css
     reset.css       css初始化
@@ -33,3 +33,4 @@ app
     main.min.js     发布的打包js
     template.html   模板
 gulpfile.js         nodejs gulp打包执行程序
+</pre>
