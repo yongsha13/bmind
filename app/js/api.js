@@ -92,7 +92,7 @@ function bmCallback(res){
     bmApi.api('new-web-view',{url:url+hash});
 }*/
 function trace(method,descript,data){
-    return false;
+    //return false;
     //data['描述'] = descript;
     data = $.extend({'描述':descript,'接口名称':bmApi.apiNames[data.apiId]},data);
     $.ajax({
@@ -114,9 +114,15 @@ var urlHistory = {
         this.cur && this.stack.push(this.cur);
         this.cur = url;
     },
-    pop:function(){
+    pop:function(dir){
         if(this.stack.length>0)
-            this.cur = this.stack.pop();
+            if(dir==-1){//前一页出栈
+                this.stack.pop();
+                /*var temp = this.stack.pop();
+                this.cur = this.stack.pop();
+                this.stack.push(temp);*/
+            }else
+                this.cur = this.stack.pop();
     },
     back:function(){
         if(this.stack.length>0){
@@ -126,6 +132,7 @@ var urlHistory = {
         }else{
             var isTesting = location.hash.split('/')[3]=='question';
             if(isTesting){
+                if($('.confirm-box').length>0) return;
                 components.confirm('您的评测还没有做完，您确定退出么？',
                     {title:'您正在退出心理测评',okValue:'确定退出',cancelValue:'继续做题'},function(){
                         var data={

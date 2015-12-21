@@ -71,26 +71,26 @@ hr {
 html { overflow-y: scroll; }
 
 
-@media screen and (max-width: 280px) {
+/*@media screen and (max-width: 280px) {
     html,
     body {
         font-size: 12px;
     }
 
 
-}
-@media screen and (min-width: 280px) and (max-width: 300px) {
+}*/
+/*@media screen and (min-width: 280px) and (max-width: 300px) {
     html,
     body {
         font-size: 13px;
     }
-}
-@media screen and (min-width: 300px) and (max-width: 320px) {
+}*/
+/*@media screen and (min-width: 300px) and (max-width: 320px) {
     html,
     body {
         font-size: 14px;
     }
-}
+}*/
 /*@media screen and (min-width: 320px) and (max-width: 340px) {
     html,
     body {
@@ -182,6 +182,7 @@ html { overflow-y: scroll; }
         font-size: 28px;
     }
 }*/
+/*
 @media screen and (min-width: 1024px) and (max-width: 1280px) {
     html,
     body {
@@ -193,4 +194,4 @@ html { overflow-y: scroll; }
     body {
         font-size: 64px;
     }
-}
+}*/

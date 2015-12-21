@@ -142,6 +142,7 @@ function fmtTime(time,fmt){
             '/category/:property/:type': function (property,type) {
                 bmApi.api('title',{title:'情绪调频'});
                 bmApi.api('new-web-view',{method:3,itemType:2})
+                urlHistory.stack.length>1 && urlHistory.pop(-1);
                 ajax('getMusic',{type:type,page:1,property:property},function(req){
                     var data = {
                         items:req.list,
@@ -262,6 +263,7 @@ function fmtTime(time,fmt){
                 //render('myMusic');
             },
             '/music/:id':function(id){
+                urlHistory.pop();
                 if(!id) id==2;
                 var data = {
                     cur:id,

@@ -146,8 +146,8 @@ $(function(){
 
                     var status = parseInt(res.data['downloadResult']);
                     status = status?status:3;
-                    $('article .cnt').html(JSON.stringify(res)+":"+status);
-                    var tips = ['','下载失败','下载完成','正在下载','已经下载'];
+                    /*$('article .cnt').html(JSON.stringify(res)+":"+status);*/
+                    var tips = ['','下载失败','下载完成','正在下载','已经下载','已经取消下载'];
                     var $dom = $('.player-ctrl .status');
                     if(status>0) $dom.html(tips[status]).slideDown();
                     if(status!=3)
