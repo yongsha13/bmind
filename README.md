@@ -32,5 +32,7 @@ app
     main.min.css    发布的打包css
     main.min.js     发布的打包js
     template.html   模板
-gulpfile.js         nodejs gulp打包执行程序
+  index.html        静态入口页面
+  index.jsp         动态入口页面
+gulpfile.js         nodejs gulp 对less,css,js进行打包的执行程序
 </pre>
