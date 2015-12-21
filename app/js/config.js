@@ -96,6 +96,7 @@ function fmtTime(time,fmt){
                                     //alert('下一首回调：'+JSON.stringify(res));
 
                                 });
+                                urlHistory.pop();
                                 location.hash = '/bm/fm/player/'+data.playId;
                             });
 

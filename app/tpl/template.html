@@ -368,7 +368,7 @@
 
 {{target: myGroupListLi(master=listLi)}}
     {{block:cnt}}
-    <a href="${item.url}">
+    <a href="javascript:;" class="js-push-a" data-type="full" data-href="${item.url}">
         <h4>${item.creater}</h4>
         <h3>${item.title}</h3>
         <div class="cnt">${item.content}</div>
@@ -579,7 +579,7 @@
             <h2>${title}</h2>
             <h3>测试结果</h3>
             <p>{{if: ${resultDes} }}${resultDes}{{else}}暂无结果{{/if}}</p>
-            {{if: ${suggest} }}
+            {{if: ${type}==101 }}
             <h3>参考建议</h3>
             <p>${suggest}</p>
             <h3>提醒</h3>

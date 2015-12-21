@@ -51,8 +51,16 @@ $(function(){
             bmApi.api('new-web-view',{url:location.href.split('#')[0]+$(this).data('href')})
         })*/
         .on('click','.js-push-a',function(){
-            var url = location.href.split('#')[0];
-            bmApi.api('new-web-view',{url:url+$(this).data('href')});
+            var url = $(this).data('href');
+            if($(this).data('type')!='full') url =+ location.href.split('#')[0];
+            //alert(url);
+            var data = {
+                method:1,
+                url:url,
+                pushType:$(this).data('type')=='full'?1:2
+            }
+            trace('url','活动圈',{url:url});
+            bmApi.api('new-web-view',{method:1,type:"_blank",url:url});
         })
         /*删除我的音乐*/
         .on('click','.js-my-music-del',function(){
@@ -172,6 +180,7 @@ $(function(){
                         //alert('上一首回调：'+JSON.stringify(res));
                         ajax('addPlayMusicRecord',{musicId:data.playId,versionCode:1,userSource:2});
                     });
+                    urlHistory.pop();
                     location.hash = '/bm/fm/player/'+data.playId;
                 });
             }
@@ -185,6 +194,7 @@ $(function(){
                         //alert('下一首回调：'+JSON.stringify(res));
                         ajax('addPlayMusicRecord',{musicId:data.playId,versionCode:1,userSource:2});
                     });
+                    urlHistory.pop();
                     location.hash = '/bm/fm/player/'+data.playId;
                 });
             }

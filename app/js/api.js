@@ -92,7 +92,7 @@ function bmCallback(res){
     bmApi.api('new-web-view',{url:url+hash});
 }*/
 function trace(method,descript,data){
-    //return false;
+    return false;
     //data['描述'] = descript;
     data = $.extend({'描述':descript,'接口名称':bmApi.apiNames[data.apiId]},data);
     $.ajax({
@@ -137,7 +137,7 @@ var urlHistory = {
                     });
                 return false;
             }
-            var isMy = this.cur.split('/')[2]=='my';
+            var isMy = this.cur.split('/')[2]=='my' && this.cur.split('/')[3]!='group';
             var data={
                 method:2,
                 animated:isMy?0:1,
