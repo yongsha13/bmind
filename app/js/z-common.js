@@ -59,8 +59,8 @@ $(function(){
                 url:url,
                 pushType:$(this).data('type')=='full'?1:2
             }
-            trace('url','活动圈',{url:url});
-            bmApi.api('new-web-view',{method:1,type:"_blank",url:url});
+            trace('url','活动圈',data);
+            bmApi.api('new-web-view',data);
         })
         /*删除我的音乐*/
         .on('click','.js-my-music-del',function(){

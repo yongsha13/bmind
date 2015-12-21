@@ -351,7 +351,7 @@ function fmtTime(time,fmt){
                 });
                 //bmApi.api('new-web-view',{url:location.href.split('#')[0]+'#/bm/tt/scale-view/'+id})
             },
-            '/scale-view/:id':function(id){
+            /*'/scale-view/:id':function(id){
                 ajax('getMentalTestQuestion',{
                     scaleID:id,
                     page:1,
@@ -367,7 +367,7 @@ function fmtTime(time,fmt){
                     $('#mn').html(TPL.render('ttScale',cache.test));
                     loadAllQuestion(id,2,req.count,1,1);
                 });
-            },
+            },*/
             '/question/:step':function(step){
                 urlHistory.pop();//取消历史记录
                 bmApi.api('title',{title:'心理测评'});
