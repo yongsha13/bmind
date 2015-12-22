@@ -115,7 +115,7 @@ $(function(){
                 type:1,
                 title:$(this).data('title'),
                 text:$(this).data('content'),
-                sharUrl:$(this).data('share-url')
+                shareUrl:$(this).data('share-url')
             };
             bmApi.api('share',data)
         })
@@ -129,7 +129,7 @@ $(function(){
                 type:2,
                 title:music.title,
                 text:'主播：'+music.professor,
-                sharUrl:music.shareURL
+                shareUrl:music.shareURL
             }
             //trace('data',data);
             bmApi.api('share',data)

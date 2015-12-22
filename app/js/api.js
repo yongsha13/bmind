@@ -125,25 +125,30 @@ var urlHistory = {
                 this.cur = this.stack.pop();
     },
     back:function(){
+        //var _this = this;
+        trace('history-back','后退',{hash:location.hash});
+        var isTesting = location.hash.split('/')[3]=='question';
+        if(isTesting){
+            trace('in-back','后退提示',{isTest:isTesting,hash:location.hash})
+            if($('.confirm-box').length>0) return;
+            components.confirm('您的评测还没有做完，您确定退出么？',
+                {title:'您正在退出心理测评',okValue:'确定退出',cancelValue:'继续做题'},function(){
+                    var data={
+                        method:2,
+                        animated:1,
+                        mine:0
+                    };
+                    if(urlHistory.stack.length>0) location.hash = urlHistory.cur;
+                    else bmApi.api('new-web-view',data)
+                });
+            return false;
+        }
         if(this.stack.length>0){
             //var re = this.cur;
             this.cur = this.stack.pop();
             location.hash = this.cur;
         }else{
-            var isTesting = location.hash.split('/')[3]=='question';
-            if(isTesting){
-                if($('.confirm-box').length>0) return;
-                components.confirm('您的评测还没有做完，您确定退出么？',
-                    {title:'您正在退出心理测评',okValue:'确定退出',cancelValue:'继续做题'},function(){
-                        var data={
-                            method:2,
-                            animated:1,
-                            mine:0
-                        };
-                        bmApi.api('new-web-view',data)
-                    });
-                return false;
-            }
+
             var isMy = this.cur.split('/')[2]=='my' && this.cur.split('/')[3]!='group';
             var data={
                 method:2,
@@ -227,12 +232,22 @@ var localCache = {
     }
 }
 
-function ajax(url,data,callback,errorback){
-    errorback = errorback || function(req){alert(req['msg'])};
+function ajax(url,data,callback,errorback,times){
+    times = times || 0;
+
+    errorback = errorback ||
+    function(res){
+        if(times<3 && res['flag']){ //通讯出错时，尝试3次，然后提示网络错误
+            trace('network','网络错误',{times:times,flag:res['flag']});
+            ajax(url,data,callback,errorback,++times);
+        }else
+            bmApi.api('alert',{type:1,text:res['msg']||'网络访问出错'})
+    };
+
     var remoteUrl = '';
-    if(debug)
+    /*if(debug)
         remoteUrl = './test/'+url+'.json';
-    else
+    else*/
         remoteUrl = "/BmindAPINew/Page/"+url+'.action';
     data['uid'] = params['uid'];
     /*本地存储*/
@@ -262,7 +277,10 @@ function ajax(url,data,callback,errorback){
         },
         error:function(){
             //bmApi.api('alert',{type:0})
-            errorback({msg:'网络通讯错误，请确定网络是否稳定'+url});
+            errorback({
+                msg:'请检查网络是否稳定',
+                flag:true
+            });
         }
     })
 }
