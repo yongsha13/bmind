@@ -46,6 +46,15 @@ $(function(){
         //console.log(['scroll',$(window).scrollTop()]);
     });
     $('#mn')
+        .on('click','.js-app-download-btn',function(){
+            var ua = navigator.userAgent.toLowerCase();
+            var isWeiXin = ua.match(/MicroMessenger/i)=="micromessenger";
+            if(isWeiXin){
+                $('#mn .fm').append('<div class="weixin"><img src="./images/weixin-bg.jpg" alt=""></div>');
+            }else{
+                location.href='http://www.ydeap.com/download.jsp'
+            }
+        })
         /*在新的webview中打开，历史记录不记录hash地址*/
         /*.on('click','.js-new-web',function(){
             bmApi.api('new-web-view',{url:location.href.split('#')[0]+$(this).data('href')})

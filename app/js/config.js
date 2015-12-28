@@ -406,9 +406,6 @@ function fmtTime(time,fmt){
             '/music/:id':function(id){
                 ajax('getMusic',{type:0,page:1,property:0,mid:id},function(req){
                     data = req.list[0];
-                    var ua = navigator.userAgent.toLowerCase();
-                    data['isWeixin'] = ua.match(/MicroMessenger/i)=="micromessenger";
-                    //data['isWeixin'] = true;
                     $('#mn').html(TPL.render('shareMusic',data));
                 });
             }
