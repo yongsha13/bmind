@@ -389,7 +389,7 @@ function fmtTime(time,fmt){
                     req['id'] = id;
                     $('#mn').html(TPL.render('ttResult',req));
                     var data = {
-                        paperId:id,
+                        paperId:req['scaleID'],
                         cType:1,
                         page:1
                     }
