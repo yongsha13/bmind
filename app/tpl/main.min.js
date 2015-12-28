@@ -251,13 +251,13 @@ function ajax(url,data,callback,errorback,times){
         remoteUrl = "/BmindAPINew/Page/"+url+'.action';
     data['uid'] = params['uid'];
     /*本地存储*/
-    var localData = localCache.getter(url,data);
+    /*var localData = localCache.getter(url,data);
     if(localData){
         //console.log(['本地',localData]);
         if(url=='getMusic') tplData.push(localData.list);
         callback && typeof callback=='function' && callback(localData);
         return false;
-    }
+    }*/
     //bmApi.api('alert',{type:3,text:'正在加载数据'});
     $.ajax({
         url:remoteUrl,
