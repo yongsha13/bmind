@@ -611,19 +611,19 @@
 {{target: shareMusic}}
 <div class="fm">
     <div class="player">
-        <div class="pic" style="background-image:url(${picPath});"></div>
+        <div class="pic" style="margin:6rem 2rem 2rem; background-image:url(${picPath}); "></div>
         <div class="share-ctrl">
             <span class="icon-bofangqibofang iconfont"></span>
         </div>
         <audio id="audio" src="${filePath}"></audio>
-        <div class="article">
+        <div class="article" style="padding:.5rem 2rem;">
             <div class="icons">
                 {{use: levelScore(score=${avg})}}
             </div>
             <article>
                 <h1>${title}</h1>
                 <h2><a href="#/bm/fm/professor/${professorId}">主播：${professor}</a></h2>
-                <div class="cnt"><pre>${musicDes}</pre></div>
+                <div class="cnt"><p>${musicDes|pre}</p></div>
             </article>
         </div>
         <div class="app-download">

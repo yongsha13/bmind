@@ -248,7 +248,7 @@ function ajax(url,data,callback,errorback,times){
     /*if(debug)
         remoteUrl = './test/'+url+'.json';
     else*/
-        remoteUrl = "/BmindAPINew/Page/"+url+'.action';
+    remoteUrl = "/BmindAPINew/Page/"+url+'.action';
     data['uid'] = params['uid'];
     /*本地存储*/
     /*var localData = localCache.getter(url,data);

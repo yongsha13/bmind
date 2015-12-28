@@ -137,7 +137,7 @@ $(function(){
             var data = {
                 type:2,
                 title:music.title,
-                text:'主播：'+music.professor,
+                text:music.musicDes,
                 shareUrl:music.shareURL
             }
             //trace('data',data);

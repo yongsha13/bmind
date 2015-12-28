@@ -33,7 +33,7 @@ function fmtTime(time,fmt){
                 //alert(JSON.stringify(res));
                 tplData.userInfo = true;
                 tplData.roleId = res.data.roleId;
-
+                //tplData.
                 //alert(tplData.roleId);
                 //alert(JSON.stringify(res));
             });
