@@ -274,7 +274,7 @@ $(function(){
             if(!data['tuId']) delete data['tuId'];
             if(!data['commentID']) delete data['commentID'];
             ajax('saveComment',data,function(req){
-                history.go(-1);
+                urlHistory.back();
             })
         })
         .on('click','.js-tt-list-tabs,.js-my-group-tabs',function(){

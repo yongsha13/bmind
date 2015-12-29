@@ -189,10 +189,14 @@ function fmtTime(time,fmt){
             },
             '/edit/:cType/:paperId/:score': function (cType,paperId,score) {
                 bmApi.api('title',{title:'评论'});
+                //urlHistory.pop();
+                bmApi.api('player',{method:5});//隐藏左上角正在播放的图标
                 $('#mn').html(TPL.render('commentEdit',{cType:cType,paperId:paperId,tuId:'',commentID:'',score:score}));
             },
             '/edit/:cType/:paperId/:tuId/:commentID':function(cType,paperId,tuId,commentID){
                 bmApi.api('title',{title:'回复评论'});
+                //urlHistory.pop();
+                bmApi.api('player',{method:5});//隐藏左上角正在播放的图标
                 $('#mn').html(TPL.render('commentEdit',{cType:cType,paperId:paperId,tuId:tuId,commentID:commentID}));
             }
         },
@@ -337,6 +341,7 @@ function fmtTime(time,fmt){
             },
             '/scale/:id':function(id){
                 bmApi.api('title',{title:'心理测评'});
+                urlHistory.pop();
                 ajax('getMentalTestQuestion',{
                     scaleID:id,
                     page:1,
