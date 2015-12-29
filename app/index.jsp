@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>博曼心理咨询</title>
     <link rel="stylesheet" href="tpl/main.min.css">
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1445354090_5280292.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1450702936_462296.css">
 </head>
 <body>
 <div id="mn">
