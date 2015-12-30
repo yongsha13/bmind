@@ -19,6 +19,11 @@
     </div>
 </div>
 <script src="tpl/main.min.js"></script>
-<script>var params = {uid:'${param.uid}'}</script>
+<script>
+    var params = {
+    uid:'${param.uid}',
+    showShare:true
+    }
+    </script>
 </body>
 </html>

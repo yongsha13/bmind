@@ -123,8 +123,10 @@ function fmtTime(time,fmt){
                         /*for(var i=0;i<data['commentList'].length;i++)
                             data['commentList'][i].time = data['commentList'][i].time.split(' ')[0];*/
                         data['page'] = 2;
+                        data['showShare'] = params['showShare'];
                         data['paperId'] = id;
                         data['cType'] = 3;
+                        //console.log(data);
                         $('#mn').html(TPL.render('fmPlayer',data));
                     })
                 })
