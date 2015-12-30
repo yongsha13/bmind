@@ -150,6 +150,7 @@ $(function(){
             tplData.getMusic(0,id,function(data){
                 //alert('重组音频数据：'+JSON.stringify(data));
                 data['url'] = data['filePath'];
+                data['id'] = id;
                 //alert('准备下载：'+JSON.stringify(data));
                 bmApi.api('download',data,function(res){
 
