@@ -92,7 +92,7 @@ function bmCallback(res){
     bmApi.api('new-web-view',{url:url+hash});
 }*/
 function trace(method,descript,data){
-    //return false;
+    return false;
     //data['描述'] = descript;
     data = $.extend({'描述':descript,'接口名称':bmApi.apiNames[data.apiId]},data);
     $.ajax({

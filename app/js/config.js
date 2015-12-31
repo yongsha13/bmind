@@ -318,7 +318,8 @@ function fmtTime(time,fmt){
             '/list/:id':function(id){
                 bmApi.api('title',{title:'心理测评'});
                 urlHistory.stack.length<=1 &&
-                    urlHistory.go(location.hash);
+                    urlHistory.stack.push(location.hash);
+                //trace('history','查看历史记录',urlHistory.stack);
                 var reqData = {
                     sort:id,
                     page:1
