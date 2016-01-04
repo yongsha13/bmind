@@ -123,6 +123,7 @@ var urlHistory = {
                 this.stack.push(temp);*/
             }else
                 this.cur = this.stack.pop();
+        else this.cur = null;
     },
     back:function(){
         //var _this = this;
@@ -138,7 +139,7 @@ var urlHistory = {
                         animated:1,
                         mine:0
                     };
-                    if(urlHistory.stack.length>0) location.hash = urlHistory.cur;
+                    if(urlHistory.cur) location.hash = urlHistory.cur;
                     else bmApi.api('new-web-view',data)
                 });
             return false;
