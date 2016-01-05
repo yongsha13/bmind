@@ -1,6 +1,6 @@
 @import "reset.css";
 /*html,body,#mn{ height: 100%; overflow: hidden;}*/
-#mn{ padding: 60px 0 40px; box-sizing: border-box;}
+#mn{ padding: 60px 0 40px; box-sizing: border-box; margin: 0 auto;}
 header{ position: fixed; z-index: 9999; top: 0; width: 100%; line-height: 60px; height: 60px; background: url(../images/header-bg.jpg);
   img{float:left;}
   h1{ float: left; font-size: 14px; font-weight: 500; color: #e66b14;}
@@ -14,87 +14,107 @@ header{ position: fixed; z-index: 9999; top: 0; width: 100%; line-height: 60px; 
 footer{ position: fixed; bottom: 0; width: 100%; text-align: center; background: #1e2128; color: #e3e3e3; line-height: 40px;}
 
 .line{ height: 40px; background: #f1f1f1; border-bottom: 1px solid #e1e1e1; -webkit-box-shadow:  0 1px 2px #e3e3e3; -moz-box-shadow:  0 1px 2px #e3e3e3; box-shadow:  0 1px 2px #e3e3e3;}
-section{ min-height: 400px; box-sizing: border-box; position: relative; text-align: center;
+section{ min-height: 400px; box-sizing: border-box; position: relative; text-align: center; overflow: hidden;
   h2,h3{ font-weight: 500; text-align: center;}
-  &.step-1{ background: url(../images/bg-1.png) repeat-x bottom center #f6c032;
-    .cloud{ position: absolute; top: 20px; left: 20px;}
-    .house{ position: absolute; bottom: 0; right: 20px;}
-    .banner{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto;}
+  &.step-1{
+    .slide-box{ margin: 0 auto;
+        img{ width: 100%;}
+    }
+
   }
   &.step-2,&.step-7{ padding: 40px 0;
     h2{ line-height: 30px; color: #858585; font-size: 18px; }
-    .dot-line{ margin: 0 150px; height: 20px; border-bottom: 1px solid #e3e3e3;
-      span{ display: inline-block; width: 30px; height: 30px; background: #fff;
-        &:after{ display: block; content: ''; width: 7px; height: 7px; border: 1px solid #ccc; margin: 16px auto 0;
-          -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;}
-      }
-    }
-    ul{ text-align: center; padding-top: 20px;
-      li{ display: inline-block; width: 70px; padding: 20px; text-align: center;
-        img{ width: 100%;}
-        span{ line-height: 40px;}
-      }
-    }
+    .dot-line{ margin: 20px auto; width: 700px; height: 8px; background: url(../images/dot-line.png);}
+    span{display: inline-block; width: 136px; line-height: 40px; font-size: 14px; color: #999;}
   }
-  &.step-2{ min-height: 300px;}
+  &.step-2{ min-height: 260px;}
   &.step-3,&.step-4,&.step-5,&.step-6{ background: #f3f7f7; padding: 40px 0; text-align: center; height: 460px;
     h2{ line-height: 30px; color: #e66b14; font-size: 22px;}
     h3{ line-height: 30px; color: #9b9c9c; font-size: 16px;}
-    .img-box{ position: relative; width: 740px; height: 400px; margin: 0 auto; overflow: hidden;
-      img{ position: absolute;
-        &.shadow{ width: 316px; left: 264px; top: 0;}
-        &.bg{ width: 700px; left: 0; top: 0;}
-        &.shut{ left: 260px; top: 0;}
-      }
-    }
   }
-  &.step-4{ background: #fff; height: 500px;
-    .img-box{ margin-top: 30px;
-      img{
-        &.shadow-1{ left: 20px; top: 55px;}
-        &.shadow-2{ left: 40px; top: 20px;}
-        &.shut-1{ left: 0; top: 50px; }
-        &.shut-2{ left: 50px; top: 0;}
-        &.scale{ right: 0; top: 0;}
-        &.icon{ left: 100px; top: 220px;}
-        &.arrow{ left: 120px; top: 120px;}
-      }
-    }
-  }
+  &.step-3{ height: 500px;}
+  &.step-4{ background: #fff; height: 500px;}
   &.step-5{
-    .img-box{
-      .ti{ left: 0; top: 150px; position: absolute; }
-      img{
-        &.bg{ left: 50px; top: 70px;}
-        &.shut{ left: 350px; top: 0;}
-    }
-    }
+    .ti{ left: 40px; top: 180px; position: absolute; }
   }
-  &.step-6{ background: #fff; height: 540px;
-    .img-box{ height: 540px;
-      .ti{ position: absolute; right: 50px; top: 200px;
-        h2,h3{ text-align: left;}
-      }
-      img{
-        &.icon{ left:50px; top: 420px;}
-        &.arrow{ left:0; top: 30px;}
-        &.shut{ left: 80px; top: 30px;}
-      }
+  &.step-6{ background: #fff; height: 540px; text-indent: -200px;
+    .ti{ position: absolute; right: 50px; top: 200px; text-indent: 0;
+      h2,h3{ text-align: left;}
     }
   }
   &.step-7{ height: 640px;
     ul{ width: 850px; margin: 20px auto;
-      li{ float: left; width: 150px; padding: 10px;
+      li{ float: left; width: 150px; padding: 10px 3px;
         .avatar{ margin: 0 auto; width: 130px; height: 130px; -webkit-border-radius: 80px; -moz-border-radius: 80px; border-radius: 80px; overflow: hidden;
           img{ width: 100%;}
         }
         span{ font-size: 18px; color: #999;}
-        p{ font-size: 12px; text-align: left; line-height: 20px; color: #777;}
+        p{ font-size: 12px; text-align: center; line-height: 20px; color: #777;}
       }
     }
   }
-  &.step-8{ background: url(../images/bg-4.png) no-repeat center center #f7c440; padding: 40px 80px; text-align: left;
-    h2{ color: #fff; text-align: left; line-height: 30px; font-size: 20px;}
-    p{ font-size: 16px; color: #fff; line-height: 24px; padding: 10px 0;}
+  &.step-8{ background: url(../images/section-6.jpg) no-repeat center center #f7c440; padding: 40px 0; text-align: left; height: 480px;
+    h2{ width: 780px; margin: 0 auto; color: #fff; text-align: left; line-height: 30px; font-size: 20px;}
+    p{ width: 780px; margin: 0 auto; text-indent: 32px; font-size: 16px; color: #fff; line-height: 24px; padding: 10px 0;}
+  }
+  &.step-9{ padding: 40px 0; vertical-align: top; text-align: center; min-height: 280px;
+    h2{ text-align: left; line-height: 40px; color: #999; padding-bottom: 40px;}
+    p{ line-height: 32px; color: #999; font-size: 14px; text-align: left;}
+    span{ display: inline-block; vertical-align: middle; width: 30px; height: 30px; margin-right: 8px; background-image: url(../images/dot-line.png); background-repeat: no-repeat;
+      &.weixin{ background-position: 0 -10px;}
+      &.weibo{ background-position: -30px -10px;}
+      &.website{ background-position: -60px -10px;}
+      &.tel{ background-position: -90px -10px;}
+      &.email{ background-position: -120px -10px;}
+      &.location{ background-position: -150px -10px;}
+      &.double{ width: auto; background-image:none; line-height: 16px; margin-right: 0;}
+    }
+    .attention{ display: inline-block; width: 480px; line-height: 96px;
+      img{float:left; padding: 5px;}
+      p{float:left; padding: 5px;}
+    }
+    .contact{ display: inline-block; width: 280px; vertical-align: top;}
+  }
+}
+
+@media screen and (max-width: 800px) {
+  html,body{ min-width: 300px;}
+  #mn{ padding: 0;}
+  header{ position: inherit; height: 92px;
+    img{ margin-left: -20px;}
+    ul{float: none; clear: both;
+      li{ padding-top: 0; width: 20%; margin: 0;}
+    }
+  }
+  footer{ position: inherit;}
+  section{ min-height: auto;
+    img{ width: 100%;}
+    &.step-2{
+      span{float:left; width: 25%;}
+    }
+    &.step-3{ height: auto;}
+    &.step-4{ height: auto;}
+    &.step-5{ height: auto;
+      .ti{ position: static;}
+    }
+    &.step-6{ text-indent: 0; height: auto;
+      .ti{ position: static;
+        h2,h3{ text-align: center;}
+      }
+    }
+    &.step-7{ height: auto;
+      ul{ width: auto;}
+    }
+    &.step-8{ background: url(../images/section-6.jpg) no-repeat center bottom #f7c440; background-size: 100%; height: auto; padding-bottom: 240px;
+      h2{ padding: 0 20px;}
+      p{ padding: 0 20px; width: auto;}
+    }
+    &.step-9{
+      img{ width: auto;}
+      h2{ padding-bottom: 0; }
+      .attention{ width: 280px;
+        p{ clear: both;}
+      }
+    }
   }
 }
