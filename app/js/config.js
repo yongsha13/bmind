@@ -275,7 +275,7 @@ function fmtTime(time,fmt){
                 var data = {
                     cur:id,
                     tabs:[
-                        {id:1,url:'#/bm/my/music/1',name:'我的最爱'},
+                        {id:1,url:'#/bm/my/music/1',name:params['showShare']?'我的下载':'我的最爱'},
                         {id:2,url:'#/bm/my/music/2',name:'最近播放'}
                     ],
                 }
