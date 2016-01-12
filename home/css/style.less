@@ -1,7 +1,7 @@
 @import "reset.css";
 /*html,body,#mn{ height: 100%; overflow: hidden;}*/
 #mn{ padding: 60px 0 40px; box-sizing: border-box; margin: 0 auto;}
-header{ position: fixed; z-index: 9999; top: 0; width: 100%; line-height: 60px; height: 60px; background: url(../images/header-bg.jpg);
+.header{ position: fixed; z-index: 9999; top: 0; width: 100%; line-height: 60px; height: 60px; background: url(../images/header-bg.jpg);
   img{float:left;}
   h1{ float: left; font-size: 14px; font-weight: 500; color: #e66b14;}
   ul{float:right;
@@ -11,13 +11,13 @@ header{ position: fixed; z-index: 9999; top: 0; width: 100%; line-height: 60px; 
     }
   }
 }
-footer{ position: fixed; bottom: 0; width: 100%; text-align: center; background: #1e2128; color: #e3e3e3; line-height: 40px;}
+.footer{ position: fixed; bottom: 0; width: 100%; text-align: center; background: #1e2128; color: #e3e3e3; line-height: 40px;}
 
 .line{ height: 40px; background: #f1f1f1; border-bottom: 1px solid #e1e1e1; -webkit-box-shadow:  0 1px 2px #e3e3e3; -moz-box-shadow:  0 1px 2px #e3e3e3; box-shadow:  0 1px 2px #e3e3e3;}
-section{ min-height: auto; box-sizing: border-box; position: relative; text-align: center; overflow: hidden;
-  h2,h3{ font-weight: 500; text-align: center;}
+.section{ min-height: auto; box-sizing: border-box; position: relative; text-align: center; overflow: hidden;
+  h2,h3{ font-weight: 500; text-align: center; padding:0 40px;}
   &.step-1{
-    .slide-box{ margin: 0 auto;
+    .slide-box{ margin: 0 auto; text-align: left; white-space: nowrap;
         img{ width: 100%;}
     }
 
@@ -74,20 +74,21 @@ section{ min-height: auto; box-sizing: border-box; position: relative; text-alig
       p{float:left; padding: 5px;}
     }
     .contact{ display: inline-block; width: 280px; vertical-align: top;}
+    .attention,.contact{ _zoom:1; *display:inline;}/*IE的inline-block兼容处理*/
   }
 }
 
 @media screen and (max-width: 800px) {
   html,body{ min-width: 300px;}
   #mn{ padding: 0;}
-  header{ position: inherit; height: 92px;
+  .header{ position: inherit; height: 92px;
     img{ margin-left: -20px;}
     ul{float: none; clear: both;
       li{ padding-top: 0; width: 20%; margin: 0;}
     }
   }
-  footer{ position: inherit;}
-  section{ min-height: auto;
+  .footer{ position: inherit;}
+  .section{ min-height: auto;
     img{ width: 100%;}
     &.step-2{
       span{float:left; width: 25%;}
