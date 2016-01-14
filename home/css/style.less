@@ -1,7 +1,8 @@
 @import "reset.css";
 /*html,body,#mn{ height: 100%; overflow: hidden;}*/
-#mn{ padding: 60px 0 40px; box-sizing: border-box; margin: 0 auto;}
+#mn{ padding: 60px 0 40px; box-sizing: border-box; margin: 0 auto; width:1000px; margin:0 auto;}
 .header{ position: fixed; z-index: 9999; top: 0; width: 100%; line-height: 60px; height: 60px; background: url(../images/header-bg.jpg);
+  .nav{ width: 1000px; margin:0 auto;}
   img{float:left;}
   h1{ float: left; font-size: 14px; font-weight: 500; color: #e66b14;}
   ul{float:right;
@@ -11,20 +12,21 @@
     }
   }
 }
-.footer{ position: fixed; bottom: 0; width: 100%; text-align: center; background: #1e2128; color: #e3e3e3; line-height: 40px;}
+.footer{ position: fixed; bottom: 0; width: 100%; height:40px; text-align: center; background: #1e2128; color: #e3e3e3; line-height: 40px;}
 
 .line{ height: 40px; background: #f1f1f1; border-bottom: 1px solid #e1e1e1; -webkit-box-shadow:  0 1px 2px #e3e3e3; -moz-box-shadow:  0 1px 2px #e3e3e3; box-shadow:  0 1px 2px #e3e3e3;}
 .section{ min-height: auto; box-sizing: border-box; position: relative; text-align: center; overflow: hidden;
   h2,h3{ font-weight: 500; text-align: center; padding:0 40px;}
   &.step-1{
-    .slide-box{ margin: 0 auto; text-align: left; white-space: nowrap;
+    .slide-box{ margin: 0 auto; text-align: left; white-space: nowrap; _width:100%; _overflow: hidden;
         img{ width: 100%;}
     }
 
   }
   &.step-2,&.step-7{ padding: 40px 0;
     h2{ line-height: 30px; color: #858585; font-size: 18px; }
-    .dot-line{ margin: 20px auto; width: 700px; height: 8px; background: url(../images/dot-line.png);}
+    .dot-line{ margin: 20px auto; width: 700px; height: 8px; background: url(../images/dot-line.png);
+      _overflow: hidden; _background: none; _border-bottom: 1px solid #e3e3e3;}
     span{display: inline-block; width: 136px; line-height: 40px; font-size: 14px; color: #999;}
   }
   &.step-2{ min-height: auto;}
@@ -78,6 +80,7 @@
   }
 }
 
+/*
 @media screen and (max-width: 800px) {
   html,body{ min-width: 300px;}
   #mn{ padding: 0;}
@@ -118,4 +121,4 @@
       }
     }
   }
-}
+}*/
