@@ -1102,6 +1102,7 @@ body {
 }
 a.more {
   display: block;
+  font-size: 1rem;
   text-align: center;
   background: #eeeeee;
   color: #555555;
