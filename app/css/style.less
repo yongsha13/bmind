@@ -106,7 +106,7 @@ html,body{ background: @bg-cr-h2; font-size:13px; height:100%;  }
   p{ min-height: 2rem; background: @bg-cr-h0;}
   .btn{ display: block; margin: 0 3rem; line-height: 1.5rem; font-size: 1rem; text-align: center; color: @ft-cr-h0; background: @ft-cr-h1;}
 }
-.fm{ min-width: 300px; overflow: hidden; height: 100%;
+.fm{ min-width: 300px; min-height: 100%; padding-bottom:3rem;
   h2{ font-weight: 500; padding-left: .5rem; font-size: 1.2rem;}
   .banner{ position: fixed;
     width:100%;
@@ -297,8 +297,7 @@ html,body{ background: @bg-cr-h2; font-size:13px; height:100%;  }
           &:checked:after{ content:'\e602';
             color: @ic-cr-h1;}
         }
-        label{ padding-left: .5rem;
-          font-size: .8rem;}
+        label{ padding-left: .5rem; font-size: 1rem;}
       }
     }
   }

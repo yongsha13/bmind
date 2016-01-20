@@ -158,8 +158,8 @@ body {
 }
 .fm {
   min-width: 300px;
-  overflow: hidden;
-  height: 100%;
+  min-height: 100%;
+  padding-bottom: 3rem;
 }
 .fm h2 {
   font-weight: 500;
@@ -693,7 +693,7 @@ body {
 }
 .tt .question ul li label {
   padding-left: .5rem;
-  font-size: .8rem;
+  font-size: 1rem;
 }
 .tt .result {
   margin: 1rem;
