@@ -106,7 +106,12 @@ html,body{ background: @bg-cr-h2; font-size:13px; height:100%;  }
   p{ min-height: 2rem; background: @bg-cr-h0;}
   .btn{ display: block; margin: 0 3rem; line-height: 1.5rem; font-size: 1rem; text-align: center; color: @ft-cr-h0; background: @ft-cr-h1;}
 }
-.fm{ min-width: 300px; min-height: 100%; padding-bottom:3rem;
+
+.bg-line(@color) {
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(lighten(@color, 10%)), to(darken(@color, 10%)));
+  background: -moz-linear-gradient(top, lighten(@color, 10%), darken(@color, 10%));
+}
+.fm{ min-width: 300px; min-height: 100%;
   h2{ font-weight: 500; padding-left: .5rem; font-size: 1.2rem;}
   .banner{ position: fixed;
     width:100%;
@@ -119,6 +124,15 @@ html,body{ background: @bg-cr-h2; font-size:13px; height:100%;  }
       background: @bg-cr-h0;
       text-align: center;
       line-height: 1.5rem;
+      span{ display: inline-block; width:3rem; height:3rem; color: #fff; border-radius: 1rem; font-size:2rem; line-height:3rem; text-align: center; background: #f00;
+        .bg-line(#f66);
+
+      }
+      &:nth-child(1) span{.bg-line(#8ebae5);}
+      &:nth-child(2) span{.bg-line(#e3cb7a);}
+      &:nth-child(3) span{.bg-line(#39c1c0);}
+      &:nth-child(4) span{.bg-line(#f96255);}
+      &:nth-child(5) span{.bg-line(#b1ce59);}
       img{
         display: block;
         margin: 0 auto; clear: both; overflow: hidden;
@@ -247,7 +261,7 @@ html,body{ background: @bg-cr-h2; font-size:13px; height:100%;  }
     &.cur .operation{ right: 0;}
   }
 }
-.tt{ height:100%;
+.tt{ padding:1rem; height:100%; box-sizing: border-box;
   .index{
     >img{ display: block; width: 100%;}
     .bar{ text-align: center; background: @bg-cr-h0; border-bottom: 1px solid @bd-cr-h3;
@@ -259,15 +273,15 @@ html,body{ background: @bg-cr-h2; font-size:13px; height:100%;  }
       h2{ font-weight: 500; background: @bg-cr-h5; line-height: 2.5rem; font-size: 1.2rem; padding-left: 1rem;}
     }
   }
-  .detail{ margin: 1rem 1rem 0; border-radius: 1rem; background: @bg-cr-h0; min-height:95%; position: relative;
-    h2{ font-weight: 500; text-align: center; line-height: 4rem; color: @ft-cr-h4; font-size: 1rem; border-bottom: 1px solid #efefef;}
-    p{ line-height: 1.3rem; font-size: 1rem; padding: 1rem; text-indent: 1.6rem; color: @ft-cr-h4;}
+  .detail{ border-radius: 1rem; background: @bg-cr-h0; min-height:100%; position: relative;
+    h2{ font-weight: 500; text-align: center; line-height: 4rem; color: @ft-cr-h4; font-size: 1.2rem; border-bottom: 1px solid #efefef;}
+    p{ line-height: 1.5rem; font-size: 1rem; padding: 1rem; text-indent: 1.6rem; color: @ft-cr-h4;}
 
   }
   .ctrl{ position: absolute; width:100%; bottom: 0; padding: 1rem; text-align: center; border-top: 1px solid @bd-cr-h3;}
-  .question{ margin: 1rem; border-radius: 1rem; background: @bg-cr-h0; min-height:95%; position: relative;
-    h2{ font-weight: 500; text-align: center; line-height: 4rem; color: @ft-cr-h4; font-size: 1rem; border-bottom: 1px solid @bd-cr-h3;}
-    p{font-weight: 500; line-height: 1rem; color: @ft-cr-h3; font-size: .8rem;  padding: 1rem;}
+  .question{ border-radius: 1rem; background: @bg-cr-h0; min-height:100%; position: relative;
+    h2{ font-weight: 500; text-align: center; line-height: 4rem; color: @ft-cr-h4; font-size: 1.2rem; border-bottom: 1px solid @bd-cr-h3;}
+    p{font-weight: 500; line-height: 1.5rem; color: @ft-cr-h3; font-size: 1rem;  padding: 1rem;}
     .progress{ color: @ft-cr-h5; padding: 1rem; overflow: hidden;
       label{float:left;
         font-size: .8rem;}
@@ -377,8 +391,8 @@ html,body{ background: @bg-cr-h2; font-size:13px; height:100%;  }
     em{ font-size: .5rem;}
   }
 }
-
-.comment{
+#mn>.comment{position: relative;}
+.comment{ height:100%;
   li{ line-height: 1.5rem; margin-bottom: .5rem; padding: .5rem; background:@bg-cr-h0;
     .avatar{float:left; width:2rem; height: 2rem; border-radius: 2rem;
       background-position: center center;
@@ -394,13 +408,14 @@ html,body{ background: @bg-cr-h2; font-size:13px; height:100%;  }
       .time{ float: right; font-size: .8rem; color: @ft-cr-h5;}
     }
   }
-  .level-ctrl{ font-size: 1.5rem; line-height: 4rem; text-align: center; color: @ft-cr-h1;
+  .level-ctrl{ font-size: 1.5rem; line-height: 4rem; text-align: center; color: @ft-cr-h1; position: absolute; width: 100%; z-index: 999;
     .iconfont{ font-size: 1.5rem;}
     .icon-xingji{ font-weight: 700;}
     .icon-xingji,.icon-xingjiban{ color: @ft-cr-h1;}
     .icon-xingjiline{ color: @ft-cr-h5;}
   }
-  textarea{display: block; border: none; width: 100%; height: 20rem; box-sizing: border-box; padding: .5rem; font-size:1.2rem; line-height:1.5rem;}
+  form{ position: absolute; top:0; left:0; width: 100%; height:100%; padding:4rem 0 3rem; box-sizing: border-box;}
+  textarea{display: block; border: none; width: 100%; height: 100%; box-sizing: border-box; padding: .5rem; font-size:1.2rem; line-height:1.5rem;}
   .ctrl{padding: .5rem 0; text-align: center;}
 }
 .icons{ margin-top: 1rem; line-height: 2rem; color: @ft-cr-h5; overflow: hidden; clear: both; font-size: .8rem;
@@ -421,7 +436,7 @@ html,body{ background: @bg-cr-h2; font-size:13px; height:100%;  }
   .icon-xingji,.icon-xingjiban{ padding: 0; color: @ic-cr-h4;}
   .icon-xingjiline{ padding: 0; color: @ft-cr-h5;}
 }
-a.more{ display: block; font-size: 1rem; text-align: center; background: @bg-cr-h2; color: @ft-cr-h4; line-height: 2rem; margin: -1rem; padding: .5rem 0 .5rem;}
+a.more{ display: block; font-size: 1rem; text-align: center; background: @bg-cr-h2; color: @ft-cr-h4; line-height: 2rem; margin: -1rem; padding: .5rem 0 1.5rem;}
 
 .btn{ display: inline-block; padding: .3rem 1rem; line-height: 1.5rem; border-radius: .4rem;
   &.red{ background: @bg-cr-h1; color: #fff;}

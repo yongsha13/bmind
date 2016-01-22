@@ -224,7 +224,22 @@ function fmtTime(time,fmt){
                             url:'#/bm/my/group/'+res.list[i].typeId,
                             name:res.list[i].typeName
                         });
-                    ajax('getUserActivityList',{typeId:data['tabs'][0].id,page:1},function(req){
+                    console.log(data);
+                    $('#mn').html(TPL.render('myGroup',data));
+                    for(var i=0;i<data['tabs'].length;i++)
+                        loadUL(data['tabs'][i]);
+
+                    function loadUL(data){
+                        console.log($('#mn .ul-'+data.id));
+                        ajax('getUserActivityList',{typeId:data.id,page:1},function(res){
+                            $('#mn .tabs .ul-'+data.id).append(TPL.render('myGroupListLi',{
+                                items:res.list,
+                                page:2,
+                                typeId:data.id
+                            }));
+                        });
+                    }
+                    /*ajax('getUserActivityList',{typeId:data['tabs'][0].id,page:1},function(req){
                         data['tab1'] = {
                             items:req.list,
                             page:2,
@@ -241,7 +256,7 @@ function fmtTime(time,fmt){
                             $('#mn').html(TPL.render('myGroup',data));
                         });
 
-                    });
+                    });*/
                 });
             },
             '/group/:id':function(id){//圈子

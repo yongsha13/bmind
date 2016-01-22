@@ -161,11 +161,11 @@
 
 {{target: fmBanner}}<!--音频banner-->
     <div class="banner">
-        <a class="js-random-player" href="javascript:;"><img src="./images/icon-1-1.png" alt=""/>试试手气
-        </a><a href="#/bm/fm/category/1/1"><img src="/BmindPage/images/icon-2-1.png" alt=""/>放轻松
-        </a><a href="#/bm/fm/category/1/6"><img src="/BmindPage/images/icon-3-1.png" alt=""/>好好睡
-        </a><a href="#/bm/fm/category/1/5"><img src="/BmindPage/images/icon-4-1.png" alt=""/>爱自己
-        </a><a href="#/bm/fm/category/1/10"><img src="/BmindPage/images/icon-5-1.png" alt=""/>更多</a>
+        <a class="js-random-player" href="javascript:;"><span class="iconfont">&#xe63c;</span><br>试试手气
+        </a><a href="#/bm/fm/category/1/1"><span class="iconfont">&#xe638;</span><br>放轻松
+        </a><a href="#/bm/fm/category/1/6"><span class="iconfont">&#xe63d;</span><br>好好睡
+        </a><a href="#/bm/fm/category/1/5"><span class="iconfont">&#xe636;</span><br>爱自己
+        </a><a href="#/bm/fm/category/1/10"><span class="iconfont">&#xe617;</span><br>更多</a>
         <h2>热门</h2>
     </div>
 
@@ -282,7 +282,7 @@
                 <span class="icon-xingjiline iconfont"></span>
             </div>
         {{/if}}
-        <form>
+        <form{{if: ${score}!=0 }} style="padding-top:0;"{{/if}}>
             {{if: ${score}==0 }}<input type="hidden" id="score" name="score" value="${score}">{{/if}}
             <input type="hidden" id="paperId" name="paperId" value="${paperId}">
             <input type="hidden" id="cType" name="cType" value="${cType}">
@@ -344,12 +344,9 @@
                     <span class="js-my-group-tabs{{if: ${index}==0}} cur{{/if}}">${tab.name}</span>
                 {{/for}}
             </div>
-            <ul class="cnt group">
-                {{use: myGroupListLi(items=${tab1.items},page=2,typeId=${tab1.typeId})}}
-            </ul>
-            <ul class="cnt group" style="display: none;">
-                {{use: myGroupListLi(items=${tab2.items},page=2,typeId=${tab2.typeId})}}
-            </ul>
+            {{for: ${tabs} as ${tabs},${index} }}
+            <ul class="cnt group ul-${tabs.id}" {{if: ${index}!=0 }}style="display:none;"{{/if}}></ul>
+            {{/for}}
         </div>
     </div>
 
@@ -483,7 +480,7 @@
     </div>
 
 {{target: ttList}}
-    <div class="tt">
+    <div class="tt" style="padding: 0;">
         <div class="list">
             <div class="tabs col-${list.length}">
                 <div class="ti">

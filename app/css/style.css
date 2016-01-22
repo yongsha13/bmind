@@ -159,7 +159,6 @@ body {
 .fm {
   min-width: 300px;
   min-height: 100%;
-  padding-bottom: 3rem;
 }
 .fm h2 {
   font-weight: 500;
@@ -182,6 +181,39 @@ body {
   background: #ffffff;
   text-align: center;
   line-height: 1.5rem;
+}
+.fm .banner a span {
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  color: #fff;
+  border-radius: 1rem;
+  font-size: 2rem;
+  line-height: 3rem;
+  text-align: center;
+  background: #f00;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#ff9999), to(#ff3333));
+  background: -moz-linear-gradient(top, #ff9999, #ff3333);
+}
+.fm .banner a:nth-child(1) span {
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#b7d3ef), to(#65a1db));
+  background: -moz-linear-gradient(top, #b7d3ef, #65a1db);
+}
+.fm .banner a:nth-child(2) span {
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#ecdba4), to(#dabb50));
+  background: -moz-linear-gradient(top, #ecdba4, #dabb50);
+}
+.fm .banner a:nth-child(3) span {
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#5ecfcf), to(#2d9a99));
+  background: -moz-linear-gradient(top, #5ecfcf, #2d9a99);
+}
+.fm .banner a:nth-child(4) span {
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#fb8f86), to(#f73524));
+  background: -moz-linear-gradient(top, #fb8f86, #f73524);
+}
+.fm .banner a:nth-child(5) span {
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#c4da80), to(#9bbc38));
+  background: -moz-linear-gradient(top, #c4da80, #9bbc38);
 }
 .fm .banner a img {
   display: block;
@@ -541,7 +573,9 @@ body {
   right: 0;
 }
 .tt {
+  padding: 1rem;
   height: 100%;
+  box-sizing: border-box;
 }
 .tt .index > img {
   display: block;
@@ -574,10 +608,9 @@ body {
   padding-left: 1rem;
 }
 .tt .detail {
-  margin: 1rem 1rem 0;
   border-radius: 1rem;
   background: #ffffff;
-  min-height: 95%;
+  min-height: 100%;
   position: relative;
 }
 .tt .detail h2 {
@@ -585,11 +618,11 @@ body {
   text-align: center;
   line-height: 4rem;
   color: #555555;
-  font-size: 1rem;
+  font-size: 1.2rem;
   border-bottom: 1px solid #efefef;
 }
 .tt .detail p {
-  line-height: 1.3rem;
+  line-height: 1.5rem;
   font-size: 1rem;
   padding: 1rem;
   text-indent: 1.6rem;
@@ -604,10 +637,9 @@ body {
   border-top: 1px solid #efefef;
 }
 .tt .question {
-  margin: 1rem;
   border-radius: 1rem;
   background: #ffffff;
-  min-height: 95%;
+  min-height: 100%;
   position: relative;
 }
 .tt .question h2 {
@@ -615,14 +647,14 @@ body {
   text-align: center;
   line-height: 4rem;
   color: #555555;
-  font-size: 1rem;
+  font-size: 1.2rem;
   border-bottom: 1px solid #efefef;
 }
 .tt .question p {
   font-weight: 500;
-  line-height: 1rem;
+  line-height: 1.5rem;
   color: #323333;
-  font-size: .8rem;
+  font-size: 1rem;
   padding: 1rem;
 }
 .tt .question .progress {
@@ -958,6 +990,12 @@ body {
 .article .ctrl em {
   font-size: .5rem;
 }
+#mn > .comment {
+  position: relative;
+}
+.comment {
+  height: 100%;
+}
 .comment li {
   line-height: 1.5rem;
   margin-bottom: .5rem;
@@ -1001,6 +1039,9 @@ body {
   line-height: 4rem;
   text-align: center;
   color: #ff7938;
+  position: absolute;
+  width: 100%;
+  z-index: 999;
 }
 .comment .level-ctrl .iconfont {
   font-size: 1.5rem;
@@ -1015,11 +1056,20 @@ body {
 .comment .level-ctrl .icon-xingjiline {
   color: #989898;
 }
+.comment form {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 4rem 0 3rem;
+  box-sizing: border-box;
+}
 .comment textarea {
   display: block;
   border: none;
   width: 100%;
-  height: 20rem;
+  height: 100%;
   box-sizing: border-box;
   padding: .5rem;
   font-size: 1.2rem;
@@ -1108,7 +1158,7 @@ a.more {
   color: #555555;
   line-height: 2rem;
   margin: -1rem;
-  padding: .5rem 0 .5rem;
+  padding: .5rem 0 1.5rem;
 }
 .btn {
   display: inline-block;

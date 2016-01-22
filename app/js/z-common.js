@@ -38,8 +38,8 @@ $(function(){
         location.hash.length>0 || (location.hash = '/bm/fm/index');
     },'html');
     //window['params']['uid'] = 32844;
-    $(window).scroll(function(){
-        if($(window).scrollTop()<170)
+    $('#mn').scroll(function(){
+        if($('#mn').scrollTop()<170)
             $('#mn').removeClass('top');
         else
             $('#mn').addClass('top');
