@@ -42,7 +42,7 @@ var scrollPosition = {
         $('.header ul li').on('click',function(){
             var index = $(this).index();
             $(window).scrollTop(scrollPosition.y[index]-80);
-            $(this).addClass('cur').siblings().removeClass('cur');
+            //$(this).addClass('cur').siblings().removeClass('cur');
         })
         $(window).scroll(function(){
             var top = $(window).scrollTop();
