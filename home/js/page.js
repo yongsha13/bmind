@@ -2,10 +2,10 @@
  * Created by setin on 2016/1/12.
  */
 $(function(){
-    slidePic.init();
+    //slidePic.init();
     scrollPosition.init();
     $(window).resize(function(){
-        slidePic.getWidth();
+        //slidePic.getWidth();
         scrollPosition.getY();
     });
 });
@@ -24,12 +24,12 @@ var slidePic = {
             .on('mouseout', function(){slidePic.pause = false;})
     },
     getWidth:function(){
-        this.width = this.picContainer.find('img').width();
+        this.width = this.picContainer.find('.img').width();
     },
     roll:function(){
         setInterval(function(){
             !slidePic.pause && slidePic.picContainer.animate({textIndent:-slidePic.width},1000,function(){
-                slidePic.picContainer.css('text-indent',0).find('a').append(slidePic.picContainer.find('img:eq(0)'));
+                slidePic.picContainer.css('text-indent',0).append(slidePic.picContainer.find('.img:eq(0)'));
             })
         },this.stepTime);
     }
