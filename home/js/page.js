@@ -2,10 +2,10 @@
  * Created by setin on 2016/1/12.
  */
 $(function(){
-    //slidePic.init();
+    slidePic.init();
     scrollPosition.init();
     $(window).resize(function(){
-        //slidePic.getWidth();
+        slidePic.getWidth();
         scrollPosition.getY();
     });
 });

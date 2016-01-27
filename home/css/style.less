@@ -19,9 +19,12 @@
   h2,h3{ font-weight: 500; text-align: center; padding:0 40px;}
   &.step-1{
     .slide-box{ margin: 0 auto; text-align: left; white-space: nowrap; _width:100%; _overflow: hidden;
-      .img{ display: inline-block; width: 100%; position: relative;
+      .img{ display: inline-block; width: 100%; position: relative; text-indent:0;
         img{ width: 100%;
           &.ios,&.android,&.qr{ position: absolute; width: auto;}
+          &.android{}
+          &.ios{ }
+          &.qr{ }
         }
       }
     }
@@ -47,7 +50,7 @@
       h2,h3{ text-align: left;}
     }
   }
-  &.step-7{ height: auto;
+  &.step-7{ height: auto; background: #f3f7f7;
     ul{ width: 850px; margin: 20px auto;
       li{ float: left; width: 150px; padding: 10px 3px;
         .avatar{ margin: 0 auto; width: 130px; height: 130px; -webkit-border-radius: 80px; -moz-border-radius: 80px; border-radius: 80px; overflow: hidden;
