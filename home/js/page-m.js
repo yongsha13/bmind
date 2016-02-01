@@ -31,7 +31,7 @@ var slidePic = {
         setInterval(function(){
             !slidePic.pause && slidePic.picContainer.animate({textIndent:-slidePic.width},1000,function(){
                 slidePic.cur++;
-                slidePic.posContainer.find('span:eq('+(slidePic.cur%4)+')').addClass('cur').siblings().removeClass('cur');
+                slidePic.posContainer.find('span:eq('+(slidePic.cur%2)+')').addClass('cur').siblings().removeClass('cur');
                 slidePic.picContainer.css('text-indent',0).find('a').append(slidePic.picContainer.find('img:eq(0)'));
             })
         },this.stepTime);
