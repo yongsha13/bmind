@@ -421,6 +421,20 @@ body {
 .fm .icons {
   margin-top: 0;
 }
+.fm.search .bar {
+  padding: .5rem 0;
+}
+.fm.search .bar input {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  font-size: 1.2rem;
+  height: 2rem;
+  line-height: 2rem;
+  border: 1px solid #999;
+  border-radius: 2rem;
+}
 .my .active {
   background: #ffffff;
   padding: 0 .5rem;

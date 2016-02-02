@@ -166,8 +166,11 @@ function fmtTime(time,fmt){
             },
             '/search': function () {
                 bmApi.api('title',{title:'音频搜索'});
+                $('#mn').html(TPL.render('fmSearch',{}));
                 ajax('getMusic',{page:1,type:0,property:0,keyWord:'心'},function(res){
-                    console.log(res);
+                    var data = {roleId:tplData.roleId,items:res.list,type:0,property:0,page:2};
+                    $('#mn').html(TPL.render('fmSearch',data));
+                    //console.log(res);
                 });
                 //render('fmSearch');
             }

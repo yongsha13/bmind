@@ -100,6 +100,10 @@ $(function(){
             }
 
         })
+        .on('submit','.search form',function(e){
+            e.preventDefault();
+
+        })
         /*咨询师按钮*/
         .on('click','.js-ask',function(){
             bmApi.api('chat',{});
