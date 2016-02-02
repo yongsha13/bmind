@@ -436,14 +436,14 @@ body {
 .fm.search .bar input {
   display: block;
   background: #fff;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   padding: 0 1rem;
   font-size: 1.2rem;
   height: 2rem;
   line-height: 2rem;
   border: 1px solid #ccc;
-  border-radius: 2rem;
+  border-radius: .8rem;
 }
 .my .active {
   background: #ffffff;
