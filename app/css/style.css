@@ -422,10 +422,10 @@ body {
   margin-top: 0;
 }
 .fm.search {
-  padding-top: 3rem;
+  padding-top: 3.6rem;
 }
 .fm.search .bar {
-  padding: .5rem 0;
+  padding: .8rem 0;
   background: #eee;
   position: fixed;
   top: 0;
@@ -435,13 +435,14 @@ body {
 }
 .fm.search .bar input {
   display: block;
+  background: #fff;
   width: 80%;
   margin: 0 auto;
   padding: 0 1rem;
   font-size: 1.2rem;
   height: 2rem;
   line-height: 2rem;
-  border: 1px solid #999;
+  border: 1px solid #ccc;
   border-radius: 2rem;
 }
 .my .active {
