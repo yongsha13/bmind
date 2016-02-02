@@ -102,12 +102,15 @@ $(function(){
         })
         .on('submit','.search form',function(e){
             e.preventDefault();
-            var keyword = $(this).find('input').val()
+            var _this = this;
+            var keyword = $(this).find('input').val();
             ajax('getMusic',{page:1,type:0,property:0,keyWord:keyword},function(res){
                 var data = {roleId:tplData.roleId,items:res.list,type:0,property:0,page:2,keyword:keyword};
                 $('#mn').html(TPL.render('fmSearch',data));
                 //console.log(res);
             });
+
+            return false;
         })
         /*咨询师按钮*/
         .on('click','.js-ask',function(){
