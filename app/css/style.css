@@ -421,8 +421,17 @@ body {
 .fm .icons {
   margin-top: 0;
 }
+.fm.search {
+  padding-top: 3rem;
+}
 .fm.search .bar {
   padding: .5rem 0;
+  background: #eee;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
 }
 .fm.search .bar input {
   display: block;
