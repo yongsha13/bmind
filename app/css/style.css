@@ -784,6 +784,8 @@ body {
 .tt .result .ctrl {
   position: inherit;
   line-height: 3rem;
+  margin-left: -1rem;
+  padding: 0;
 }
 .tt .result .ctrl .gray {
   display: block;
@@ -813,6 +815,29 @@ body {
 .tt .result .comment-box .comment-btn .iconfont {
   font-size: 1rem;
   padding-right: .5rem;
+}
+.tt .result .comment {
+  background: #eee;
+}
+.tt .result .comment li {
+  margin-bottom: 0;
+  border-top: .5px solid #eee;
+}
+.tt .result .comment li .ctrl {
+  padding: 0;
+  margin: 0;
+  border-top: none;
+  line-height: 1.5rem;
+}
+.tt .result .comment li p {
+  line-height: 1.2rem;
+  font-size: .8rem;
+  text-indent: 0;
+  padding: 0;
+  color: #555;
+}
+.tt .result .comment li a.more {
+  background: none;
 }
 .tabs {
   line-height: 3rem;
