@@ -421,6 +421,30 @@ body {
 .fm .icons {
   margin-top: 0;
 }
+.fm.search {
+  padding-top: 3.6rem;
+}
+.fm.search .bar {
+  padding: .8rem 0;
+  background: #eee;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+.fm.search .bar input {
+  display: block;
+  background: #fff;
+  width: 90%;
+  margin: 0 auto;
+  padding: 0 1rem;
+  font-size: 1.2rem;
+  height: 2rem;
+  line-height: 2rem;
+  border: 1px solid #ccc;
+  border-radius: .8rem;
+}
 .my .active {
   background: #ffffff;
   padding: 0 .5rem;
@@ -760,6 +784,8 @@ body {
 .tt .result .ctrl {
   position: inherit;
   line-height: 3rem;
+  margin-left: -1rem;
+  padding: 0;
 }
 .tt .result .ctrl .gray {
   display: block;
@@ -789,6 +815,29 @@ body {
 .tt .result .comment-box .comment-btn .iconfont {
   font-size: 1rem;
   padding-right: .5rem;
+}
+.tt .result .comment {
+  background: #eee;
+}
+.tt .result .comment li {
+  margin-bottom: 0;
+  border-top: .5px solid #eee;
+}
+.tt .result .comment li .ctrl {
+  padding: 0;
+  margin: 0;
+  border-top: none;
+  line-height: 1.5rem;
+}
+.tt .result .comment li p {
+  line-height: 1.2rem;
+  font-size: .8rem;
+  text-indent: 0;
+  padding: 0;
+  color: #555;
+}
+.tt .result .comment li a.more {
+  background: none;
 }
 .tabs {
   line-height: 3rem;

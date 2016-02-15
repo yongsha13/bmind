@@ -100,9 +100,19 @@ $(function(){
             }
 
         })
+        .on('submit','.search form',function(e){
+            e.preventDefault();
+            var _this = this;
+            var keyword = $(this).find('input').val();
+            ajax('getMusic',{page:1,type:0,property:0,keyWord:keyword},function(res){
+                var data = {roleId:tplData.roleId,items:res.list,type:0,property:0,page:2,keyword:keyword};
+                $('#mn').html(TPL.render('fmSearch',data));
+            });
+            return false;
+        })
         /*咨询师按钮*/
         .on('click','.js-ask',function(){
-            bmApi.api('chat',{});
+            bmApi.api('chat',$(this).parent().data());
         })
         /*提醒关闭按钮*/
         .on('click','.alert-box .close span',function(){
@@ -392,7 +402,13 @@ $(function(){
         .on('click','.js-more-music',function(){
             var data = $(this).data();
             var _this = this;
-            data['professiorId'] = data['professiorid'];
+            if(data['keyword']){
+
+                data['keyWord'] = data['keyword'];
+            }else{
+                data['professiorId'] = data['professiorid'];
+            }
+
             ajax('getMusic',$(this).data(),function(req){
                 //var data = {};
                 data['items'] = req.list;
