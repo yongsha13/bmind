@@ -127,20 +127,27 @@ var urlHistory = {
     },
     back:function(){
         //var _this = this;
-        trace('history-back','后退',{hash:location.hash});
-        var isTesting = location.hash.split('/')[3]=='question';
+        //trace('history-back','后退',{hash:location.hash});
+        /*判断在测评题页面或量表页*/
+        var method = location.hash.split('/')[3];
+        var isTesting = method=='question' || method=='scale';
         if(isTesting){
             trace('in-back','后退提示',{isTest:isTesting,hash:location.hash})
             if($('.confirm-box').length>0) return;
+            /*退回到app传参*/
+            var data={
+                method:2,
+                animated:1,
+                mine:0
+            };
+            if(method=='scale'){
+                bmApi.api('new-web-view',data);
+                return;
+            }
             components.confirm('您的评测还没有做完，您确定退出么？',
                 {title:'您正在退出心理测评',okValue:'确定退出',cancelValue:'继续做题'},function(){
-                    var data={
-                        method:2,
-                        animated:1,
-                        mine:0
-                    };
                     if(urlHistory.cur) location.hash = urlHistory.cur;
-                    else bmApi.api('new-web-view',data)
+                    else bmApi.api('new-web-view',data);
                 });
             return false;
         }
