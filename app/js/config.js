@@ -362,7 +362,7 @@ function fmtTime(time,fmt){
             },
             '/scale/:id':function(id){
                 bmApi.api('title',{title:'心理测评'});
-                urlHistory.pop();
+                //urlHistory.pop();
                 ajax('getMentalTestQuestion',{
                     scaleID:id,
                     page:1,
