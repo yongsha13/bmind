@@ -1,7 +1,23 @@
 /**
  * Created by wangyong on 14-9-24.
  */
-;var cache = {
+;
+
+//console.log(/bmind\/([0-9.]*)/.exec(navigator.userAgent.toLowerCase()));
+
+/*检测已经发布的最大版本号*/
+    function acceptVersion(){
+        var ua = navigator.userAgent.toLowerCase();
+        var v = /bmind\/([0-9.]*)/.exec(ua)[1].split('.');
+        var mv = window['params']['maxVersion'].split('.');
+        return v[0]<=mv[0] && v[1]<=mv[1] && v[2]<=mv[2];
+    }
+
+    window['params']['showShare'] = acceptVersion();
+
+
+
+var cache = {
     test:{
         list:[],
         cur:0,
@@ -10,7 +26,6 @@
         curQuestions:0
     }
 };
-
 
 var TPL = new etpl.Engine({
     strip:true,
