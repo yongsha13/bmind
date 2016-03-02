@@ -22,7 +22,7 @@
 <script>
     var params = {
     uid:'${param.uid}',
-    maxVersion:'3.0.0',
+    maxPublishedVersion:'3.0.0',
     showShare:true
     }
     </script>

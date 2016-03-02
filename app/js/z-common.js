@@ -9,7 +9,7 @@
     function acceptVersion(){
         var ua = navigator.userAgent.toLowerCase();
         var v = /bmind\/([0-9.]*)/.exec(ua)[1].split('.');
-        var mv = window['params']['maxVersion'].split('.');
+        var mv = window['params']['maxPublishedVersion'].split('.');
         return v[0]<=mv[0] && v[1]<=mv[1] && v[2]<=mv[2];
     }
 
