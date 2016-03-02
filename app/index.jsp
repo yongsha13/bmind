@@ -18,13 +18,15 @@
         <p>正在加载</p>
     </div>
 </div>
-<script src="tpl/main.min.js"></script>
-<script>
-    var params = {
-    uid:'${param.uid}',
-    maxPublishedVersion:'3.0.0',
-    showShare:true
-    }
+
+    <script>
+        var params = {
+        uid:'${param.uid}',
+        maxPublishedVersion:'3.0.0',
+        showShare:true
+        }
     </script>
+<script src="tpl/main.min.js"></script>
+
 </body>
 </html>
