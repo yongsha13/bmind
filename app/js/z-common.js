@@ -9,7 +9,9 @@ $(function(){
     /*检测已经发布的最大版本号*/
     function acceptVersion(){
         var ua = navigator.userAgent.toLowerCase();
-        var v = /bmind\/([0-9.]*)/.exec(ua)[1].split('.');
+        var ex = /bmind\/([0-9.]*)/.exec(ua);
+        if(!ex) return false;
+        var v = ex[1].split('.');
         var mv = window['params']['maxPublishedVersion'].split('.');
         return v[0]<=mv[0] && v[1]<=mv[1] && v[2]<=mv[2];
     }
@@ -122,7 +124,7 @@ $(function(){
             var _this = this;
             var keyword = $(this).find('input').val();
             ajax('getMusic',{page:1,type:0,property:0,keyWord:keyword},function(res){
-                var data = {roleId:tplData.roleId,items:res.list,type:0,property:0,page:2,keyword:keyword};
+                var data = {roleId:tplData.roleId,items:res.data,type:0,property:0,page:2,keyword:keyword};
                 $('#mn').html(TPL.render('fmSearch',data));
             });
             return false;
@@ -379,7 +381,7 @@ $(function(){
             var data = $(this).data();
             data['typeId'] = data['typeid'];
             ajax('getUserActivityList',data,function(res){
-                data['items'] = res.list;
+                data['items'] = res.data;
                 data['page'] = parseInt(data['page']) +1;
                 $(_this).closest('li').replaceWith(TPL.render('myGroupListLi',data));
             })
@@ -390,7 +392,7 @@ $(function(){
             var _this = this;
             var data = $(this).data();
             ajax('getScaleList',data,function(req){
-                data['items'] = req.list;
+                data['items'] = req.data;
                 data['roleId'] = tplData.roleId;
                 data['page'] = parseInt(data['page']) +1;
                 $(_this).closest('li').replaceWith(TPL.render('ttListLi',data));
@@ -406,7 +408,7 @@ $(function(){
             delete data['ctype'];
             ajax('getCommentList',data,function(req){
                 //var data = {};
-                data['items'] = req.list;
+                data['items'] = req.data;
                 /*for(var i=0;i<data['commentList'].length;i++)
                     data['commentList'][i].time = data['commentList'][i].time.split(' ')[0];*/
                 data['page'] = parseInt(data['page'])+1;
@@ -428,7 +430,7 @@ $(function(){
 
             ajax('getMusic',$(this).data(),function(req){
                 //var data = {};
-                data['items'] = req.list;
+                data['items'] = req.data;
                 data['roleId'] = tplData.roleId;
                 data['page'] = parseInt(data['page'])+1;
                 $(_this).closest('li').replaceWith(TPL.render('fmListLi',data));
@@ -439,7 +441,7 @@ $(function(){
             var data = $(this).data();
             ajax('getUserDynamic',data,function(req){
                 data['page'] = parseInt(data['page'])+1;
-                $('#mn').html($.templates['myActive'].render({activeList:req.list,page:2}));
+                $('#mn').html($.templates['myActive'].render({activeList:req.data,page:2}));
             })
         })
         /*评分功能*/

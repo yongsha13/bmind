@@ -54,7 +54,7 @@ function fmtTime(time,fmt){
                 bmApi.api('new-web-view',{method:3,itemType:1})
                 $('#mn').html(TPL.render('fmIndex',{}));//先解析头部按钮
                 ajax('getMusic',{type:0,page:1,property:0},function(res){//请求接口数据
-                    var data = {roleId:tplData.roleId,items:res.list,page:2,type:0,property:0};
+                    var data = {roleId:tplData.roleId,items:res.data,page:2,type:0,property:0};
                     $('#fm_hot ul').html(TPL.render('fmListLi',data));//再解析音频列表
                 })
             },
@@ -110,7 +110,7 @@ function fmtTime(time,fmt){
                         })
                     },500);
                     //console.log(req);
-                    data = req.list[0];
+                    data = req.data[0];
                     data.roleId = tplData.roleId;
                     /*alert('准备调用接口');
                     bmApi.api('player',{method:1,url:data.filePath,playId:id},function(res){
@@ -118,7 +118,7 @@ function fmtTime(time,fmt){
                     });*/
                     ajax('getCommentList',{page:1,paperId:id,cType:3},function(req){
                         //console.log(req);
-                        data['items'] = req.list;
+                        data['items'] = req.data;
                         data['score'] = req.userScore;
                         /*for(var i=0;i<data['commentList'].length;i++)
                             data['commentList'][i].time = data['commentList'][i].time.split(' ')[0];*/
@@ -136,7 +136,7 @@ function fmtTime(time,fmt){
                 bmApi.api('title',{title:'情绪调频'});
                 bmApi.api('new-web-view',{method:3,itemType:2})
                 ajax('getMusic',{type:0,page:1,property:0,professiorId:id},function(req){
-                    var data = {roleId:tplData.roleId,items:req.list,professorId:id,type:0,property:0,page:2};
+                    var data = {roleId:tplData.roleId,items:req.data,professorId:id,type:0,property:0,page:2};
                     //console.log(data);
                     $('#mn').html(TPL.render('fmProfessor',data));
                 })
@@ -148,7 +148,7 @@ function fmtTime(time,fmt){
                 urlHistory.stack.length>1 && urlHistory.pop(-1);
                 ajax('getMusic',{type:type,page:1,property:property},function(req){
                     var data = {
-                        items:req.list,
+                        items:req.data,
                         roleId:tplData.roleId,
                         cur:property,
                         tabs:[
@@ -176,10 +176,10 @@ function fmtTime(time,fmt){
                 ajax('getMusic',{type:0,page:1,property:0,mid:id},function(req){
                     //console.log(req);
 
-                    data = req.list[0];
+                    data = req.data[0];
                     ajax('getCommentList',{uid:params['uid'],page:1,paperId:id,cType:cType},function(req){
                         //console.log(req);
-                        data['items'] = req.list;
+                        data['items'] = req.data;
                         data['page'] = 2;
                         data['paperId'] = id;
                         data['cType'] = 3;
@@ -207,7 +207,7 @@ function fmtTime(time,fmt){
             '/active':function(){//动态
                 bmApi.api('title',{title:'我的动态'});
                 ajax('getUserDynamic',{page:1},function(req){
-                    var data = {items:req.list||[],page:2};
+                    var data = {items:req.data||[],page:2};
                     //console.log(data);
                     $('#mn').html(TPL.render('myActive',data));
                 });
@@ -219,11 +219,11 @@ function fmtTime(time,fmt){
                 var data = {};
                 ajax('getUserActivityType',{},function(res){
                     data['tabs'] = [];
-                    for(var i=0;i<res.list.length;i++)
+                    for(var i=0;i<res.data.length;i++)
                         data['tabs'].push({
-                            id:res.list[i].typeId,
-                            url:'#/bm/my/group/'+res.list[i].typeId,
-                            name:res.list[i].typeName
+                            id:res.data[i].typeId,
+                            url:'#/bm/my/group/'+res.data[i].typeId,
+                            name:res.data[i].typeName
                         });
                     console.log(data);
                     $('#mn').html(TPL.render('myGroup',data));
@@ -234,7 +234,7 @@ function fmtTime(time,fmt){
                         console.log($('#mn .ul-'+data.id));
                         ajax('getUserActivityList',{typeId:data.id,page:1},function(res){
                             $('#mn .tabs .ul-'+data.id).append(TPL.render('myGroupListLi',{
-                                items:res.list,
+                                items:res.data,
                                 page:2,
                                 typeId:data.id
                             }));
@@ -271,8 +271,8 @@ function fmtTime(time,fmt){
             '/test':function(){
                 bmApi.api('title',{title:'我的评测'});
                 ajax('getUserScale',{page:1},function(req){
-                    //console.log(TPL.render('myTest',{items:req.list}));
-                    $('#mn').html(TPL.render('myTest',{items:req.list,page:2}));
+                    //console.log(TPL.render('myTest',{items:req.data}));
+                    $('#mn').html(TPL.render('myTest',{items:req.data,page:2}));
                 });
 
             },
@@ -304,7 +304,7 @@ function fmtTime(time,fmt){
                     });
                 }else{
                     ajax('getPlayMusicRecord',{pageSize:20},function(res){
-                        data['items'] = res.list;
+                        data['items'] = res.data;
                         data['page'] = 2;
                         $('#mn').html(TPL.render('myMusic',data));
                     })
@@ -320,7 +320,7 @@ function fmtTime(time,fmt){
                 ajax('getScaleList',{page:1,type:1},function(req){
                     var data = {
                         userLevel:window.params['userLevel'],
-                        items:req.list,
+                        items:req.data,
                         roleId:tplData.roleId,
                         page:2,
                         type:1
@@ -354,7 +354,7 @@ function fmtTime(time,fmt){
                     versionCode:1,
                     userSource:1
                 },function(req){
-                    cache.test.questions = req.list;
+                    cache.test.questions = req.data;
                     cache.test.title = req.title;
                     cache.test.count = req.count;
                     cache.test.description = req.description;
@@ -407,7 +407,7 @@ function fmtTime(time,fmt){
                     console.log(data);
                     ajax('getCommentList',data,function(req){
                         data['page'] = 2;
-                        data['items'] = req.list;
+                        data['items'] = req.data;
                         console.log(req);
                         console.log(data);
                         $('.result .comment').append(TPL.render('commentListLi',data));
@@ -421,10 +421,17 @@ function fmtTime(time,fmt){
         '/share':{
             '/music/:id':function(id){
                 ajax('getMusic',{type:0,page:1,property:0,mid:id},function(req){
-                    data = req.list[0];
+                    data = req.data[0];
                     $('#mn').html(TPL.render('shareMusic',data));
                 });
             }
+        },
+        '/index':function(){
+            $.get('/BmindAPPSet/app/parameterSet/100/list.do',function(res){
+                //console.log(res);
+                $('#mn').html(TPL.render('bmindIndex',res.data))
+            });
+
         }
     }
 };
