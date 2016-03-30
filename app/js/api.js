@@ -279,7 +279,7 @@ function ajax(url,data,callback,errorback,times){
             //bmApi.api('alert',{type:0})
             localCache.setter(url,data,req);
             if(url == 'getMusic'){//音频缓存
-                tplData.push(req.list);
+                tplData.push(req.data);
                 /*if(data.page==1) tplData.musicList = req.list;
                  else tplData.musicList.concat(req.list);*/
             }
@@ -304,7 +304,7 @@ function loadAllQuestion(scaleID,page,count,versionCode,userSource){
         userSource:userSource
     },function(req){
         //cache.test.questions = req.list;
-        cache.test.questions = cache.test.questions.concat(req.list);
+        cache.test.questions = cache.test.questions.concat(req.data);
         loadAllQuestion(scaleID,page+1,count,versionCode,userSource);
         /*
          cache.test.title = req.title;
