@@ -162,13 +162,14 @@ $(function(){
             //trace('data',{});
             var id = $(this).closest('.player-ctrl').data('id');
             var music = tplData.getMusic(0,id);
-            console.log([id,music]);
+
             var data = {
                 type:2,
                 title:music.title,
                 text:music.musicDes,
                 shareUrl:music.shareURL
             }
+            console.log([id,music,data]);
             //trace('data',data);
             bmApi.api('share',data)
         })

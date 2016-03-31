@@ -279,6 +279,7 @@ function ajax(url,data,callback,errorback,times){
             //bmApi.api('alert',{type:0})
             localCache.setter(url,data,req);
             if(url == 'getMusic'){//音频缓存
+
                 tplData.push(req.data);
                 /*if(data.page==1) tplData.musicList = req.list;
                  else tplData.musicList.concat(req.list);*/
