@@ -68,6 +68,7 @@ var bmApi = {
     }
 };
 function bmCallback(res){
+    trace('callback','回调响应',res);
     bmApi.waitCallback = false;
     bmApi.beginWaitTime = 0;
     if(res.apiId==12&&res.data.back==1) urlHistory.back();//点击后退的回调

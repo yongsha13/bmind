@@ -427,6 +427,7 @@ function fmtTime(time,fmt){
             }
         },
         '/index':function(){
+            bmApi.api('title',{title:'测试页面一二三'});
             $.get('/BmindAPPSet/app/parameterSet/100/list.do',function(res){
                 //console.log(res);
                 $.get('/BmindAPPSet/app/home/100/list.do?page=1&rows=10',function(listRes){
