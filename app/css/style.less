@@ -81,8 +81,16 @@ html,body{ background: @bg-cr-h2; font-size:13px;  }
 ;}
 
 .home{
-  .banner{ background: #fff;
+  .banner{ background: #fff; word-break: keep-all; white-space: nowrap; position: relative;
     img{ width: 100%;}
+    .dot{ position: absolute; bottom: 1rem; width:100%; text-align: right; z-index:99999;
+      span{ display: inline-block; width: .5rem; height: .5rem; background: #fff; border-radius: 1rem;
+        &:nth-child(0){ right:3rem;}
+        &:nth-child(1){ right:2rem;}
+        &:nth-child(2){ right:1rem;}
+        &:nth-child(3){ right:0rem;}
+      }
+    }
   }
   nav{ margin-top: 1rem; border-top:1px solid #e3e3e3; background: #fff; height:auto; overflow: hidden;
     &.col-2 a{ width: 50%;}

@@ -109,7 +109,7 @@
     </select><br>
     <label>测试参数：</label><br>
     <textarea name="" id="js-api-args" placeholder="{method:1,url:['http://xxx.xx/xx']}"
-            >{"text":"该音频只对会员开放，点击购买前往购买会员，若已有帐号，请前往登录"}</textarea>
+            >{"method":1,"pushType":3,"pageId":20,"title":"心理测评首页"}</textarea>
     <a href="javascript:;" class="btn js-api-submit">提交</a><br>
     <a href="javascript:;" class="btn js-api-submit-2">提交2</a>
     <label>打印数据：</label><br>
@@ -646,11 +646,17 @@
     <div class="banner">
         {{for: ${bannerData} as ${item} }}
         <img src="${item.picPath}" alt="${item.title}">
+        <span></span>
         {{/for}}
+        <div class="dot">
+            {{for: ${bannerData} as ${item} }}
+            <span></span>
+            {{/for}}
+        </div>
     </div>
     <nav class="col-${entranceData.length}">
         {{for: ${entranceData} as ${item} }}
-        <a>
+        <a data-url="${item.accessURL}" data-page="${item.pageId}" data-id="${item.objectId}" >
             <img src="${item.picPath}" alt="${item.title}">
             <h3>${item.title}</h3>
         </a>
@@ -658,12 +664,40 @@
     </nav>
     <ul class="home-list">
         {{for: ${list} as ${item} }}
-        <li>
+        <!--音频-->
+        {{if: ${item.pageId}==1002}}
+        <li data-url="${item.url}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
             <span>${item.label}</span>
-            <img src="http://www.ydeap.com/${item.scalePicPath}" alt="">
-            <h2>${item.scaleTitle}</h2>
-            <p>${item.scaleDescription}</p>
+            <header>
+                <div class="min-player" data-src="${item.musicPath}">
+                    <div class="play"></div>
+                    <img src="${item.picPath}" alt="">
+                </div>
+                <h2>${item.title}</h2>
+                <span>${item.musicExpertId}</span>
+            </header>
+
+            <p>${item.description}</p>
             <footer class="icons">
+                <span class="comment">
+                    | <span class="icon-pinglun iconfont"></span>${item.musicCommentTimes}
+                </span>
+                <span class="like">
+                    <span class="icon-xin iconfont"></span>${item.musicPlayTimes}
+                </span>
+
+            </footer>
+        </li>
+        {{/if}}
+        <!--测评-->
+        {{if: ${item.pageId}==1102}}
+        <li data-url="${item.url}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
+            <span>${item.label}</span>
+            {{if: ${item.picPath} }}<img src="${item.picPath}" alt="">{{/if}}
+            <h2>${item.title}</h2>
+            <p>${item.description}</p>
+            <footer class="icons">
+                <span class="category">${item.scaleSort}</span>
                 <span class="comment">
                     | <span class="icon-pinglun iconfont"></span>${item.updater}
                 </span>
@@ -672,28 +706,38 @@
                 </span>
             </footer>
         </li>
-        {{/for}}
-        <li>
-            <span>放轻松.好好睡</span>
-            <header>
-                <div class="min-player">
-                    <div class="play"></div>
-                    <img src="/BmindPage/images/avatar-1.jpg" alt="">
-                </div>
-                <h2>用宽容化解内心的生气</h2>
-                <span>主播：安安</span>
-            </header>
-
-            <p>适合人群：在工作或者生活中由于误会、受到他们的批评责骂，觉得委屈、生气、怨恨；或者容易生气...</p>
+        {{/if}}
+        <!--活动圈-->
+        {{if: ${item.pageId}==1302}}
+        <li data-url="${item.url}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
+            <span>${item.label}</span>
+            {{if: ${item.picPath} }}<img src="${item.picPath}" alt="">{{/if}}
+            <h2>${item.title}</h2>
+            <p>${item.description}</p>
             <footer class="icons">
-                <span class="comment">
-                    | <span class="icon-pinglun iconfont"></span>4
-                </span>
                 <span class="like">
-                    <span class="icon-xin iconfont"></span>9993
+                    <span class="icon-xin iconfont"></span>${item.activityClickNum}
                 </span>
-
             </footer>
         </li>
+        {{/if}}
+        <!--文章-->
+        {{if: ${item.pageId}==1802}}
+        <li data-url="${item.url}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
+            <span>${item.label}</span>
+            {{if: ${itempicPath} }}<img src="${item.picPath}" alt="">{{/if}}
+            <h2>${item.title}</h2>
+            <p>${item.description}</p>
+            <footer class="icons">
+                <span class="comment">
+                    | <span class="icon-pinglun iconfont"></span>${item.articleLike}
+                </span>
+                <span class="like">
+                    <span class="icon-xin iconfont"></span>${item.articleClickNum}
+                </span>
+            </footer>
+        </li>
+        {{/if}}
+        {{/for}}
     </ul>
 </div>

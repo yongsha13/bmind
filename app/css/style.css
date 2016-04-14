@@ -82,9 +82,38 @@ body {
 }
 .home .banner {
   background: #fff;
+  word-break: keep-all;
+  white-space: nowrap;
+  position: relative;
 }
 .home .banner img {
   width: 100%;
+}
+.home .banner .dot {
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+  text-align: right;
+  z-index: 99999;
+}
+.home .banner .dot span {
+  display: inline-block;
+  width: .5rem;
+  height: .5rem;
+  background: #fff;
+  border-radius: 1rem;
+}
+.home .banner .dot span:nth-child(0) {
+  right: 3rem;
+}
+.home .banner .dot span:nth-child(1) {
+  right: 2rem;
+}
+.home .banner .dot span:nth-child(2) {
+  right: 1rem;
+}
+.home .banner .dot span:nth-child(3) {
+  right: 0rem;
 }
 .home nav {
   margin-top: 1rem;
