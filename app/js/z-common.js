@@ -97,7 +97,8 @@ $(function(){
             var ua = navigator.userAgent.toLowerCase();
             var isAndroid = /android/.test(ua);
             console.log(JSON.stringify(data));
-            if(data['url']){
+            bmApi.api('new-web-view',{pushType:data['outurl']?1:2,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
+            /*if(data['url']){
                 trace('','测试URL',data);
                 console.log($(this).data());
                 bmApi.api('new-web-view',{pushType:data['outurl']?1:2,title:data['title'],url:data['url'],method:1});
@@ -115,7 +116,7 @@ $(function(){
                     var localUrl = location.href.split('#')[0];
                     bmApi.api('new-web-view',apiData)
                 }
-            }
+            }*/
 
         })
         .on('click','.js-app-download-btn',function(){
