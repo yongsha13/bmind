@@ -88,16 +88,29 @@ $(function(){
             console.log('a');
             var data = $(this).data();
             var urls = {
+                '1001':'/bm/fm/index',
                 '1002':'/bm/fm/player/',/*音频播放详情*/
                 '1102':'/bm/tt/scale/',/*心理测评详情*/
+                '1101':'/bm/tt/index',
                 //'1302':'',/*活动圈*/
                 '1802':''/*文章详情*/
 
             }
             var ua = navigator.userAgent.toLowerCase();
             var isAndroid = /android/.test(ua);
-            console.log(JSON.stringify(data));
-            bmApi.api('new-web-view',{pushType:data['outurl']?1:2,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
+            var localUrl = location.href.split('#')[0];
+            if($.inArray(data['page'],[1002,1102,1001,1101])){/**/
+                if(isAndroid){
+                    bmApi.api('new-web-view',{pushType:3,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
+                }else{
+                    bmApi.api('new-web-view',{pushType:data['outurl']?1:2,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
+
+
+                }
+            }else{
+                bmApi.api('new-web-view',{pushType:data['outurl']?1:2,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
+            }
+
             /*if(data['url']){
                 trace('','测试URL',data);
                 console.log($(this).data());
