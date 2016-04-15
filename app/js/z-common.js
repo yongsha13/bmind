@@ -99,17 +99,19 @@ $(function(){
             var ua = navigator.userAgent.toLowerCase();
             var isAndroid = /android/.test(ua);
             var localUrl = location.href.split('#')[0];
-            if($.inArray(data['page'],[1002,1102,1001,1101])){/**/
-                if(isAndroid){
+            bmApi.api('new-web-view',{pushType:2,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
+            /*if($.inArray(data['page'],[1002,1102,1001,1101])){/!**!/
+                bmApi.api('new-web-view',{pushType:3,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
+                /!*if(isAndroid){
                     bmApi.api('new-web-view',{pushType:3,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
                 }else{
                     bmApi.api('new-web-view',{pushType:data['outurl']?1:2,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
 
 
-                }
+                }*!/
             }else{
-                bmApi.api('new-web-view',{pushType:data['outurl']?1:2,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
-            }
+                bmApi.api('new-web-view',{pushType:2,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
+            }*/
 
             /*if(data['url']){
                 trace('','测试URL',data);
