@@ -50,6 +50,24 @@ TPL.addFilter('url',function(source,useExtra){
 var debug = false;
 $(function(){
     window.params['userLevel'] = 1;
+    $.extend({
+        cookie:function(name,value){
+            if(!value){
+                var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+                if(arr=document.cookie.match(reg))
+                    return unescape(arr[2]);
+                else
+                    return null;
+            }else{
+                var Days = 30;
+                var exp = new Date();
+                exp.setTime(exp.getTime() + Days*24*60*60*1000);
+                document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+                return true;
+            }
+        }
+    });
+    $.cookie('uid',params['uid']);
     $.get('./tpl/template.html',function(req){
         TPL.compile(req);
         window.router = Router(routes).configure({ recurse: 'forward' });
@@ -65,6 +83,41 @@ $(function(){
         //console.log(['scroll',$(window).scrollTop()]);
     });
     $('#mn')
+        .on('click','.home nav a,.home-list li',function(){
+            //trace('new-web-view','新开web窗口',$(this).data())
+            console.log('a');
+            var data = $(this).data();
+            var urls = {
+                '1002':'/bm/fm/player/',/*音频播放详情*/
+                '1102':'/bm/tt/scale/',/*心理测评详情*/
+                //'1302':'',/*活动圈*/
+                '1802':''/*文章详情*/
+
+            }
+            var ua = navigator.userAgent.toLowerCase();
+            var isAndroid = /android/.test(ua);
+            console.log(JSON.stringify(data));
+            if(data['url']){
+                trace('','测试URL',data);
+                console.log($(this).data());
+                bmApi.api('new-web-view',{pushType:data['outurl']?1:2,url:data['url'],method:1});
+            }else{
+
+                //console.log($(this).data());
+                if(isAndroid && $.inArray(data['page'],[1002,1102,1001,1101])){
+                    var apiData = {method:1,pushType:3,pageId:data['page'],objectId:data['id']};
+                    trace('','测试安卓非URL',apiData);
+                    bmApi.api('new-web-view',apiData)
+                }else{
+                    var localUrl = location.href.split('#')[0];
+                    var apiData = {method:1,pushType:2,title:data['title'],url:localUrl + urls[data['page']]};
+                    trace('','测试非安卓非URL',apiData);
+                    var localUrl = location.href.split('#')[0];
+                    bmApi.api('new-web-view',apiData)
+                }
+            }
+
+        })
         .on('click','.js-app-download-btn',function(){
             var ua = navigator.userAgent.toLowerCase();
             var isWeiXin = ua.match(/MicroMessenger/i)=="micromessenger";
@@ -346,10 +399,13 @@ $(function(){
         .on('click','.js-api-submit',function(){
             window['apiIndex']?window['apiIndex']++:(window['apiIndex'] = 1);
             //console.log(JSON.parse($('#js-api-args').val()));
+            console.log(JSON.stringify(JSON.parse($('#js-api-args').val())));
+            $('.js-api-output').html('执行：window.bm.api('+apiId+','+bmApi.index+',"'+apiArgs+'");<br>等待接口回调...');
             if(window['bm']){
                 var apiId = $('#js-api-id').val();
                 //var apiIndex = window['apiIndex'];
                 var apiArgs = JSON.stringify(JSON.parse($('#js-api-args').val()));
+                console.log(apiArgs);
                 $('.js-api-output').html('执行：window.bm.api('+apiId+','+bmApi.index+',"'+apiArgs+'");<br>等待接口回调...');
                 bmApi.api(apiId,apiArgs,function(res){
                     //(res);
@@ -376,6 +432,16 @@ $(function(){
             cache.test.cur = $(this).data('id');
             location.hash = '/bm/tt/scale/'+cache.test.cur;
         })*/
+            /*首页更多*/
+        .on('click','.js-more-index',function(){
+            var _this = this;
+            var data = $(this).data();
+            $.get('/BmindAPPSet/app/home/100/list.do?rows=10&page='+data['page'],function(res){
+                data['page'] = parseInt(data['page']) +1;
+                data['list'] = res.data;
+                $(_this).closest('li').replaceWith(TPL.render('bmindIndexList',data));
+            })
+        })
         /*更多圈子*/
         .on('click','.js-more-group',function(){
             var _this = this;

@@ -35,7 +35,8 @@ var tplData = {
             {id:8, name:'member',    title:'会员弹窗'},
             {id:9, name:'title',     title:'标题控制'},
             {id:10,name:'alert',     title:'弹提示消息'},
-            {id:11,name:'del-music', title:'删除音频'}
+            {id:11,name:'del-music', title:'删除音频'},
+            {id:12,name:'new-web-view',title:'新开web窗口'}
         ]
     },
     tips:{

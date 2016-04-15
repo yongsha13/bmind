@@ -3,7 +3,7 @@
  */
 
 
-var debug = false;
+var debug = true;
 
 var bmApi = {
     index:0,
@@ -68,6 +68,7 @@ var bmApi = {
     }
 };
 function bmCallback(res){
+    trace('callback','回调响应',res);
     bmApi.waitCallback = false;
     bmApi.beginWaitTime = 0;
     if(res.apiId==12&&res.data.back==1) urlHistory.back();//点击后退的回调
@@ -92,7 +93,7 @@ function bmCallback(res){
     bmApi.api('new-web-view',{url:url+hash});
 }*/
 function trace(method,descript,data){
-    if(!debug) return false;
+    //if(!debug) return false;
     //return false;
     //data['描述'] = descript;
     data = $.extend({'描述':descript,'接口名称':bmApi.apiNames[data.apiId]},data);
