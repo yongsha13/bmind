@@ -645,7 +645,7 @@
     {{for: ${list} as ${item} }}
     <!--音频-->
     {{if: ${item.pageId}==1002}}
-    <li data-url="${item.url}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
+    <li data-url="${item.url}" data-title="${item.title}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
         <span>${item.label}</span>
         <header>
             <div class="min-player" data-src="${item.musicPath}">
@@ -670,7 +670,7 @@
     {{/if}}
     <!--测评-->
     {{if: ${item.pageId}==1102}}
-    <li data-url="${item.url}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
+    <li data-url="${item.url}" data-title="${item.title}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
         <span>${item.label}</span>
         {{if: ${item.picPath} }}<img src="${item.picPath}" alt="">{{/if}}
         <h2>${item.title}</h2>
@@ -688,7 +688,7 @@
     {{/if}}
     <!--活动圈-->
     {{if: ${item.pageId}==1302}}
-    <li data-url="${item.url}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
+    <li data-url="${item.url}" data-title="${item.title}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
         <span>${item.label}</span>
         {{if: ${item.picPath} }}<img src="${item.picPath}" alt="">{{/if}}
         <h2>${item.title}</h2>
@@ -702,7 +702,7 @@
     {{/if}}
     <!--文章-->
     {{if: ${item.pageId}==1802}}
-    <li data-url="${item.url}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
+    <li data-url="${item.url}" data-title="${item.title}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
         <span>${item.label}</span>
         {{if: ${itempicPath} }}<img src="${item.picPath}" alt="">{{/if}}
         <h2>${item.title}</h2>
@@ -719,7 +719,7 @@
     {{/if}}
     {{/for}}
     <li>
-        <a href="javascript:;" class="more js-more-index" data-page="${page}">更多内容</a>
+        <a href="javascript:;" data-title="${item.title}" class="more js-more-index" data-page="${page}">更多内容</a>
     </li>
 {{target: bmindIndex}}
 <div class="home">

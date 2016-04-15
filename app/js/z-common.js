@@ -110,7 +110,7 @@ $(function(){
                     bmApi.api('new-web-view',apiData)
                 }else{
                     var localUrl = location.href.split('#')[0];
-                    var apiData = {method:1,pushType:2,url:localUrl + urls[data['page']]};
+                    var apiData = {method:1,pushType:2,title:data['title'],url:localUrl + urls[data['page']]};
                     trace('','测试非安卓非URL',apiData);
                     var localUrl = location.href.split('#')[0];
                     bmApi.api('new-web-view',apiData)
