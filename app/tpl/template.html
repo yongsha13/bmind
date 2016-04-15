@@ -645,7 +645,7 @@
     {{for: ${list} as ${item} }}
     <!--音频-->
     {{if: ${item.pageId}==1002}}
-    <li data-url="${item.url}" data-title="${item.title}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
+    <li data-title="${item.title}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
         <span>${item.label}</span>
         <header>
             <div class="min-player" data-src="${item.musicPath}">
