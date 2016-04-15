@@ -432,6 +432,7 @@ function fmtTime(time,fmt){
                 //console.log(res);
                 $.get('/BmindAPPSet/app/home/100/list.do?page=1&rows=10',function(listRes){
                     res.data['list'] = listRes.data;
+                    res.data['page'] = 2;
                     console.log(res.data);
                     $('#mn').html(TPL.render('bmindIndex',res.data))
                 })

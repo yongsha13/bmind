@@ -87,13 +87,6 @@ $(function(){
             //trace('new-web-view','新开web窗口',$(this).data())
             console.log('a');
             var data = $(this).data();
-            var pages = {
-                '1001':10,
-                '1002':11,
-                '1101':20,
-                '1102':21
-
-            }
             var urls = {
                 '1002':'/bm/fm/player/',/*音频播放详情*/
                 '1102':'/bm/tt/scale/',/*心理测评详情*/
@@ -116,6 +109,7 @@ $(function(){
                     trace('','测试安卓非URL',apiData);
                     bmApi.api('new-web-view',apiData)
                 }else{
+                    var localUrl = location.href.split('#')[0];
                     var apiData = {method:1,pushType:2,url:localUrl + urls[data['page']]};
                     trace('','测试非安卓非URL',apiData);
                     var localUrl = location.href.split('#')[0];
@@ -438,6 +432,16 @@ $(function(){
             cache.test.cur = $(this).data('id');
             location.hash = '/bm/tt/scale/'+cache.test.cur;
         })*/
+            /*首页更多*/
+        .on('click','.js-more-index',function(){
+            var _this = this;
+            var data = $(this).data();
+            $.get('/BmindAPPSet/app/home/100/list.do?rows=10&page='+data['page'],function(res){
+                data['page'] = parseInt(data['page']) +1;
+                data['list'] = res.data;
+                $(_this).closest('li').replaceWith(TPL.render('bmindIndexList',data));
+            })
+        })
         /*更多圈子*/
         .on('click','.js-more-group',function(){
             var _this = this;
