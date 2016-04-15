@@ -99,7 +99,7 @@ $(function(){
             var ua = navigator.userAgent.toLowerCase();
             var isAndroid = /android/.test(ua);
             var localUrl = location.href.split('#')[0];
-            bmApi.api('new-web-view',{pushType:2,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
+            bmApi.api('new-web-view',{pushType:data['url']?2:3,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
             /*if($.inArray(data['page'],[1002,1102,1001,1101])){/!**!/
                 bmApi.api('new-web-view',{pushType:3,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
                 /!*if(isAndroid){
