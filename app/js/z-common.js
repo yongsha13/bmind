@@ -82,8 +82,10 @@ $(function(){
             $('#mn').addClass('top');
         //console.log(['scroll',$(window).scrollTop()]);
     });
+
     $('#mn')
-        .on('click','.home nav a,.home-list li',function(){
+        /*与app交互事件*/
+        .on('click','.home nav a,.home-list li,.home .banner .cnt img',function(){
             //trace('new-web-view','新开web窗口',$(this).data())
             console.log('a');
             var data = $(this).data();
@@ -99,6 +101,7 @@ $(function(){
             var ua = navigator.userAgent.toLowerCase();
             var isAndroid = /android/.test(ua);
             var localUrl = location.href.split('#')[0];
+
             bmApi.api('new-web-view',{pushType:data['url']?2:3,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
             /*if($.inArray(data['page'],[1002,1102,1001,1101])){/!**!/
                 bmApi.api('new-web-view',{pushType:3,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
@@ -539,5 +542,33 @@ $(function(){
         })
 });
 
+var slideComponent = {
+    space:5000,/*自动切换间隔*/
+    speed:1000,/*自动切换动画时间*/
+    cur:0,
+    count:0,
+    add:function(className){
+        this.init($(className));
+    },
+    init:function($dom){
+        var that = this;
+        $dom.find('.dot span:eq(0)').addClass('cur');
+        this.count = $.find('.dot span').length;
+        var time = setInterval(function(){
+            that.slideToNext($dom.find('.cnt'),function(){
+                $dom.find('.cnt').append($dom.find('.cnt img:eq(0)')).css('text-indent','0');
+                that.cur ++;
+                $dom.find('.dot span:eq('+(that.cur%that.count)+')').addClass('cur').siblings().removeClass('cur');
+            });
+        },this.space);
+    },
+    slideToNext:function($dom,callback){
+        $dom.animate({
+            'text-indent':"-100%"
 
+        },this.speed,function(){
+            typeof callback=='undefined' || callback();
+        })
+    }
+}
 

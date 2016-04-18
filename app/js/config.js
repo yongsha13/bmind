@@ -434,7 +434,8 @@ function fmtTime(time,fmt){
                     res.data['list'] = listRes.data;
                     res.data['page'] = 2;
                     console.log(res.data);
-                    $('#mn').html(TPL.render('bmindIndex',res.data))
+                    $('#mn').html(TPL.render('bmindIndex',res.data));
+                    slideComponent.add('.js-slide-component');
                 })
 
             });

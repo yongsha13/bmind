@@ -723,11 +723,18 @@
     </li>
 {{target: bmindIndex}}
 <div class="home">
-    <div class="banner">
-        {{for: ${bannerData} as ${item} }}
-        <img src="${item.picPath}" alt="${item.title}">
-        <span></span>
-        {{/for}}
+    <div class="banner js-slide-component">
+        <div class="cnt">
+            {{for: ${bannerData} as ${item} }}<img
+                src="${item.picPath}"
+                alt="${item.title}"
+                data-url="${item.url}"
+                data-title="${item.title}"
+                data-outurl="${item.outurl}"
+                data-page="${item.pageId}"
+                data-id="${item.objectId}"
+                >{{/for}}
+        </div>
         <div class="dot">
             {{for: ${bannerData} as ${item} }}
             <span></span>
