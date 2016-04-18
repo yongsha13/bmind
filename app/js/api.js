@@ -71,11 +71,12 @@ function bmCallback(res){
     trace('callback','回调响应',res);
     bmApi.waitCallback = false;
     bmApi.beginWaitTime = 0;
+    res.apiId==3 || trace('back-'+res.apiId+'-'+res.crum,'JS-API回调',res);
+
     if(res.apiId==12&&res.data.back==1) urlHistory.back();//点击后退的回调
     else window.bmApi.callbacks[res['crum']](res);
 
-    res.apiId==3 ||
-    trace('back-'+res.apiId+'-'+res.crum,'JS-API回调',res);
+
     //alert('JS接收到回调：'+JSON.stringify(res));
     //alert('接口回调0:'+JSON.stringify(res));
 
