@@ -75,11 +75,22 @@ $(function(){
         location.hash.length>0 || (location.hash = '/bm/fm/index');
     },'html');
     //window['params']['uid'] = 32844;
-    $('#mn').scroll(function(){
-        if($('#mn').scrollTop()<170)
+    $(window).scroll(function(){
+        if($(this).scrollTop()<170)
             $('#mn').removeClass('top');
         else
             $('#mn').addClass('top');
+        var scrollTop = $(this).scrollTop();
+        var scrollHeight = $(document).height();
+        var windowHeight = $(this).height();
+        if(scrollTop + windowHeight == scrollHeight){
+            /*滚动到底*/
+            console.log('滚动到底部');
+            if($('.home').length>0){//首页
+                $('.js-more-index').click();
+            }
+        }
+
         //console.log(['scroll',$(window).scrollTop()]);
     });
 
