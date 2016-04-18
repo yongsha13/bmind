@@ -149,7 +149,7 @@ body {
   border: none;
 }
 .home nav a img {
-  width: 60%;
+  width: 50%;
 }
 .home nav a h3 {
   padding-top: 1rem;
@@ -165,11 +165,12 @@ body {
 .home .home-list li > span {
   display: block;
   line-height: 2rem;
-  font-size: 1rem;
+  font-size: .8rem;
   color: #999;
 }
 .home .home-list li h2 {
-  line-height: 3rem;
+  padding: .6rem 0;
+  line-height: 1.8rem;
   font-size: 1.4rem;
   font-weight: 500;
 }
@@ -214,7 +215,7 @@ body {
   padding: 1rem;
   color: #999;
   line-height: 2rem;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 .top .fm .player {
   padding-top: 270px;
