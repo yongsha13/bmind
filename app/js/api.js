@@ -262,7 +262,7 @@ function ajax(url,data,callback,errorback,times){
         remoteUrl = './test/'+url+'.json';
     else*/
     remoteUrl = "/BmindAPINew/Page/"+url+'.action';
-    data['uid'] = params['uid'];
+    $.extend(data,{'uid':params['uid']},tplData.common);
     /*本地存储*/
     /*var localData = localCache.getter(url,data);
     if(localData){

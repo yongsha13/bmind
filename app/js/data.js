@@ -1,6 +1,8 @@
 var tplData = {
     useInfo:false,
     roleId:1,//权限
+    user:{},
+    common:{},
     bmList:{
         list:[
             {url:'#/bm/fm/index',title:'情绪调频首页',rule:'#/bm/fm/index',args:'无'},
