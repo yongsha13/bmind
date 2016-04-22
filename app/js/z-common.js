@@ -109,6 +109,10 @@ $(function(){
                 '1802':''/*文章详情*/
 
             }
+            if(data['page']==1801){
+                location.hash = '/bm/read/list';
+                return;
+            }
             var ua = navigator.userAgent.toLowerCase();
             var isAndroid = /android/.test(ua);
             var localUrl = location.href.split('#')[0];
@@ -465,8 +469,9 @@ $(function(){
             /*首页更多*/
         .on('click','.js-more-index',function(){
             var _this = this;
+            //var ajaxArgs = $.extend({},tplData['common'],{accountType:tplData.user['accountType']||'',uid:tplData.user['uid']||''});
             var data = $(this).data();
-            $.get('/BmindAPPSet/app/home/100/list.do?rows=10&page='+data['page'],function(res){
+            $.get('/BmindAPPSet/app/home/100/list.do?rows=10&page='+data['page'],tplData['ajaxArgs'],function(res){
                 data['page'] = parseInt(data['page']) +1;
                 data['list'] = res.data;
                 $(_this).closest('li').replaceWith(TPL.render('bmindIndexList',data));

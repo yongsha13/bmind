@@ -68,7 +68,7 @@ var bmApi = {
     }
 };
 function bmCallback(res){
-    trace('callback','回调响应',res);
+    //trace('callback','回调响应',res);
     bmApi.waitCallback = false;
     bmApi.beginWaitTime = 0;
     res.apiId==3 || trace('back-'+res.apiId+'-'+res.crum,'JS-API回调',res);
