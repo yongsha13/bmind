@@ -80,6 +80,35 @@ body {
   font-size: 1.2rem;
   color: #989898;
 }
+.read {
+  background: #fff;
+  overflow: hidden;
+}
+.read ul li {
+  margin: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+.read ul li img {
+  float: left;
+  width: 5rem;
+  border-radius: .5rem;
+}
+.read ul li h2 {
+  line-height: 2rem;
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin-left: 5rem;
+  padding: 0 .5rem;
+}
+.read ul li p {
+  line-height: 1.5rem;
+  margin-left: 5rem;
+  color: #999;
+  padding: 0 .5rem;
+}
+.read ul li .icons {
+  margin-top: .5rem;
+}
 .home .banner {
   background: #fff;
   word-break: keep-all;

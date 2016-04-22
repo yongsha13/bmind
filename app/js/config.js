@@ -30,11 +30,11 @@ function fmtTime(time,fmt){
             //alert('准备取用户信息');
             !tplData.userInfo &&
             bmApi.api('user-info',{},function(res){//获取用户信息
-                document.cookie = res['cookieStr'] || '';
+                document.cookie = res.data['cookieStr'] || '';
                 //alert(JSON.stringify(res));
                 tplData.userInfo = true;
-                tplData['common'] = res['common']||{};
-                tplData['user'] = res['user'] || {};
+                tplData['common'] = res.data['common']||{};
+                tplData['user'] = res.data['user'] || {};
                 tplData.roleId = tplData.user['memberLevel'];
                 //tplData.
                 //alert(tplData.roleId);
@@ -430,20 +430,38 @@ function fmtTime(time,fmt){
             }
         },
         '/index':function(){
-            var ajaxArgs = $.extend({},tplData['common'],{accountType:tplData.user['accountType'],uid:tplData.user['id']});
-            //bmApi.api('title',{title:'测试页面一二三'});
-            $.get('/BmindAPPSet/app/parameterSet/100/list.do', ajaxArgs,function(res){
-                //console.log(res);
-                $.get('/BmindAPPSet/app/home/100/list.do?page=1&rows=10',ajaxArgs,function(listRes){
-                    res.data['list'] = listRes.data;
-                    res.data['page'] = 2;
-                    console.log(res.data);
-                    $('#mn').html(TPL.render('bmindIndex',res.data));
-                    slideComponent.add('.js-slide-component');
-                })
+            setTimeout(function(){initIndex()},200);
+            function initIndex(){
+                trace('tpl-data','数据',{data:tplData['common']});
+                if(!tplData['common']){
+                    trace('try','偿试',{});
 
-            });
+                    setTimeout(function(){initIndex()},100);
+                }else{
+                    var ajaxArgs = $.extend({},tplData['common'],{accountType:tplData.user['accountType']||'',uid:tplData.user['uid']||''});
+                    trace('cookie','cookie值',{cookie:document.cookie});
+                    trace('args','接口传参',ajaxArgs);
+                    //bmApi.api('title',{title:'测试页面一二三'});
+                    $.get('/BmindAPPSet/app/parameterSet/100/list.do', ajaxArgs,function(res){
+                        //console.log(res);
+                        $.get('/BmindAPPSet/app/home/100/list.do?page=1&rows=10',ajaxArgs,function(listRes){
+                            res.data['list'] = listRes.data;
+                            res.data['page'] = 2;
+                            console.log(res.data);
+                            $('#mn').html(TPL.render('bmindIndex',res.data));
+                            slideComponent.add('.js-slide-component');
+                        })
 
+                    });
+                }
+            }
+
+
+        },
+        '/read':{
+            '/list':function(){
+                $('#mn').html(TPL.render('bmReadList',{}));
+            }
         }
     }
 };

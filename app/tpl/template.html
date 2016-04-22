@@ -708,12 +708,12 @@
         <h2>${item.title}</h2>
         <p>${item.description}</p>
         <footer class="icons">
-                    <span class="comment">
-                        | <span class="icon-pinglun iconfont"></span>${item.articleLike}
-                    </span>
-                    <span class="like">
-                        <span class="icon-xin iconfont"></span>${item.articleClickNum}
-                    </span>
+            <span class="comment">
+                | <span class="icon-pinglun iconfont"></span>${item.articleLike}
+            </span>
+            <span class="like">
+                <span class="icon-xin iconfont"></span>${item.articleClickNum}
+            </span>
         </footer>
     </li>
     {{/if}}
@@ -751,5 +751,44 @@
     </nav>
     <ul class="home-list">
         {{import: bmindIndexList}}
+    </ul>
+</div>
+
+{{target: bmReadListLi}}
+<li>
+    <img src="./images/avatar-1.jpg" alt="">
+    <section>
+        <h2>产后抑郁怎么办？</h2>
+        <p>一二三四五六七八九壹一二三四五六七八九贰一二三四五六七八九叁一二三四五六</p>
+        <footer class="icons">
+            <span class="tag">
+                <span class="icon-discount iconfont"></span>产后抑郁
+            </span>
+            <span class="like">
+                <span class="icon-browse iconfont"></span>12345
+            </span>
+        </footer>
+    </section>
+</li>
+<li>
+    <img src="./images/avatar-1.jpg" alt="">
+    <section>
+        <h2>产后抑郁怎么办？</h2>
+        <p>一二三四五六七八九壹一二三四五六七八九贰一二三四五六七八九叁一二三四五六</p>
+        <footer class="icons">
+            <span class="tag">
+                <span class="icon-discount iconfont"></span>产后抑郁
+            </span>
+            <span class="like">
+                <span class="icon-browse iconfont"></span>12345
+            </span>
+        </footer>
+    </section>
+</li>
+
+{{target: bmReadList}}
+<div class="read">
+    <ul class="readList">
+        {{import: bmReadListLi}}
     </ul>
 </div>
