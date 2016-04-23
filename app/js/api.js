@@ -69,12 +69,13 @@ var bmApi = {
 };
 function bmCallback(res){
     //trace('callback','回调响应',res);
+    if(!res['crumb']) res['crumb'] = res['crum'];/*兼容传参*/
     bmApi.waitCallback = false;
     bmApi.beginWaitTime = 0;
-    res.apiId==3 || trace('back-'+res.apiId+'-'+res.crum,'JS-API回调',res);
+    res.apiId==3 || trace('back-'+res.apiId+'-'+res.crumb,'JS-API回调',res);
 
     if(res.apiId==12&&res.data.back==1) urlHistory.back();//点击后退的回调
-    else window.bmApi.callbacks[res['crum']](res);
+    else window.bmApi.callbacks[res['crumb']](res);
 
 
     //alert('JS接收到回调：'+JSON.stringify(res));
