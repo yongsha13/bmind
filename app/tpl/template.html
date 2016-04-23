@@ -755,35 +755,27 @@
 </div>
 
 {{target: bmReadListLi}}
+{{for: ${list} as ${item} }}
 <li>
-    <img src="./images/avatar-1.jpg" alt="">
-    <section>
-        <h2>产后抑郁怎么办？</h2>
-        <p>一二三四五六七八九壹一二三四五六七八九贰一二三四五六七八九叁一二三四五六</p>
-        <footer class="icons">
-            <span class="tag">
-                <span class="icon-discount iconfont"></span>产后抑郁
-            </span>
-            <span class="like">
-                <span class="icon-browse iconfont"></span>12345
-            </span>
-        </footer>
-    </section>
+    <a href="javascript:;" data-url="${item.url}" data-title="${item.title}">
+        <img src="${item.picPath}" alt="">
+        <section>
+            <h2>${item.title}</h2>
+            <p>${item.content}</p>
+            <footer class="icons">
+                <span class="tag">
+                    <span class="icon-discount iconfont"></span>${item.lable}
+                </span>
+                <span class="like">
+                    <span class="icon-browse iconfont"></span>${item.views}
+                </span>
+            </footer>
+        </section>
+    </a>
 </li>
+{{/for}}
 <li>
-    <img src="./images/avatar-1.jpg" alt="">
-    <section>
-        <h2>产后抑郁怎么办？</h2>
-        <p>一二三四五六七八九壹一二三四五六七八九贰一二三四五六七八九叁一二三四五六</p>
-        <footer class="icons">
-            <span class="tag">
-                <span class="icon-discount iconfont"></span>产后抑郁
-            </span>
-            <span class="like">
-                <span class="icon-browse iconfont"></span>12345
-            </span>
-        </footer>
-    </section>
+    <a href="javascript:;" class="more js-more-read" data-page="${page}">更多内容</a>
 </li>
 
 {{target: bmReadList}}

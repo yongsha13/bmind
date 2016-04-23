@@ -461,11 +461,10 @@ function fmtTime(time,fmt){
         },
         '/read':{
             '/list':function(){
-                ///BmindRepository/app/article/100/articleList.do?page=1&rows=10&userSource=2&accountType=2
                 $.get('/BmindRepository/app/article/100/articleList.do?page=1&rows=10',tplData['ajaxArgs'],function(res){
-                    console.log(res);
+                    $('#mn').html(TPL.render('bmReadList',{list:res.data,page:2}));
                 })
-                $('#mn').html(TPL.render('bmReadList',{}));
+
             }
         }
     }

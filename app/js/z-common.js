@@ -95,6 +95,10 @@ $(function(){
     });
 
     $('#mn')
+        .on('click','.read .readList a',function(){
+            var data = $(this).data();
+            bmApi.api('new-web-view',{pushType:3,pageId:0,objectId:0,title:data['title'],url:data['url'],method:1});
+        })
         /*与app交互事件*/
         .on('click','.home nav a,.home-list li,.home .banner .cnt img',function(){
             //trace('new-web-view','新开web窗口',$(this).data())
@@ -475,6 +479,17 @@ $(function(){
                 data['page'] = parseInt(data['page']) +1;
                 data['list'] = res.data;
                 $(_this).closest('li').replaceWith(TPL.render('bmindIndexList',data));
+            })
+        })
+        /*更多心理阅读*/
+        .on('click','.js-more-read',function(){
+            var _this = this;
+            var data = $(this).data();
+            $.get('/BmindRepository/app/article/100/articleList.do?rows=10&page='+data['page'],tplData['ajaxArgs'],function(res){
+                data['page'] = parseInt(data['page']) +1;
+                data['list'] = res.data;
+                trace('more','更多心理阅读',data);
+                $(_this).closest('li').replaceWith(TPL.render('bmReadListLi',data));
             })
         })
         /*更多圈子*/
