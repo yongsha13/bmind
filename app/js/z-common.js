@@ -127,6 +127,15 @@ $(function(){
                 bmApi.api('title',{title:'心理阅读'})*/
                 return;
             }
+            if(data['page']==1101){
+                bmApi.api('new-web-view',{
+                    pushType:3,
+                    pageId:1101,
+                    objectId:0,
+                    title:'心理测评',
+                    method:1});
+                return;
+            }
             var ua = navigator.userAgent.toLowerCase();
             var isAndroid = /android/.test(ua);
             var localUrl = location.href.split('#')[0];

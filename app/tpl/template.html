@@ -728,9 +728,8 @@
             {{for: ${bannerData} as ${item} }}<img
                 src="${item.picPath}"
                 alt="${item.title}"
-                data-url="${item.url}"
+                data-url="${item.accessURL}"
                 data-title="${item.title}"
-                data-outurl="${item.outurl}"
                 data-page="${item.pageId}"
                 data-id="${item.objectId}"
                 >{{/for}}
@@ -757,7 +756,9 @@
 {{target: bmReadListLi}}
 {{for: ${list} as ${item} }}
 <li>
-    <a href="javascript:;" data-url="${item.url}" data-title="${item.articleTitle}">
+    <a href="javascript:;"
+       data-url="${item.url}"
+       data-title="${item.articleTitle}">
         <img src="${item.picPath}" alt="">
         <section>
             <h2>${item.title}</h2>

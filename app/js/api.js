@@ -273,31 +273,46 @@ function ajax(url,data,callback,errorback,times){
         return false;
     }*/
     //bmApi.api('alert',{type:3,text:'正在加载数据'});
-    $.ajax({
-        url:remoteUrl,
-        type:'POST',
-        dataType:'JSON',
-        data:data,
-        success:function(req){
-            //bmApi.api('alert',{type:0})
-            localCache.setter(url,data,req);
-            if(url == 'getMusic'){//音频缓存
 
-                tplData.push(req.data);
-                /*if(data.page==1) tplData.musicList = req.list;
-                 else tplData.musicList.concat(req.list);*/
-            }
-            if(parseInt(req['result'])==1) callback(req);
-            else errorback(req);
-        },
-        error:function(){
-            //bmApi.api('alert',{type:0})
-            errorback({
-                msg:'请检查网络是否稳定',
-                flag:true
-            });
+    setTimeout(function(){initIndex()},200);
+    function initIndex() {
+        //trace('tpl-data','数据',{data:tplData['common']});
+        if (!tplData['common']) {
+            //trace('try','偿试',{});
+
+            setTimeout(function () {
+                initIndex()
+            }, 100);
+        } else {
+            $.extend(data,tplData['ajaxArgs']);
+            $.ajax({
+                url:remoteUrl,
+                type:'POST',
+                dataType:'JSON',
+                data:data,
+                success:function(req){
+                    //bmApi.api('alert',{type:0})
+                    localCache.setter(url,data,req);
+                    if(url == 'getMusic'){//音频缓存
+
+                        tplData.push(req.data);
+                        /*if(data.page==1) tplData.musicList = req.list;
+                         else tplData.musicList.concat(req.list);*/
+                    }
+                    if(parseInt(req['result'])==1) callback(req);
+                    else errorback(req);
+                },
+                error:function(){
+                    //bmApi.api('alert',{type:0})
+                    errorback({
+                        msg:'请检查网络是否稳定',
+                        flag:true
+                    });
+                }
+            })
         }
-    })
+    }
+
 }
 function loadAllQuestion(scaleID,page,count,versionCode,userSource){
     if(Math.ceil(count/10)<page) return;
