@@ -68,7 +68,7 @@ var bmApi = {
     }
 };
 function bmCallback(res){
-    //trace('callback','回调响应',res);
+    trace('callback','回调响应',res);
     if(!res['crumb']) res['crumb'] = res['crum'];/*兼容传参*/
     bmApi.waitCallback = false;
     bmApi.beginWaitTime = 0;
@@ -134,6 +134,7 @@ var urlHistory = {
         //trace('history-back','后退',{hash:location.hash});
         /*判断在测评题页面或量表页*/
         var method = location.hash.split('/')[3];
+        trace('hash','返回时的hash值',{hash:location.hash})
         var isTesting = method=='question' /*|| method=='scale'*/;
         if(isTesting){
             trace('in-back','后退提示',{isTest:isTesting,hash:location.hash})
