@@ -688,7 +688,7 @@
     {{/if}}
     <!--活动圈-->
     {{if: ${item.pageId}==1302}}
-    <li data-url="${item.url}" data-title="${item.title}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
+    <li data-url="${item.url}" data-title="${item.activityTitle}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
         <span>${item.label}</span>
         {{if: ${item.picPath} }}<img src="${item.picPath}" alt="">{{/if}}
         <h2>${item.title}</h2>
@@ -702,7 +702,7 @@
     {{/if}}
     <!--文章-->
     {{if: ${item.pageId}==1802}}
-    <li data-url="${item.url}" data-title="${item.title}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
+    <li data-url="${item.url}" data-title="${item.articleTitle}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
         <span>${item.label}</span>
         {{if: ${itempicPath} }}<img src="${item.picPath}" alt="">{{/if}}
         <h2>${item.title}</h2>
@@ -757,7 +757,7 @@
 {{target: bmReadListLi}}
 {{for: ${list} as ${item} }}
 <li>
-    <a href="javascript:;" data-url="${item.url}" data-title="${item.title}">
+    <a href="javascript:;" data-url="${item.url}" data-title="${item.articleTitle}">
         <img src="${item.picPath}" alt="">
         <section>
             <h2>${item.title}</h2>
