@@ -83,7 +83,8 @@ $(function(){
         var scrollTop = $(this).scrollTop();
         var scrollHeight = $(document).height();
         var windowHeight = $(this).height();
-        if(scrollTop + windowHeight == scrollHeight){
+        trace('scroll','参数',{top:scrollTop,page:scrollHeight,box:windowHeight})
+        if(scrollTop + windowHeight+ 100 >= scrollHeight){
             /*滚动到底*/
             console.log('滚动到底部');
             if($('.home').length>0){//首页

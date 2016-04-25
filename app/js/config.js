@@ -36,7 +36,7 @@ function fmtTime(time,fmt){
                 tplData['common'] = res.data['common']||{};
                 tplData['user'] = res.data['user'] || {};
                 tplData.roleId = tplData.user['memberLevel'];
-                tplData['ajaxArgs'] = $.extend({},tplData['common'],{accountType:tplData.user['accountType']||'',uid:tplData.user['uid']||''});
+                tplData['ajaxArgs'] = $.extend({},tplData['common'],{accountType:tplData.user['accountType']||'',uid:tplData.user['uid']||tplData.user['id']||''});
                 //tplData.
                 //alert(tplData.roleId);
                 //alert(JSON.stringify(res));
