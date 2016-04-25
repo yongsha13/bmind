@@ -17,8 +17,9 @@ $(function(){
     }
     window['params']['showShare'] = acceptVersion();
 });
-
-
+/*
+tplData[0] = $(window).width();
+tplData[1] = $(window).height();*/
 
 
 var cache = {

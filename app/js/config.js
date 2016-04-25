@@ -361,11 +361,14 @@ function fmtTime(time,fmt){
                     cache.test.questions = req.data;
                     cache.test.title = req.title;
                     cache.test.count = req.count;
+                    cache.test['height'] = $(window).height()-30;
                     cache.test.description = req.description;
                     cache.test.curQuestions = 0;
                     cache.test.scaleRecordID = req.ScaleRecordID;
+                    trace('test','测评数据',cache.test);
                     $('#mn').html(TPL.render('ttScale',cache.test));
                     loadAllQuestion(id,2,req.count,1,1);
+                    trace('height','屏高',{h:$(window).height()})
                 });
                 //bmApi.api('new-web-view',{url:location.href.split('#')[0]+'#/bm/tt/scale-view/'+id})
             },
