@@ -489,9 +489,9 @@
 {{target: ttList}}
     <div class="tt" style="padding: 0;">
         <div class="list">
-            <div class="tabs col-${list.length}">
+            <div class="tabs col-${data.length}">
                 <div class="ti">
-                    {{for: ${list} as ${tabs},${index} }}
+                    {{for: ${data} as ${tabs},${index} }}
                         {{if: ${index}==0 }}
                             <span class="js-tt-list-tabs cur">${tabs.typeName}</span>
                         {{else}}
@@ -499,7 +499,7 @@
                         {{/if}}
                     {{/for}}
                 </div>
-                {{for: ${list} as ${tabs},${index} }}
+                {{for: ${data} as ${tabs},${index} }}
                     {{if: ${index}==0 }}
                 <div class="cnt">
                     <ul class="my-test">{{use: ttListLi(items=${tabs.scaleList},type=${tabs.typeCode},page=2)}}</ul>
