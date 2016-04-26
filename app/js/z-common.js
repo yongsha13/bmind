@@ -210,6 +210,7 @@ $(function(){
             var data = {
                 method:1,
                 url:url,
+                title:'活动圈',
                 pushType:1//$(this).data('type')=='full'?1:2
             }
             //trace('url','活动圈',data);

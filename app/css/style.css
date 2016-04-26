@@ -152,7 +152,7 @@ body {
   opacity: 1;
 }
 .home nav {
-  margin-top: 1rem;
+  margin-top: 0;
   border-top: 1px solid #e3e3e3;
   background: #fff;
   height: auto;
