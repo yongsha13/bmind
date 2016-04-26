@@ -136,7 +136,7 @@ $(function(){
                     pageId:0,
                     objectId:0,
                     title:'心理阅读',
-                    url:location.href.split('#')[0]+'#/bm/read/list',
+                    url:data['url'],
                     method:1});
                 /*location.hash = '/bm/read/list';
                  bmApi.api('title',{title:'心理阅读'})*/
