@@ -118,7 +118,7 @@ $(function(){
             if(data['page']==1801){
 
                 bmApi.api('new-web-view',{
-                    pushType:2,
+                    pushType:1,
                     pageId:0,
                     objectId:0,
                     title:'心理阅读',
@@ -191,14 +191,14 @@ $(function(){
         })*/
         .on('click','.js-push-a',function(){
             var url = $(this).data('href');
-            if($(this).data('type')!='full') url =+ location.href.split('#')[0];
+            //if($(this).data('type')!='full') url =+ location.href.split('#')[0];
             //alert(url);
             var data = {
                 method:1,
                 url:url,
-                pushType:$(this).data('type')=='full'?1:2
+                pushType:1//$(this).data('type')=='full'?1:2
             }
-            trace('url','活动圈',data);
+            //trace('url','活动圈',data);
             bmApi.api('new-web-view',data);
         })
         /*删除我的音乐*/
