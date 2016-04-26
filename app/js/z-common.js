@@ -115,8 +115,22 @@ $(function(){
                 '1802':''/*文章详情*/
 
             }
+            /*心理阅读列表*/
             if(data['page']==1801){
 
+                bmApi.api('new-web-view',{
+                    pushType:2,
+                    pageId:0,
+                    objectId:0,
+                    title:'心理阅读',
+                    url:location.href.split('#')[0]+'#/bm/read/list',
+                    method:1});
+                /*location.hash = '/bm/read/list';
+                bmApi.api('title',{title:'心理阅读'})*/
+                return;
+            }
+            /*心理阅读详情*/
+            if(data['page']==1802){
                 bmApi.api('new-web-view',{
                     pushType:1,
                     pageId:0,
@@ -125,7 +139,7 @@ $(function(){
                     url:location.href.split('#')[0]+'#/bm/read/list',
                     method:1});
                 /*location.hash = '/bm/read/list';
-                bmApi.api('title',{title:'心理阅读'})*/
+                 bmApi.api('title',{title:'心理阅读'})*/
                 return;
             }
             if(data['page']==1101){
