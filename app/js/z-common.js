@@ -125,8 +125,6 @@ $(function(){
                     title:'心理阅读',
                     url:location.href.split('#')[0]+'#/bm/read/list',
                     method:1});
-                /*location.hash = '/bm/read/list';
-                bmApi.api('title',{title:'心理阅读'})*/
                 return;
             }
             /*心理阅读详情*/
@@ -138,8 +136,6 @@ $(function(){
                     title:'心理阅读',
                     url:data['url'],
                     method:1});
-                /*location.hash = '/bm/read/list';
-                 bmApi.api('title',{title:'心理阅读'})*/
                 return;
             }
             if(data['page']==1101){
