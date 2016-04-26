@@ -742,7 +742,7 @@
     </div>
     <nav class="col-${entranceData.length}">
         {{for: ${entranceData} as ${item} }}
-        <a data-url="${item.accessURL}" data-page="${item.pageId}" data-id="${item.objectId}" >
+        <a data-url="${item.accessURL}" data-title="${item.title}" data-page="${item.pageId}" data-id="${item.objectId}" >
             <img src="${item.picPath}" alt="${item.title}">
             <h3>${item.title}</h3>
         </a>
