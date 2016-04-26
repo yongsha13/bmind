@@ -171,7 +171,7 @@ body {
   float: left;
   box-sizing: border-box;
   border-right: 1px solid #e3e3e3;
-  padding: 2rem 0;
+  padding: .8rem 0;
   text-align: center;
 }
 .home nav a:last-child {
