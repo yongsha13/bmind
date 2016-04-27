@@ -21,9 +21,10 @@
 
     <script>
         var params = {
-        uid:'${param.uid}',
-        maxPublishedVersion:'3.0.0',
-        showShare:true
+            uid:'${param.uid}',
+            maxPublishedVersion:'3.0.0',
+            showShare:true,
+            args:{}
         }
     </script>
 <script src="tpl/main.min.js"></script>

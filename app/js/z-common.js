@@ -99,7 +99,7 @@ $(function(){
     $('#mn')
         .on('click','.read .readList a',function(){
             var data = $(this).data();
-            bmApi.api('new-web-view',{pushType:2,pageId:0,objectId:0,title:data['title'],url:data['url'],method:1});
+            bmApi.api('new-web-view',{pushType:1,pageId:0,objectId:0,title:data['title'],url:data['url'],method:1});
         })
         /*与app交互事件*/
         .on('click','.home nav a,.home-list li,.home .banner .cnt img',function(){
@@ -124,17 +124,6 @@ $(function(){
                     objectId:0,
                     title:'心理阅读',
                     url:location.href.split('#')[0]+'#/bm/read/list',
-                    method:1});
-                return;
-            }
-            /*心理阅读详情*/
-            if(data['page']==1802){
-                bmApi.api('new-web-view',{
-                    pushType:1,
-                    pageId:0,
-                    objectId:0,
-                    title:'心理阅读',
-                    url:data['url'],
                     method:1});
                 return;
             }

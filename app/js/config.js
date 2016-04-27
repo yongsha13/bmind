@@ -434,21 +434,22 @@ function fmtTime(time,fmt){
             }
         },
         '/index':function(){
-            setTimeout(function(){initIndex()},200);
-            function initIndex(){
+            //initIndex()
+            //setTimeout(function(){initIndex()},200);
+            //function initIndex(){
                 //trace('tpl-data','数据',{data:tplData['common']});
-                if(!tplData['common']){
+                /*if(!tplData['common']){
                     //trace('try','偿试',{});
 
                     setTimeout(function(){initIndex()},100);
-                }else{
+                }else{*/
                     //var ajaxArgs = $.extend({},tplData['common'],{accountType:tplData.user['accountType']||'',uid:tplData.user['uid']||''});
                     trace('cookie','cookie值',{cookie:document.cookie});
                     trace('args','接口传参',tplData['ajaxArgs']);
                     //bmApi.api('title',{title:'测试页面一二三'});
-                    $.get('/BmindAPPSet/app/parameterSet/100/list.do', tplData['ajaxArgs'],function(res){
+                    $.get('/BmindAPPSet/app/parameterSet/100/list.do', window.params['args']||{},function(res){
                         //console.log(res);
-                        $.get('/BmindAPPSet/app/home/100/list.do?page=1&rows=10',tplData['ajaxArgs'],function(listRes){
+                        $.get('/BmindAPPSet/app/home/100/list.do?page=1&rows=10',window.params['args']||{},function(listRes){
                             res.data['list'] = listRes.data;
                             res.data['page'] = 2;
                             console.log(res.data);
@@ -457,14 +458,14 @@ function fmtTime(time,fmt){
                         })
 
                     });
-                }
-            }
+                //}
+            //}
 
 
         },
         '/read':{
             '/list':function(){
-                $.get('/BmindRepository/app/article/100/articleList.do?page=1&rows=10',tplData['ajaxArgs'],function(res){
+                $.get('/BmindRepository/app/article/100/articleList.do?page=1&rows=10',window.params['args']||{},function(res){
                     $('#mn').html(TPL.render('bmReadList',{list:res.data,page:2}));
                 })
 
