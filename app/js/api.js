@@ -3,7 +3,7 @@
  */
 
 
-var debug = true;
+var debug = false;
 
 var bmApi = {
     index:0,
@@ -98,7 +98,7 @@ function trace(method,descript,data){
     //if(!debug) return false;
     //return false;
     //data['描述'] = descript;
-    data = $.extend({'描述':descript,'接口名称':bmApi.apiNames[data.apiId]},data);
+    data = $.extend({'描述':descript,'接口名称':bmApi.apiNames[typeof data=='undefined'?0:data['apiId']||0]},data);
     $.ajax({
         url:'/debug?method='+method,
         type:'POST',
