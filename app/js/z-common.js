@@ -140,7 +140,7 @@ $(function(){
             var isAndroid = /android/.test(ua);
             var localUrl = location.href.split('#')[0];
 
-            bmApi.api('new-web-view',{pushType:data['url']?2:3,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
+            bmApi.api('new-web-view',{pushType:data['url']?1:3,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
 
         })
         .on('click','.js-app-download-btn',function(){
