@@ -719,7 +719,11 @@
     {{/if}}
     {{/for}}
     <li>
+        {{if: ${list.length}==10}}
         <a href="javascript:;" data-title="${item.title}" class="more js-more-index" data-page="${page}">更多内容</a>
+        {{else}}
+        <a href="javascript:;" class="more none">没有更多</a>
+        {{/if}}
     </li>
 {{target: bmindIndex}}
 <div class="home">
@@ -777,7 +781,11 @@
 </li>
 {{/for}}
 <li>
-    <a href="javascript:;" class="more js-more-read" data-page="${page}">更多内容</a>
+    {{if: ${list.length}==10}}
+        <a href="javascript:;" class="more js-more-read" data-page="${page}">更多内容</a>
+    {{else}}
+    <a href="javascript:;" class="more none">没有更多</a>
+    {{/if}}
 </li>
 
 {{target: bmReadList}}
