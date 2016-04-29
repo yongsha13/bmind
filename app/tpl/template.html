@@ -648,9 +648,9 @@
     <li data-url="${item.url}" data-title="${item.title}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
         <span>${item.label}</span>
         <header>
-            <div class="min-player" data-src="${item.musicPath}">
+            <div class="min-player" data-id="${item.objectId}" data-src="${item.musicPath}">
                 <div class="play"></div>
-                <img src="${item.picPath}" alt="">
+                <div class="img" style="background-image:url('${item.picPath}');"></div>
             </div>
             <h2>${item.title}</h2>
             <span>${item.musicExpertId}</span>

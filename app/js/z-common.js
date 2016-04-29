@@ -146,7 +146,18 @@ $(function(){
             var ua = navigator.userAgent.toLowerCase();
             var isAndroid = /android/.test(ua);
             var localUrl = location.href.split('#')[0];
-
+            if(data['page']==1002 && !isAndroid){
+                var curDom = $(this).find('.min-player');
+                var data_1 = {
+                    method:1,
+                    url:curDom.data('src'),
+                    playId:curDom.data('id')
+                };
+                bmApi.api('player',data_1,function(res){
+                    ajax('addPlayMusicRecord',{musicId:data_1.playId,versionCode:1,userSource:2});
+                });
+                return;
+            }
             bmApi.api('new-web-view',{pushType:data['url']?2:3,pageId:data['page'],objectId:data['id'],title:data['title'],url:data['url'],method:1});
 
         })
