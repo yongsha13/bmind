@@ -118,7 +118,6 @@ $(function(){
             }
             /*心理阅读列表*/
             if(data['page']==1801){
-
                 bmApi.api('new-web-view',{
                     pushType:2,
                     pageId:0,
@@ -128,6 +127,7 @@ $(function(){
                     method:1});
                 return;
             }
+
             /*测评首页*/
             if(data['page']==1101){
                 bmApi.api('new-web-view',{
@@ -138,8 +138,8 @@ $(function(){
                     method:1});
                 return;
             }
-            /*外链*/
-            if(data['page']==1701){
+            /*外链，心理科普，活动圈*/
+            if(data['page']==1701||data['page']==1802||data['page']==1302){
                 bmApi.api('new-web-view',{pushType:1,pageId:0,objectId:0,title:data['title'],url:data['url'],method:1});
                 return;
             }
