@@ -301,7 +301,7 @@ function fmtTime(time,fmt){
                 //console.log(data);
                 if(id==1){
                     bmApi.api('my-music',{},function(res){
-                        data['items'] = res.data.list;
+                        data['items'] = res.data.data;
                         //trace('data','数据调试',res);
                         $('#mn').html(TPL.render('myMusic',data));
                     });
