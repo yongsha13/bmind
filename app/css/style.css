@@ -1210,7 +1210,7 @@ body {
   font-size: .5rem;
 }
 #mn > .comment {
-  position: relative;
+  /*position: relative;*/
 }
 .comment {
   height: 100%;

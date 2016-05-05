@@ -104,7 +104,7 @@ $(function(){
         })
         /*与app交互事件*/
         .on('click','.home nav a,.home-list li,.home .banner .cnt img',function(){
-            //trace('new-web-view','新开web窗口',$(this).data())
+            trace('new-web-view','新开web窗口',$(this).data())
             //console.log('a');
             var data = $(this).data();
             var urls = {
@@ -146,15 +146,19 @@ $(function(){
             var ua = navigator.userAgent.toLowerCase();
             var isAndroid = /android/.test(ua);
             var localUrl = location.href.split('#')[0];
-            if(data['page']==1002 && !isAndroid){
+            /*ios音频播放*/
+            if(data['page']==1002 && !isAndroid && $(this).find('min-player').length>0){
                 var curDom = $(this).find('.min-player');
+
                 var data_1 = {
                     method:1,
                     url:curDom.data('src'),
                     playId:curDom.data('id')
                 };
                 bmApi.api('player',data_1,function(res){
-                    ajax('addPlayMusicRecord',{musicId:data_1.playId,versionCode:1,userSource:2});
+                    var data_2 = $.extend({},data,data_1,{musicId:data_1.playId||data_1.id,versionCode:1,userSource:2});
+                    trace('player-data','播放数据',data_2);
+                    ajax('addPlayMusicRecord',data_2);
                 });
                 return;
             }
