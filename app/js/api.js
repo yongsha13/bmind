@@ -96,7 +96,7 @@ function bmCallback(res){
 }*/
 function trace(method,descript,data){
     //if(!debug) return false;
-    return false;
+    //return false;
     //data['描述'] = descript;
     data = $.extend({'描述':descript,'接口名称':bmApi.apiNames[typeof data=='undefined'?0:data['apiId']||0]},data);
     $.ajax({

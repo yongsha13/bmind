@@ -188,7 +188,7 @@ $(function(){
             var data = {
                 method:1,
                 url:url,
-                title:data['title'],
+                title:$(this).data('title'),
                 pushType:1//$(this).data('type')=='full'?1:2
             }
             //trace('url','活动圈',data);
