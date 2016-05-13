@@ -1,0 +1,73 @@
+body{ color: #333;}
+.header{ margin:0 auto; width:1000px; padding:20px 0; overflow: hidden;}
+.header img{ float: left;}
+.header h1{float:left; margin-top:35px; padding:10px 10px 0; font-weight:500; font-size:32px; border-right: 1px solid #ccc;}
+.header h2{float:left; margin-top:55px; padding:0 10px; font-weight:500; font-size:20px;}
+.header .tel{float:right; padding:0 10px; text-align: right; margin-top:40px; font-size:14px;}
+.header .tel strong{ font-weight:500; font-size:20px; line-height:30px; color: #33cbcc;}
+.header .tel-sign{ float: right; width:40px; margin-top: -20px; height:108px; background: #33cbcc;}
+
+.nav{ background: #56707c;}
+.nav .link{ margin:0 auto; width:1000px; text-align: right;}
+.nav .link a{ display: inline-block; line-height:52px; font-size:20px; padding:0 20px; color: #fff;}
+.nav .link a.cur{ background: #33cbcc;}
+
+.slider{}
+.slider img{ width:100%;}
+
+.section{ width:1000px; margin:0 auto; padding-top:30px;}
+.section.sup{ width:auto; background: url(../images/eap-sup-bg.png) center center no-repeat; height:648px;}
+.section h2{ font-size:30px; font-weight:500; text-align: center; color: #999; line-height:110px;}
+.section .line{ margin:0 30px; border-bottom: 1px solid #ccc;}
+.section .line:before{ display: block; margin:0 auto; content: ''; width: 70px; height: 0; border-style: solid; border-width: 8px 8px 0 8px; border-color: #33cbcc transparent transparent transparent;}
+.eap-none{ padding-top:50px; text-align: center;}
+.eap-none a{ display: inline-block; width: 180px; text-align: center;}
+.eap-none a:link,
+.eap-none a:visited{ color: #999;}
+.eap-none a:hover{ color: #33cbcc;}
+.eap-none a h3{ font-weight:500; font-size:18px; padding:20px 0; line-height:26px;}
+.eap-none a span{ display: inline-block; width: 130px; height: 150px; background-image: url("../images/bg-1.png")}
+.eap-none a span.n1{}
+.eap-none a:hover span.n1{ background-position: 0 -160px;}
+.eap-none a span.n2{ background-position: -130px 0;}
+.eap-none a:hover span.n2{ background-position: -130px -160px;}
+.eap-none a span.n3{ background-position: -260px 0;}
+.eap-none a:hover span.n3{ background-position: -260px -160px;}
+.eap-none a span.n4{ background-position: -390px 0;}
+.eap-none a:hover span.n4{ background-position: -390px -160px;}
+.eap-none a span.n5{ background-position: -520px 0;}
+.eap-none a:hover span.n5{ background-position: -520px -160px;}
+
+.eap-sup{ position: relative; margin:0 auto; width: 1000px; height:100%;}
+.eap-sup .ti{ position: absolute; width:360px; top:240px; left:0;}
+
+.eap-sup .box{ position: absolute; width: 200px; height: 200px; border:1px solid #33cbcc; transform: rotate(45deg)}
+.eap-sup .box.top{ width: 40px; height: 40px; left: 524px; top: 102px;}
+.eap-sup .box.top .block{ width:38px; height: 38px; margin:-4px 0 0 8px; background: #33cbcc;}
+.eap-sup .box.bottom{ width:40px; height:40px; left:528px; top:471px;}
+.eap-sup .box.bottom .block{ width:20px; height:20px; margin:48px 0 0 0; border:1px solid #33cbcc;}
+
+.eap-sup .box .cnt{ width: 240px; height: 220px; padding:10px 0; transform: rotate(-45deg)}
+.eap-sup .box .cnt h3{ font-weight:500; font-size:22px; text-align: center; color: #33cbcc; padding:5px 0; line-height:30px;}
+.eap-sup .box .cnt p { font-size:18px; color: #999; line-height:26px;}
+.eap-sup .box:hover{ background: #33cbcc;}
+.eap-sup .box.top:hover,
+.eap-sup .box.bottom:hover{ background: none;}
+.eap-sup .box:hover h3,
+.eap-sup .box:hover p{ cursor: pointer; color: #fff;}
+.eap-sup .box.n-1{ top: 60px; left:300px;}
+.eap-sup .box.n-1 p{ padding-left: 30px;}
+.eap-sup .box.n-2{ top: 60px; left:596px;}
+.eap-sup .box.n-2 h3{ padding-top: 30px;}
+.eap-sup .box.n-2 p{ padding-left: 20px;}
+.eap-sup .box.n-3{ top: 208px; left: 448px;}
+.eap-sup .box.n-3 h3{ padding-top: 30px;}
+.eap-sup .box.n-3 p{ padding-left: 20px;}
+.eap-sup .box.n-4{ top:208px; left:744px;}
+.eap-sup .box.n-4 p{ padding-left: 20px;}
+.eap-sup .box.n-5{ top:356px; left:300px;}
+.eap-sup .box.n-5 h3{ padding-top:24px;}
+.eap-sup .box.n-5 p{ padding-left:50px;}
+.eap-sup .box.n-6{ top: 356px; left:596px;}
+.eap-sup .box.n-6 h3{ padding-top:36px;}
+.eap-sup .box.n-6 p{ padding-left:20px;}

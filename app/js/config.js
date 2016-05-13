@@ -33,7 +33,7 @@ function fmtTime(time,fmt){
             bmApi.api('user-info',{},function(res){//获取用户信息
                 document.cookie = res.data['cookieStr'] || '';
                 //alert(JSON.stringify(res));
-                tplData.userInfo = true;
+                //tplData.userInfo = true;
                 tplData['common'] = res.data['common']||{};
                 tplData['user'] = res.data['user'] || {};
                 tplData.roleId = tplData.user['memberLevel'];
