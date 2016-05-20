@@ -357,6 +357,7 @@ function fmtTime(time,fmt){
                 }
                 ajax('getScaleBySort',reqData,function(res){
                     res['roleId'] = tplData.roleId;
+                    trace('tt','测评数据',res);
                     $('#mn').html(TPL.render('ttList',res));
                 });
             },

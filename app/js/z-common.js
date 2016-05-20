@@ -243,6 +243,13 @@ $(function(){
         })
         /*显示必须为会员提醒*/
         .on('click','.js-show-join',function(){
+            var data = $(this).data();
+            trace('tt-data','测评数据',data);
+            if(tplData.roleId>=data['level']){
+                location.hash = '/bm/tt/scale/'+data['id'];
+                return;
+            }
+
             //trace('click','点击了',{type:$(this).attr('')});
             if($(this).data("type")=='music'){
                 bmApi.api('member',{text:tplData.tips.memberMusic});

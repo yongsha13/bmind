@@ -435,11 +435,7 @@
 {{target: ttListLi(master=listLi) }}
     {{block: cnt}}
 <a
-        {{if: ${roleId} < ${item.memberLevel} }}
-            href="javascript:;" class="js-show-join" data-type="test"
-        {{else}}
-            href="#/bm/tt/scale/${item.scaleID}"
-        {{/if}}>
+            href="javascript:;" class="js-show-join" data-id="${item.scaleID}" data-level="${item.memberLevel}" data-type="test"
     {{use: liAvatar(
     src=${item.picPath}
     )}}
