@@ -700,7 +700,7 @@
     {{if: ${item.pageId}==1802}}
     <li data-url="${item.url}" data-title="${item.articleTitle}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
         <span>${item.label}</span>
-        {{if: ${itempicPath} }}<img src="${item.picPath}" alt="">{{/if}}
+        {{if: ${item.picPath} }}<img src="${item.picPath}" alt="">{{/if}}
         <h2>${item.title}</h2>
         <p>${item.description}</p>
         <footer class="icons">
