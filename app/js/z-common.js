@@ -100,7 +100,10 @@ $(function(){
         /*心理阅读列表页跳转*/
         .on('click','.read .readList a',function(){
             var data = $(this).data();
-            bmApi.api('new-web-view',{pushType:1,pageId:0,objectId:0,title:data['title'],url:data['url'],method:1});
+            $.post('/BmindRepository/app/articleRecord/100/save.do', $.extend({},window.params.args,{objectId:data['id']}),function(){
+                bmApi.api('new-web-view',{pushType:1,pageId:0,objectId:0,title:data['title'],url:data['url'],method:1});
+            });
+
         })
         /*ios音频小图标播放*/
         .on('click','.home-list li .min-player',function(){
