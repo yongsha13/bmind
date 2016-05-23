@@ -53,7 +53,7 @@
         {{/if}}
 >
     {{use: liAvatar(
-    src=${item.picPath}
+    src=${item.thumb||item.picPath}
     )}}
     <div class="cnt">
         {{use: levelScore(score=${item.avg})}}
@@ -658,7 +658,7 @@
                         | <span class="icon-pinglun iconfont"></span>${item.musicCommentTimes}
                     </span>
                     <span class="like">
-                        <span class="icon-xin iconfont"></span>${item.musicPlayTimes}
+                        <span class="icon-faxian iconfont"></span>${item.musicPlayTimes}
                     </span>
 
         </footer>
@@ -668,7 +668,7 @@
     {{if: ${item.pageId}==1102}}
     <li data-url="${item.url}" data-title="${item.title}" data-outurl="${item.outUrl}" data-page="${item.pageId}" data-id="${item.objectId}">
         <span>${item.label}</span>
-        {{if: ${item.picPath} }}<img src="${item.picPath}" alt="">{{/if}}
+        {{if: ${item.picPath} }}<img src="${item.picPath||item.thumb}" alt="">{{/if}}
         <h2>${item.title}</h2>
         <p>${item.description}</p>
         <footer class="icons">
@@ -677,7 +677,7 @@
                         | <span class="icon-pinglun iconfont"></span>${item.updater}
                     </span>
                     <span class="like">
-                        <span class="icon-xin iconfont"></span>${item.testNum}
+                        <span class="icon-faxian iconfont"></span>${item.testNum}
                     </span>
         </footer>
     </li>
@@ -691,7 +691,7 @@
         <p>${item.description}</p>
         <footer class="icons">
                     <span class="like">
-                        <span class="icon-xin iconfont"></span>${item.activityClickNum}
+                        <span class="icon-faxian iconfont"></span>${item.activityClickNum}
                     </span>
         </footer>
     </li>
@@ -708,7 +708,7 @@
                 | <span class="icon-pinglun iconfont"></span>${item.articleLike}
             </span>
             <span class="like">
-                <span class="icon-xin iconfont"></span>${item.articleClickNum}
+                <span class="icon-faxian iconfont"></span>${item.articleClickNum}
             </span>
         </footer>
     </li>
