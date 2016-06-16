@@ -73,7 +73,14 @@ function bmCallback(res){
     bmApi.waitCallback = false;
     bmApi.beginWaitTime = 0;
     res.apiId==3 || trace('back-'+res.apiId+'-'+res.crumb,'JS-API回调',res);
-
+    if(res.apiId==1 && res.crumb==1){
+        tplData.userInfo = true;
+        tplData['common'] = res.data['common']||{};
+        tplData['user'] = res.data['user'] || {};
+        tplData.roleId = tplData.user['memberLevel'];
+        tplData['ajaxArgs'] = $.extend({},tplData['common'],{accountType:tplData.user['accountType']||'',uid:tplData.user['uid']||tplData.user['id']||''});
+        return false;
+    }
     if(res.apiId==12&&res.data.back==1) urlHistory.back();//点击后退的回调
     else window.bmApi.callbacks[res['crumb']](res);
 

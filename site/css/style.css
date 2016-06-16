@@ -14,11 +14,15 @@ body{ color: #333; overflow-y:scroll; }
 .nav .link a{ display: inline-block; line-height:52px; font-size:20px; padding:0 20px; color: #fff;}
 .nav .link a.cur{ background: #33cbcc;}
 
-.slider{}
-.slider img{ width:100%;}
+.slider{position: relative;}
+.slider .cnt{ white-space: nowrap; }
+.slider .cnt img{ width:100%;}
+.slider .ctrl{ text-align: center; width: 100%; left:0; bottom: 40px; position: absolute; z-index:99;line-height: 20px;}
+.slider .ctrl span{ display: inline-block; margin: 0 10px; vertical-align: middle; width: 10px; height: 10px; background: #fff;  -webkit-border-radius:10px; -moz-border-radius:10px; border-radius:10px;}
+.slider .ctrl span.cur{ width: 16px; height: 16px;}
 
 .section{ width:1000px; margin:0 auto; padding-top:30px;}
-.section.sup{ width:auto; background: url(../images/eap-sup-bg.png) center center no-repeat; height:648px;}
+.section.sup{ width:auto; background-image: url(../images/eap-sup-bg.png); background-repeat: no-repeat; background-size: cover; height:648px;}
 .section h2{ font-size:30px; font-weight:500; text-align: center; color: #999; line-height:110px;}
 .section .line{ margin:0 auto; border-bottom: 1px solid #ccc;}
 .section .line:before{ display: block; margin:0 auto; content: ''; width: 70px; height: 0; border-style: solid; border-width: 8px 8px 0 8px; border-color: #33cbcc transparent transparent transparent;}
@@ -85,7 +89,7 @@ body{ color: #333; overflow-y:scroll; }
 .ask h2{ font-size:22px; font-weight: 500; color: #fff; text-align: left; line-height:38px;}
 .ask h3{ font-size:16px; font-weight: 500; color: #fff; line-height:22px;}
 .ask .btn{ float: right; padding:0 20px; margin:10px 0; font-size: 24px; line-height: 40px; background: #fff; border-radius: 30px; color: #60707d;}
-.join{ width: 960px; margin:0 auto;}
+.join{ width: 960px; margin:0 auto; overflow: hidden;}
 .join .col-3{ float: left; width:320px;}
 .join .col-3 .box{ padding:20px 0;}
 .join .col-3 .box h2{ height:90px; padding-left:90px; color: #33cbcc; font-size:24px; text-align: left; line-height:120px; background-image: url("../images/icon-bg.jpg"); background-repeat: no-repeat;}
@@ -135,14 +139,21 @@ body{ color: #333; overflow-y:scroll; }
 .program .list-2 li.n-2.cur span{ background-position: -560px -80px;}
 .program .list-2 li.n-3:hover span,
 .program .list-2 li.n-3.cur span{ background-position: -640px -80px;}
-
-.team ul{ width:960px; margin:0 auto 240px; border-bottom: 1px solid #ccc; height:103px; position: relative;}
-.team ul li{ float: left; margin:35px; width: 136px; height:136px; overflow: hidden; -webkit-border-radius:70px; -moz-border-radius:70px; border-radius:70px;}
-.team ul li:first-child{ margin-left: 0;}
-.team ul li:last-child{ margin-right:0;}
-.team ul li img{ width: 100%;}
+.program .cnt { padding:42px 0 64px;}
+.program .cnt li{display: none;}
+.program .cnt li.cur{ display: block;}
+.program .cnt h3{ font-size: 24px; line-height: 60px; color: #33cbcc; font-weight: 500;}
+.program .cnt p{ font-size:18px; line-height:30px; color: #999999; text-indent:36px;}
+.team{background: #f4f9f9; width: 100%;}
+.team ul{ width:1030px; margin:0 auto 240px;/* border-bottom: 1px solid #ccc;*/ height:103px; position: relative;}
+.team ul li{ float: left; margin:35px; width: 136px; height:136px; text-align: center; overflow: hidden; -webkit-border-radius:70px; -moz-border-radius:70px; border-radius:70px;}
+/*.team ul li:first-child{ margin-left: 0;}
+.team ul li:last-child{ margin-right:0;}*/
+.team ul li img{ width: 110px; margin-top: 8px; -webkit-transition: width .5s margin-top .5s; -moz-transition: width .5s margin-top .5s; -ms-transition: width .5s margin-top .5s; -o-transition: width .5s margin-top .5s; transition: width .5s margin-top .5s;}
+.team ul li .cnt{ display: none;}
 /*.team ul li:hover .cnt,*/
-.team ul li.cur .cnt{position: absolute; left:0; width:100%; text-align: center; padding-top:50px; line-height: 40px; color: #999999;}
+.team ul li.cur img{ width: 136px; margin:0;}
+.team ul li.cur .cnt{ display: block;position: absolute; left:0; top:170px; width:100%; text-align: center; padding-top:50px; line-height: 40px; color: #999999;}
 .team ul li.cur .cnt h3{ font-size: 24px; font-weight: 500;}
 .team ul li.cur .cnt p{ font-size: 18px;}
 .team .tab{ text-align: center; padding-bottom:70px;}
@@ -158,15 +169,22 @@ body{ color: #333; overflow-y:scroll; }
 .example .line{ margin:0 auto; width:960px;}
 .example h3{ padding-top:30px; line-height:60px; color: #33cbcc; font-size: 24px; font-weight: 500;}
 .example p{ font-size: 18px; line-height: 30px; color: #999999; text-indent:36px;}
-.example .bg{ width:100%;}
-.example .box{ margin:-360px auto 0; width: 740px; position: relative;}
+
+.example .box-cnt{ height: 600px; overflow: hidden; position: relative;}
+.example .box-cnt .bg{ width:100%; position: absolute; top:0; left:0; z-index: 1;}
+.example .box{ margin-top:130px; width: 740px; position: relative; z-index: 9;}
+
+@media screen and (min-width:1024px){
+	.example .box { margin-top: 180px;}
+}
+
 .example .box .tabs{ float: left; background: #ffffff; width: 360px; height: 340px; overflow: hidden; -webkit-border-radius:5px 5px 0 0; -moz-border-radius:5px 5px 0 0; border-radius:5px 5px 0 0;}
 .example .box .tabs span{ float: left; width: 50%; line-height: 40px; font-size: 24px; color: #ffffff; background: #666; text-align: center;}
 .example .box .tabs span.cur{ background: #33cbcc;}
-.example .box .tabs p{ padding:50px 20px 0; text-indent:0; line-height:30px; text-align: left;}
+.example .box .tabs p{ display: none; padding:50px 20px 0; text-indent:0; line-height:30px; text-align: left;}
 .example .box .tabs p strong{ color: #33cbcc;}
 .example .box .tabs p em{ background: none; font-size:14px; color: #999999; text-align: left;}
-.example .box .tabs ul{ display: none; padding:80px 0;}
+.example .box .tabs ul{ padding:80px 0;}
 .example .box .tabs ul li{ float: left; width: 130px; padding-left: 50px; line-height: 50px; font-size: 24px; color: #999999; background-image:url("../images/check-bg.jpg"); background-position: 0 -50px; background-repeat: no-repeat;}
 .example .box .tabs ul li.check{ background-position: 0 0;}
 .example .box .ask{ float: right; width:360px; background: none; clear: none}
@@ -178,8 +196,25 @@ body{ color: #333; overflow-y:scroll; }
 .example .box .ask li.n3 span{ background-position: -250px -10px;}
 .example .box .ask li.n4 span{ background-position: -370px -10px;}
 
-.friend{ margin-top:360px;}
-.friend .cnt{ padding:70px 0; white-space: nowrap;}
+.friend{ }
+.friend .cnt{ margin:70px 0; height: 80px; overflow: hidden;}
+.friend .cnt .marquee{ line-height: 80px; text-align: center; }
+.friend .cnt .marquee img{vertical-align: middle;}
+
+.side-bar{ position: fixed; z-index: 999; top:0; bottom: 0; margin:auto; right:20px; width: 120px; height: 540px; color: #fff; padding: 10px; -webkit-border-radius:10px; -moz-border-radius:10px; border-radius:10px; overflow: hidden; background: rgba(0, 0, 0, .7);}
+.side-bar h2{ font-weight:500; font-size: 18px; line-height: 30px;}
+.side-bar h3{ font-weight: 500; font-size:12px; line-height: 20px;}
+.side-bar .cnt{ border-top:1px solid #fff; text-align: center;}
+.side-bar .cnt img{ padding:10px 0;}
+
+.center-bar{ position: fixed; z-index:999; top:50%; left:50%; margin:-130px 0 0 -302px; padding: 20px 20px 0; color: #ffffff; width: 564px; height: 240px; overflow: hidden; background: url("../images/service-bg.jpg"); border:4px solid #33cbcc; -webkit-border-radius:10px; -moz-border-radius:10px; border-radius:10px;}
+.center-bar h2{ font-weight: 500; font-size: 24px; line-height: 30px;}
+.center-bar h3{ font-size: 18px; line-height: 40px; font-weight: 500;}
+.center-bar img{ float: left; padding-top: 10px;}
+.center-bar .cnt{ float: left; padding-top:10px;}
+.center-bar .ctrl{clear: both;}
+.center-bar .ctrl a{ display: inline-block; background: #33cbcc; line-height: 40px; font-size: 24px; padding:0 10px; margin:0 5px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;}
+.center-bar .ctrl a.gray{ background: #dcdcdc;}
 
 .footer{ margin-top:100px; padding:30px 0 50px; background: #1e2128; color: #fff; font-size: 16px; line-height: 30px;}
 .footer .cnt{ width: 960px; margin:0 auto;}

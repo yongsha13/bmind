@@ -1,0 +1,16 @@
+.eap-sup .box{ width: 340px; height: 340px; border:none; background: url("../images/box-line.png");}
+.eap-sup .box:hover{ background: url("../images/box-block.png")}
+.eap-sup .box .cnt{ margin:50px 0 0 24px;}
+.eap-sup .box.top{ width: 200px; height: 200px; top:100px; left:546px; background: url("../images/box-lit-1.png");}
+.eap-sup .box.top .block { background: none;}
+.eap-sup .box.bottom{ top:504px; left:532px; width: 200px; height: 200px; border:none; background: url("../images/box-lit-2.png");}
+.eap-sup .box.bottom .block{ border:none;}
+
+.side-bar{
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#aa000000,endColorstr=#aa000000);
+	behavior: url(./PIE/PIE.htc);
+}
+.eap-sup ul li span{
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000,endColorstr=#66000000);
+}
+.ask .btn{}

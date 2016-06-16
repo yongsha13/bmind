@@ -44,15 +44,15 @@ function fmtTime(time,fmt){
                 tplData['ajaxArgs'] = $.extend({},tplData['common'],{accountType:tplData.user['accountType']||'',uid:tplData.user['uid']||tplData.user['id']||''});
                 /*
                  *  3秒取一次用户信息
-                 *  简单直接暴力
+                 *  简单直接暴力【接口已经完善，取消该功能】
                  */
-                window['getUserInfoTimes'] = setInterval(function(){
+                /*window['getUserInfoTimes'] = setInterval(function(){
                     bmApi.api('user-info',{},function(res){//获取用户信息
-                        /*memberLevel发生变化则强制刷新页面*/
+                        /!*memberLevel发生变化则强制刷新页面*!/
                         if(tplData.user['memberLevel']!=res.data.user['memberLevel'])
                             location.reload();
                     });
-                },3000);
+                },3000);*/
             });
             bmApi.api('player',{method:6});//显示左上角正在播放的图标
             //
