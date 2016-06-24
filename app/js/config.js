@@ -438,11 +438,17 @@ function fmtTime(time,fmt){
             }
         },
         '/share':{
+            '/m/:id':function(id){console.log(id);},
             '/music/:id':function(id){
-                ajax('getMusic',{type:0,page:1,property:0,mid:id},function(req){
+                console.log('in share test');
+                $.get('/BmindAPINew/Page/getMusic.action',{uid:params['uid'],type:0,page:1,property:0,mid:id},function(req){
                     data = req.data[0];
                     $('#mn').html(TPL.render('shareMusic',data));
                 });
+/*                ajax('getMusic',{type:0,page:1,property:0,mid:id},function(req){
+                    data = req.data[0];
+                    $('#mn').html(TPL.render('shareMusic',data));
+                });*/
             }
         },
         '/index':function(){
@@ -482,7 +488,8 @@ function fmtTime(time,fmt){
                 })
 
             }
-        }
+        },
+        '/s/m/:id':function(id){console.log(id)}
     }
 };
 

@@ -264,9 +264,10 @@ function ajax(url,data,callback,errorback,times){
             trace('network','网络错误',{times:times,flag:res['flag']});
             ajax(url,data,callback,errorback,++times);
         }else
+            //console.log('网络访问出错');
             bmApi.api('alert',{type:4,text:res['tips']||'网络访问出错'})
     };
-
+    //console.log('in ajax');
     var remoteUrl = '';
     /*if(debug)
         remoteUrl = './test/'+url+'.json';
